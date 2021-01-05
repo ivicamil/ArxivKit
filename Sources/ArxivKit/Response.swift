@@ -28,7 +28,7 @@ public struct Entry: Hashable, Identifiable {
     
     public struct Author: Hashable {
         
-        init(){
+        public init(){
             
         }
         
@@ -37,7 +37,7 @@ public struct Entry: Hashable, Identifiable {
         public internal(set) var affiliation = ""
     }
     
-    init() {
+    public init() {
         
     }
     

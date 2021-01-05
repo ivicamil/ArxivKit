@@ -130,7 +130,8 @@ private final class ParserDelegate: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        currentString.append(string.trimmingCharacters(in: .whitespacesAndNewlines))
+       
+        currentString.append(string)
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -151,6 +152,8 @@ private final class ParserDelegate: NSObject, XMLParserDelegate {
            currentString = ""
             return
         }
+        
+        
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
@@ -185,7 +188,7 @@ private extension ParserDelegate {
             case (FeedConstant.Entry.Link.related.value?, FeedConstant.Entry.Link.doi.value?):
                 currentEntry?.doiURL = url
             default:
-                break
+                return false
             }
             return true
         }
@@ -222,9 +225,9 @@ private extension ParserDelegate {
         
         switch elementName {
         case FeedConstant.title.value:
-            response.title = currentString
+            response.title = currentString.trimingWhiteSpaces.removingNewLine
         case FeedConstant.id.value:
-            response.id = currentString
+            response.id = currentString.trimingWhiteSpaces.removingNewLine
         case FeedConstant.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss-hh:mm"
             if let updatedDate = dateFormater.date(from: currentString) {
@@ -257,7 +260,7 @@ private extension ParserDelegate {
         
         switch elementName {
         case FeedConstant.Entry.id.value:
-            currentEntry?.id = currentString
+            currentEntry?.id = currentString.trimingWhiteSpaces
         case FeedConstant.Entry.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             if let updatedDate = dateFormater.date(from: currentString) {
@@ -269,36 +272,51 @@ private extension ParserDelegate {
                 currentEntry?.published = publishedDate
             }
         case FeedConstant.Entry.title.value:
-            currentEntry?.title = currentString
+            currentEntry?.title = currentString.trimingWhiteSpaces.removingNewLine
         case FeedConstant.Entry.summary.value:
-            currentEntry?.summary = currentString
+            currentEntry?.summary = currentString.trimingWhiteSpaces.replacingNewLineWithSpace
         case FeedConstant.Entry.doi.value:
-            currentEntry?.doi = currentString
+            currentEntry?.doi = currentString.trimingWhiteSpaces.removingNewLine
         case FeedConstant.Entry.comment.value:
-            currentEntry?.comment = currentString
+            currentEntry?.comment = currentString.trimingWhiteSpaces.replacingNewLineWithSpace
         case FeedConstant.Entry.journalReference.value:
-            currentEntry?.journalReference = currentString
+            currentEntry?.journalReference = currentString.trimingWhiteSpaces.removingNewLine
         default:
-            break
+            return false
         }
         
         return true
     }
     
     func parseAuthorElement(_ elementName: String) -> Bool {
-        
+               
         guard currentAuthor != nil else {
             return false
         }
         
         switch elementName {
         case FeedConstant.Entry.Author.name.value:
-            currentAuthor?.name = currentString
+            currentAuthor?.name = currentString.trimingWhiteSpaces
         case FeedConstant.Entry.Author.affiliation.value:
-            currentAuthor?.affiliation = currentString
+            currentAuthor?.affiliation = currentString.trimingWhiteSpaces
         default:
             break
         }
         return true
+    }
+}
+
+private extension String {
+    
+    var trimingWhiteSpaces: String {
+        return trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var removingNewLine: String {
+        replacingOccurrences(of: "\n", with: "")
+    }
+    
+    var replacingNewLineWithSpace: String {
+        replacingOccurrences(of: "\n", with: " ")
     }
 }
