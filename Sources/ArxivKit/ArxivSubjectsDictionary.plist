@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>main</key>
+	<dict>
+		<key>name</key>
+		<string>Subjects</string>
+		<key>child subjects</key>
+		<array>
+			<string>physics-field</string>
+			<string>math.*</string>
+			<string>cs.*</string>
+			<string>q-bio.*</string>
+			<string>q-fin.*</string>
+			<string>stat.*</string>
+		</array>
+	</dict>
+	<key>physics-field</key>
+	<dict>
+		<key>name</key>
+		<string>Physics Subjects</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>astro-ph.*</string>
+			<string>cond-mat.*</string>
+			<string>nlin.*</string>
+			<string>physics.*</string>
+			<string>gr-qc</string>
+			<string>hep-ex</string>
+			<string>hep-lat</string>
+			<string>hep-ph</string>
+			<string>hep-th</string>
+			<string>math-ph</string>
+			<string>nucl-ex</string>
+			<string>nucl-th</string>
+			<string>quant-ph</string>
+		</array>
+	</dict>
+	<key>astro-ph.*</key>
+	<dict>
+		<key>name</key>
+		<string>Astrophysics</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+		<key>child subjects</key>
+		<array>
+			<string>astro-ph.CO</string>
+			<string>astro-ph.EP</string>
+			<string>astro-ph.GA</string>
+			<string>astro-ph.HE</string>
+			<string>astro-ph.IM</string>
+			<string>astro-ph.SR</string>
+		</array>
+	</dict>
+	<key>astro-ph.CO</key>
+	<dict>
+		<key>name</key>
+		<string>Cosmology and Nongalactic Astrophysics</string>
+		<key>parent subject</key>
+		<string>astro-ph.*</string>
+	</dict>
+	<key>astro-ph.EP</key>
+	<dict>
+		<key>name</key>
+		<string>Earth and Planetary Astrophysics</string>
+		<key>parent subject</key>
+		<string>astro-ph.*</string>
+	</dict>
+	<key>astro-ph.GA</key>
+	<dict>
+		<key>name</key>
+		<string>Astrophysics of Galaxies</string>
+		<key>parent subject</key>
+		<string>astro-ph.*</string>
+	</dict>
+	<key>astro-ph.HE</key>
+	<dict>
+		<key>name</key>
+		<string>High Energy Astrophysical Phenomena</string>
+		<key>parent subject</key>
+		<string>astro-ph.*</string>
+	</dict>
+	<key>astro-ph.IM</key>
+	<dict>
+		<key>name</key>
+		<string>Instrumentation and Methods for Astrophysics</string>
+		<key>parent subject</key>
+		<string>astro-ph.*</string>
+	</dict>
+	<key>astro-ph.SR</key>
+	<dict>
+		<key>name</key>
+		<string>Solar and Stellar Astrophysics</string>
+		<key>parent subject</key>
+		<string>astro-ph.*</string>
+	</dict>
+	<key>cond-mat.*</key>
+	<dict>
+		<key>name</key>
+		<string>Condensed Matter</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+		<key>child subjects</key>
+		<array>
+			<string>cond-mat.dis-nn</string>
+			<string>cond-mat.mtrl-sci</string>
+			<string>cond-mat.mes-hall</string>
+			<string>cond-mat.other</string>
+			<string>cond-mat.quant-gas</string>
+			<string>cond-mat.soft</string>
+			<string>cond-mat.stat-mech</string>
+			<string>cond-mat.str-el</string>
+			<string>cond-mat.supr-con</string>
+		</array>
+	</dict>
+	<key>cond-mat.dis-nn</key>
+	<dict>
+		<key>name</key>
+		<string>Disordered Systems and Neural Networks</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.mtrl-sci</key>
+	<dict>
+		<key>name</key>
+		<string>Materials Science</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.mes-hall</key>
+	<dict>
+		<key>name</key>
+		<string>Mesoscale and Nanoscale Physics</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.other</key>
+	<dict>
+		<key>name</key>
+		<string>Other Condensed Matter</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.quant-gas</key>
+	<dict>
+		<key>name</key>
+		<string>Quantum Gases</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.soft</key>
+	<dict>
+		<key>name</key>
+		<string>Soft Condensed Matter</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.stat-mech</key>
+	<dict>
+		<key>name</key>
+		<string>Statistical Mechanics</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.str-el</key>
+	<dict>
+		<key>name</key>
+		<string>Strongly Correlated Electrons</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>cond-mat.supr-con</key>
+	<dict>
+		<key>name</key>
+		<string>Superconductivity</string>
+		<key>parent subject</key>
+		<string>cond-mat.*</string>
+	</dict>
+	<key>gr-qc</key>
+	<dict>
+		<key>name</key>
+		<string>General Relativity and Quantum Cosmology</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>hep-ex</key>
+	<dict>
+		<key>name</key>
+		<string>High Energy Physics - Experiment</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>hep-lat</key>
+	<dict>
+		<key>name</key>
+		<string>High Energy Physics - Lattice</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>hep-ph</key>
+	<dict>
+		<key>name</key>
+		<string>High Energy Physics - Phenomenology</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>hep-th</key>
+	<dict>
+		<key>name</key>
+		<string>High Energy Physics - Theory</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>math-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Mathematical Physics</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>nlin.*</key>
+	<dict>
+		<key>name</key>
+		<string>Nonlinear Sciences</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+		<key>child subjects</key>
+		<array>
+			<string>nlin.AO</string>
+			<string>nlin.CG</string>
+			<string>nlin.CD</string>
+			<string>nlin.SI</string>
+			<string>nlin.PS</string>
+		</array>
+	</dict>
+	<key>nlin.AO</key>
+	<dict>
+		<key>name</key>
+		<string>Adaptation and Self-Organizing Systems</string>
+		<key>parent subject</key>
+		<string>nlin.*</string>
+	</dict>
+	<key>nlin.CG</key>
+	<dict>
+		<key>name</key>
+		<string>Cellular Automata and Lattice Gases</string>
+		<key>parent subject</key>
+		<string>nlin.*</string>
+	</dict>
+	<key>nlin.CD</key>
+	<dict>
+		<key>name</key>
+		<string>Chaotic Dynamics</string>
+		<key>parent subject</key>
+		<string>nlin.*</string>
+	</dict>
+	<key>nlin.SI</key>
+	<dict>
+		<key>name</key>
+		<string>Exactly Solvable and Integrable Systems</string>
+		<key>parent subject</key>
+		<string>nlin.*</string>
+	</dict>
+	<key>nlin.PS</key>
+	<dict>
+		<key>name</key>
+		<string>Pattern Formation and Solitons</string>
+		<key>parent subject</key>
+		<string>nlin.*</string>
+	</dict>
+	<key>nucl-ex</key>
+	<dict>
+		<key>name</key>
+		<string>Nuclear Experiment</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>nucl-th</key>
+	<dict>
+		<key>name</key>
+		<string>Nuclear Theory</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>physics.*</key>
+	<dict>
+		<key>name</key>
+		<string>Physics</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+		<key>child subjects</key>
+		<array>
+			<string>physics.acc-ph</string>
+			<string>physics.ao-ph</string>
+			<string>physics.atom-ph</string>
+			<string>physics.atm-clus</string>
+			<string>physics.bio-ph</string>
+			<string>physics.chem-ph</string>
+			<string>physics.class-ph</string>
+			<string>physics.comp-ph</string>
+			<string>physics.data-an</string>
+			<string>physics.flu-dyn</string>
+			<string>physics.gen-ph</string>
+			<string>physics.geo-ph</string>
+			<string>physics.hist-ph</string>
+			<string>physics.ins-det</string>
+			<string>physics.med-ph</string>
+			<string>physics.optics</string>
+			<string>physics.ed-ph</string>
+			<string>physics.soc-ph</string>
+			<string>physics.plasm-ph</string>
+			<string>physics.pop-ph</string>
+			<string>physics.space-ph</string>
+		</array>
+	</dict>
+	<key>physics.acc-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Accelerator Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.ao-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Atmospheric and Oceanic Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.atom-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Atomic Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.atm-clus</key>
+	<dict>
+		<key>name</key>
+		<string>Atomic and Molecular Clusters</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.bio-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Biological Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.chem-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Chemical Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.class-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Classical Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.comp-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Computational Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.data-an</key>
+	<dict>
+		<key>name</key>
+		<string>Data Analysis, Statistics and Probability</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.flu-dyn</key>
+	<dict>
+		<key>name</key>
+		<string>Fluid Dynamics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.gen-ph</key>
+	<dict>
+		<key>name</key>
+		<string>General Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.geo-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Geophysics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.hist-ph</key>
+	<dict>
+		<key>name</key>
+		<string>History and Philosophy of Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.ins-det</key>
+	<dict>
+		<key>name</key>
+		<string>Instrumentation and Detectors</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.med-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Medical Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.optics</key>
+	<dict>
+		<key>name</key>
+		<string>Optics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.ed-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Physics Education</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.soc-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Physics and Society</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.plasm-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Plasma Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.pop-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Popular Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>physics.space-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Space Physics</string>
+		<key>parent subject</key>
+		<string>physics</string>
+	</dict>
+	<key>quant-ph</key>
+	<dict>
+		<key>name</key>
+		<string>Quantum Physics</string>
+		<key>parent subject</key>
+		<string>physics.*</string>
+	</dict>
+	<key>math.*</key>
+	<dict>
+		<key>name</key>
+		<string>Mathematics</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>math.AG</string>
+			<string>math.AT</string>
+			<string>math.AP</string>
+			<string>math.CT</string>
+			<string>math.CA</string>
+			<string>math.CO</string>
+			<string>math.AC</string>
+			<string>math.CV</string>
+			<string>math.DG</string>
+			<string>math.DS</string>
+			<string>math.FA</string>
+			<string>math.GM</string>
+			<string>math.GN</string>
+			<string>math.GT</string>
+			<string>math.GR</string>
+			<string>math.HO</string>
+			<string>math.IT</string>
+			<string>math.KT</string>
+			<string>math.LO</string>
+			<string>math.MP</string>
+			<string>math.MG</string>
+			<string>math.NT</string>
+			<string>math.NA</string>
+			<string>math.OA</string>
+			<string>math.OC</string>
+			<string>math.PR</string>
+			<string>math.QA</string>
+			<string>math.RT</string>
+			<string>math.RA</string>
+			<string>math.SP</string>
+			<string>math.ST</string>
+			<string>math.SG</string>
+		</array>
+	</dict>
+	<key>math.AG</key>
+	<dict>
+		<key>name</key>
+		<string>Algebraic Geometry</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.AT</key>
+	<dict>
+		<key>name</key>
+		<string>Algebraic Topology</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.AP</key>
+	<dict>
+		<key>name</key>
+		<string>Analysis of PDEs</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.CT</key>
+	<dict>
+		<key>name</key>
+		<string>Category Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.CA</key>
+	<dict>
+		<key>name</key>
+		<string>Classical Analysis and ODEs</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.CO</key>
+	<dict>
+		<key>name</key>
+		<string>Combinatorics</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.AC</key>
+	<dict>
+		<key>name</key>
+		<string>Comutative Algebra</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.CV</key>
+	<dict>
+		<key>name</key>
+		<string>Complex Variables</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.DG</key>
+	<dict>
+		<key>name</key>
+		<string>Differential Geometry</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.DS</key>
+	<dict>
+		<key>name</key>
+		<string>Dynamical Systems</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.FA</key>
+	<dict>
+		<key>name</key>
+		<string>Functional Analysis</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.GM</key>
+	<dict>
+		<key>name</key>
+		<string>General Mathematics</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.GN</key>
+	<dict>
+		<key>name</key>
+		<string>General Topology</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.GT</key>
+	<dict>
+		<key>name</key>
+		<string>Geometric Topology</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.GR</key>
+	<dict>
+		<key>name</key>
+		<string>Group Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.HO</key>
+	<dict>
+		<key>name</key>
+		<string>History and Overview</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.IT</key>
+	<dict>
+		<key>name</key>
+		<string>Information Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.KT</key>
+	<dict>
+		<key>name</key>
+		<string>K-Theory and Homology</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.LO</key>
+	<dict>
+		<key>name</key>
+		<string>Logic</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.MP</key>
+	<dict>
+		<key>name</key>
+		<string>Mathematical Physics</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.MG</key>
+	<dict>
+		<key>name</key>
+		<string>Metric Geometry</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.NT</key>
+	<dict>
+		<key>name</key>
+		<string>Number Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.NA</key>
+	<dict>
+		<key>name</key>
+		<string>Numerical Analysis</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.OA</key>
+	<dict>
+		<key>name</key>
+		<string>Operator Algebras</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.OC</key>
+	<dict>
+		<key>name</key>
+		<string>Optimization and Control</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.PR</key>
+	<dict>
+		<key>name</key>
+		<string>Probability</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.QA</key>
+	<dict>
+		<key>name</key>
+		<string>Quantum Algebra</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.RT</key>
+	<dict>
+		<key>name</key>
+		<string>Representation Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.RA</key>
+	<dict>
+		<key>name</key>
+		<string>Rings and Algebras</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.SP</key>
+	<dict>
+		<key>name</key>
+		<string>Spectral Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.ST</key>
+	<dict>
+		<key>name</key>
+		<string>Statistics Theory</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>math.SG</key>
+	<dict>
+		<key>name</key>
+		<string>Symplectic Geometry</string>
+		<key>parent subject</key>
+		<string>math.*</string>
+	</dict>
+	<key>cs.*</key>
+	<dict>
+		<key>name</key>
+		<string>Computer Science</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>cs.AI</string>
+			<string>cs.CL</string>
+			<string>cs.CC</string>
+			<string>cs.CE</string>
+			<string>cs.CG</string>
+			<string>cs.GT</string>
+			<string>cs.CV</string>
+			<string>cs.CY</string>
+			<string>cs.CR</string>
+			<string>cs.DS</string>
+			<string>cs.DB</string>
+			<string>cs.DL</string>
+			<string>cs.DM</string>
+			<string>cs.DC</string>
+			<string>cs.ET</string>
+			<string>cs.FL</string>
+			<string>cs.GL</string>
+			<string>cs.GR</string>
+			<string>cs.AR</string>
+			<string>cs.HC</string>
+			<string>cs.IR</string>
+			<string>cs.IT</string>
+			<string>cs.LG</string>
+			<string>cs.LO</string>
+			<string>cs.MS</string>
+			<string>cs.MA</string>
+			<string>cs.MM</string>
+			<string>cs.NI</string>
+			<string>cs.NE</string>
+			<string>cs.NA</string>
+			<string>cs.OS</string>
+			<string>cs.OH</string>
+			<string>cs.PF</string>
+			<string>cs.PL</string>
+			<string>cs.RO</string>
+			<string>cs.SI</string>
+			<string>cs.SE</string>
+			<string>cs.SD</string>
+			<string>cs.SC</string>
+			<string>cs.SY</string>
+		</array>
+	</dict>
+	<key>cs.AI</key>
+	<dict>
+		<key>name</key>
+		<string>Artificial Intelligence</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CL</key>
+	<dict>
+		<key>name</key>
+		<string>Computation and Language</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CC</key>
+	<dict>
+		<key>name</key>
+		<string>Computational Complexity</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CE</key>
+	<dict>
+		<key>name</key>
+		<string>Computational Engineering, Finance and Science</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CG</key>
+	<dict>
+		<key>name</key>
+		<string>Computational Geometry</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.GT</key>
+	<dict>
+		<key>name</key>
+		<string>Computer Science and Game Theory</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CV</key>
+	<dict>
+		<key>name</key>
+		<string>Computer Vision and Pattern Recognition</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CY</key>
+	<dict>
+		<key>name</key>
+		<string>Computers and Society</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.CR</key>
+	<dict>
+		<key>name</key>
+		<string>Cryptography and Security</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.DS</key>
+	<dict>
+		<key>name</key>
+		<string>Data Structures and Algorithms</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.DB</key>
+	<dict>
+		<key>name</key>
+		<string>Databases</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.DL</key>
+	<dict>
+		<key>name</key>
+		<string>Digital Libraries</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.DM</key>
+	<dict>
+		<key>name</key>
+		<string>Discrete Mathematics</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.DC</key>
+	<dict>
+		<key>name</key>
+		<string>Distributed, Parallel and Cluster Computing</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.ET</key>
+	<dict>
+		<key>name</key>
+		<string>Emerging Technologies</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.FL</key>
+	<dict>
+		<key>name</key>
+		<string>Formal Languages and Automata Theory</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.GL</key>
+	<dict>
+		<key>name</key>
+		<string>General Literature</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.GR</key>
+	<dict>
+		<key>name</key>
+		<string>Graphics</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.AR</key>
+	<dict>
+		<key>name</key>
+		<string>Hardware Architecture</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.HC</key>
+	<dict>
+		<key>name</key>
+		<string>Human-Computer Interaction</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.IR</key>
+	<dict>
+		<key>name</key>
+		<string>Information Retrieval</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.IT</key>
+	<dict>
+		<key>name</key>
+		<string>Information Theory</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.LG</key>
+	<dict>
+		<key>name</key>
+		<string>Learning</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.LO</key>
+	<dict>
+		<key>name</key>
+		<string>Logic in Computer Science</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.MS</key>
+	<dict>
+		<key>name</key>
+		<string>Mathematical Software</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.MA</key>
+	<dict>
+		<key>name</key>
+		<string>Multiagent Systems</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.MM</key>
+	<dict>
+		<key>name</key>
+		<string>Multimedia</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.NI</key>
+	<dict>
+		<key>name</key>
+		<string>Networking and Internet Architecture</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.NE</key>
+	<dict>
+		<key>name</key>
+		<string>Neural and Evolutionary Computing</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.NA</key>
+	<dict>
+		<key>name</key>
+		<string>Numerical Analysis</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.OS</key>
+	<dict>
+		<key>name</key>
+		<string>Operating Systems</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.OH</key>
+	<dict>
+		<key>name</key>
+		<string>Other Computer Science</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.PF</key>
+	<dict>
+		<key>name</key>
+		<string>Performance</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.PL</key>
+	<dict>
+		<key>name</key>
+		<string>Programming Languages</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.RO</key>
+	<dict>
+		<key>name</key>
+		<string>Robotics</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.SI</key>
+	<dict>
+		<key>name</key>
+		<string>Social and Information Networks</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.SE</key>
+	<dict>
+		<key>name</key>
+		<string>Software Engineering</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.SD</key>
+	<dict>
+		<key>name</key>
+		<string>Sound</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.SC</key>
+	<dict>
+		<key>name</key>
+		<string>Symbolic Computation</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>cs.SY</key>
+	<dict>
+		<key>name</key>
+		<string>Systems and Control</string>
+		<key>parent subject</key>
+		<string>cs.*</string>
+	</dict>
+	<key>q-bio.*</key>
+	<dict>
+		<key>name</key>
+		<string>Quantitative Biology</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>q-bio.BM</string>
+			<string>q-bio.CB</string>
+			<string>q-bio.GN</string>
+			<string>q-bio.MN</string>
+			<string>q-bio.NC</string>
+			<string>q-bio.OT</string>
+			<string>q-bio.PE</string>
+			<string>q-bio.QM</string>
+			<string>q-bio.SC</string>
+			<string>q-bio.TO</string>
+		</array>
+	</dict>
+	<key>q-bio.BM</key>
+	<dict>
+		<key>name</key>
+		<string>Biomolecules</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.CB</key>
+	<dict>
+		<key>name</key>
+		<string>Cell Behavior</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.GN</key>
+	<dict>
+		<key>name</key>
+		<string>Genomics</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.MN</key>
+	<dict>
+		<key>name</key>
+		<string>Molecular Networks</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.NC</key>
+	<dict>
+		<key>name</key>
+		<string>Neurons and Cognition</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.OT</key>
+	<dict>
+		<key>name</key>
+		<string>Other Quantitative Biology</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.PE</key>
+	<dict>
+		<key>name</key>
+		<string>Populations and Evolution</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.QM</key>
+	<dict>
+		<key>name</key>
+		<string>Quantitative Methods</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.SC</key>
+	<dict>
+		<key>name</key>
+		<string>Subcellular Processes</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-bio.TO</key>
+	<dict>
+		<key>name</key>
+		<string>Tissues and Organs</string>
+		<key>parent subject</key>
+		<string>q-bio.*</string>
+	</dict>
+	<key>q-fin.*</key>
+	<dict>
+		<key>name</key>
+		<string>Quantitative Finance</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>q-fin.CP</string>
+			<string>q-fin.EC</string>
+			<string>q-fin.GN</string>
+			<string>q-fin.MF</string>
+			<string>q-fin.PM</string>
+			<string>q-fin.PR</string>
+			<string>q-fin.RM</string>
+			<string>q-fin.ST</string>
+			<string>q-fin.TR</string>
+		</array>
+	</dict>
+	<key>q-fin.CP</key>
+	<dict>
+		<key>name</key>
+		<string>Computational Finance</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.EC</key>
+	<dict>
+		<key>name</key>
+		<string>Economics</string>
+		<key>parent subject</key>
+		<string>q-fin-qll</string>
+	</dict>
+	<key>q-fin.GN</key>
+	<dict>
+		<key>name</key>
+		<string>General Finance</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.MF</key>
+	<dict>
+		<key>name</key>
+		<string>Mathematical Finance</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.PM</key>
+	<dict>
+		<key>name</key>
+		<string>Portfolio Management</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.PR</key>
+	<dict>
+		<key>name</key>
+		<string>Pricing of Securities</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.RM</key>
+	<dict>
+		<key>name</key>
+		<string>Risk Management</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.ST</key>
+	<dict>
+		<key>name</key>
+		<string>Statistical Finance</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>q-fin.TR</key>
+	<dict>
+		<key>name</key>
+		<string>Trading and Market Microstructure</string>
+		<key>parent subject</key>
+		<string>q-fin.*</string>
+	</dict>
+	<key>stat.*</key>
+	<dict>
+		<key>name</key>
+		<string>Statistics</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>stat.AP</string>
+			<string>stat.CO</string>
+			<string>stat.ML</string>
+			<string>stat.ME</string>
+			<string>stat.OT</string>
+			<string>stat.TH</string>
+		</array>
+	</dict>
+	<key>stat.AP</key>
+	<dict>
+		<key>name</key>
+		<string>Applications</string>
+		<key>parent subject</key>
+		<string>stat.*</string>
+	</dict>
+	<key>stat.CO</key>
+	<dict>
+		<key>name</key>
+		<string>Computation</string>
+		<key>parent subject</key>
+		<string>stat.*</string>
+	</dict>
+	<key>stat.ML</key>
+	<dict>
+		<key>name</key>
+		<string>Machine Learning</string>
+		<key>parent subject</key>
+		<string>stat.*</string>
+	</dict>
+	<key>stat.ME</key>
+	<dict>
+		<key>name</key>
+		<string>Methodology</string>
+		<key>parent subject</key>
+		<string>stat.*</string>
+	</dict>
+	<key>stat.OT</key>
+	<dict>
+		<key>name</key>
+		<string>Other Statistics</string>
+		<key>parent subject</key>
+		<string>stat.*</string>
+	</dict>
+	<key>stat.TH</key>
+	<dict>
+		<key>name</key>
+		<string>Statistics Theory</string>
+		<key>parent subject</key>
+		<string>stat.*</string>
+	</dict>
+	<key>econ.*</key>
+	<dict>
+		<key>name</key>
+		<string>Economy</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>econ.EM</string>
+			<string>econ.GN</string>
+			<string>econ.TH</string>
+		</array>
+	</dict>
+	<key>econ.EM</key>
+	<dict>
+		<key>name</key>
+		<string>Econometrics</string>
+		<key>parent subject</key>
+		<string>econ.*</string>
+	</dict>
+	<key>econ.GN</key>
+	<dict>
+		<key>name</key>
+		<string>General Economics</string>
+		<key>parent subject</key>
+		<string>econ.*</string>
+	</dict>
+	<key>econ.TH</key>
+	<dict>
+		<key>name</key>
+		<string>Theoretical Economics</string>
+		<key>parent subject</key>
+		<string>econ.*</string>
+	</dict>
+	<key>eess.*</key>
+	<dict>
+		<key>name</key>
+		<string>Electrical Engineering and Systems Science</string>
+		<key>parent subject</key>
+		<string>main</string>
+		<key>child subjects</key>
+		<array>
+			<string>eess.AS</string>
+			<string>eess.IV</string>
+			<string>eess.SP</string>
+			<string>eess.SY</string>
+		</array>
+	</dict>
+	<key>eess.AS</key>
+	<dict>
+		<key>name</key>
+		<string>Audio and Speech Processing</string>
+		<key>parent subject</key>
+		<string>eess.*</string>
+	</dict>
+	<key>eess.IV</key>
+	<dict>
+		<key>name</key>
+		<string>Image and Video Processing</string>
+		<key>parent subject</key>
+		<string>eess.*</string>
+	</dict>
+	<key>eess.SP</key>
+	<dict>
+		<key>name</key>
+		<string>Signal Processing</string>
+		<key>parent subject</key>
+		<string>eess.*</string>
+	</dict>
+	<key>eess.SY</key>
+	<dict>
+		<key>name</key>
+		<string>Systems and Control</string>
+		<key>parent subject</key>
+		<string>eess.*</string>
+	</dict>
+</dict>
+</plist>
