@@ -17,12 +17,14 @@ public struct Request {
     /// To search for specific version of an article, append the article's id with `vn` where `n` is the desired version number.
     public let idList: [String]
     
-    /// 
+    ///
     public var startIndex: Int = 0
     
     public let itemsPerPage: Int
     
-    public let sortingRule: SortingRule
+    public let sortBy: SortBy
+    
+    public let sortOrder: SortOrder
    
     private let scheme = "https"
     private let host = "export.arxiv.org"
@@ -34,11 +36,18 @@ public struct Request {
     private let sortByKey = "sortBy"
     private let sortOrderKey = "sortOrder"
     
-    public init(query: Query = .all(""), idList: [String] = [], itemsPerPage: Int = 50, sortingRule: SortingRule = SortingRule(sortBy: .lastUpdatedDate, sortOrder: .descending)) {
+    public init(
+        query: Query = .all(""),
+        idList: [String] = [],
+        itemsPerPage: Int = 50,
+        sortBy: SortBy = .lastUpdatedDate,
+        sortOrder: SortOrder = .descending
+    ) {
         self.query = query
         self.idList = idList
         self.itemsPerPage = itemsPerPage <= 100 ? itemsPerPage : 100
-        self.sortingRule = sortingRule
+        self.sortBy = sortBy
+        self.sortOrder = sortOrder
     }
     
     public enum SortBy : String {
@@ -50,18 +59,6 @@ public struct Request {
     public enum SortOrder : String {
         case descending = "descending"
         case ascending = "ascending"
-    }
-    
-    public struct SortingRule {
-        
-        let sortBy: SortBy
-        
-        let sortOrder: SortOrder
-        
-        public init(sortBy: SortBy, sortOrder: SortOrder) {
-            self.sortBy = sortBy
-            self.sortOrder = sortOrder
-        }
     }
 }
 
@@ -98,8 +95,8 @@ public extension Request {
         components.queryItems = [
             URLQueryItem(name: searchQueryKey, value: query.string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)),
             URLQueryItem(name: idListKey, value: idList.joined(separator: ",")),
-            URLQueryItem(name: sortOrderKey, value: sortingRule.sortOrder.rawValue),
-            URLQueryItem(name: sortByKey, value: sortingRule.sortBy.rawValue),
+            URLQueryItem(name: sortOrderKey, value: sortOrder.rawValue),
+            URLQueryItem(name: sortByKey, value: sortBy.rawValue),
             URLQueryItem(name: startIndexKey, value: "\(startIndex)"),
             URLQueryItem(name: itemsPerPageKey, value: "\(itemsPerPage)")
         ]

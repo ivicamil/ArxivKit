@@ -1,3 +1,4 @@
+
 import Foundation
 
 extension Subjects {
@@ -72,5 +73,4 @@ extension Subjects {
         return filteredName.replacingCharacters(in: ...filteredName.startIndex, with: filteredName[filteredName.startIndex].lowercased())
     }
 }
-
 
