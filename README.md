@@ -19,13 +19,13 @@ The wrapper itself is released under MIT license (see [LICENSE](LICENSE)). For t
 
 ```swift
 
-let fetcher = Fetcher()
-
 let electronQuery = Query.all("electron")
 
 let electronRequest = Request(query: electronQuery)
 
-fetcher.fetch(electronRequest) { result in
+let fetchTask = FetchTask(request: electronRequest)
+
+fetchTask.run { result in
     switch result {
     case let .success(response):
         let articles = response.entries
@@ -52,7 +52,7 @@ let compoundQuery = Query.abstract("electron").and(.subject(Subjects.CondensedMa
 
 ```swift
 
-let specificArticleRequest = Request(idList: ["arXiv:2101.00616"])
+let specificArticleRequest = Request(idList: ["2101.00616"])
     
 let recentElectron = Request(query: .all("electron"), sortBy: .lastUpdatedDate)
 

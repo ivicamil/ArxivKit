@@ -36,6 +36,9 @@ public extension Subjects {
 
 extension Subjects {
         
+    /// Non-arXiv subjects.
+    static var nonArXiveSubjects = ["main", "physics-field"]
+    
     /// Internal root subject.
     static var main = Subject("main")
     

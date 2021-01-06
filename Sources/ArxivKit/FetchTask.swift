@@ -2,7 +2,7 @@
 import Foundation
 
 
-public final class Fetcher {
+public final class FetchTask {
     
     public enum Error: Swift.Error {
         case invalidRequest
@@ -11,6 +11,8 @@ public final class Fetcher {
         case parseError(String)
         case validationError(String)
     }
+    
+    public let request: Request
     
     private let urlSessionConfiguration = URLSessionConfiguration.default
     
@@ -26,11 +28,11 @@ public final class Fetcher {
     
     fileprivate var finishedParsing: ((Result<Response, Error>) -> ())?
     
-    public init() {
-        
+    public init(request: Request) {
+        self.request = request
     }
     
-    public func fetch(_ request: Request, completion: @escaping (Result<Response, Error>) -> ()) {
+    public func run(completion: @escaping (Result<Response, Error>) -> ()) {
         guard let requestURL = request.url else {
             completion(.failure(.invalidRequest))
             return
@@ -78,7 +80,7 @@ public final class Fetcher {
 
 private final class ParserDelegate: NSObject, XMLParserDelegate {
     
-    let parent: Fetcher
+    let parent: FetchTask
     
     private var dateFormater: DateFormatter
     
@@ -90,7 +92,7 @@ private final class ParserDelegate: NSObject, XMLParserDelegate {
     
     private var currentAuthor: Entry.Author?
     
-    init(parent: Fetcher) {
+    init(parent: FetchTask) {
         self.parent = parent
         dateFormater = DateFormatter()
         dateFormater.locale = .current
@@ -204,13 +206,13 @@ private extension ParserDelegate {
         
         if elementName == FeedConstant.Entry.primaryCategory.value,
            let categoryName = attributeDict[FeedConstant.Entry.categoryTerm.value] {
-            currentEntry?.primaryCategory = Subject(categoryName)
+            currentEntry?.primaryCategory = categoryName
             return true
         }
         
         if elementName == FeedConstant.Entry.category.value,
            let categoryName = attributeDict[FeedConstant.Entry.categoryTerm.value] {
-            currentEntry?.categories.append(Subject(categoryName))
+            currentEntry?.categories.append(categoryName)
             return true
         }
         
@@ -225,24 +227,24 @@ private extension ParserDelegate {
         
         switch elementName {
         case FeedConstant.title.value:
-            response.title = currentString.trimingWhiteSpaces.removingNewLine
+            response.title = currentString.trimmingWhiteSpaces.removingNewLine
         case FeedConstant.id.value:
-            response.id = currentString.trimingWhiteSpaces.removingNewLine
+            response.id = currentString.trimmingWhiteSpaces.removingNewLine
         case FeedConstant.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss-hh:mm"
             if let updatedDate = dateFormater.date(from: currentString) {
                 response.updated = updatedDate
             }
         case FeedConstant.totalResults.value:
-            if let totalResultsInt = Int(currentString) {
+            if let totalResultsInt = Int(currentString.trimmingWhiteSpaces) {
                 response.totalResults = totalResultsInt
             }
         case FeedConstant.startIndex.value:
-            if let startIndexInt = Int(currentString) {
+            if let startIndexInt = Int(currentString.trimmingWhiteSpaces) {
                 response.startIndex = startIndexInt
             }
         case FeedConstant.itemsPerPage.value:
-            if let itemsPerPageInt = Int(currentString) {
+            if let itemsPerPageInt = Int(currentString.trimmingWhiteSpaces) {
                 response.itemsPerPage = itemsPerPageInt
             }
         default:
@@ -260,7 +262,7 @@ private extension ParserDelegate {
         
         switch elementName {
         case FeedConstant.Entry.id.value:
-            currentEntry?.id = currentString.trimingWhiteSpaces
+            currentEntry?.id = idFromAbstractLink(currentString.trimmingWhiteSpaces) 
         case FeedConstant.Entry.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             if let updatedDate = dateFormater.date(from: currentString) {
@@ -272,15 +274,15 @@ private extension ParserDelegate {
                 currentEntry?.published = publishedDate
             }
         case FeedConstant.Entry.title.value:
-            currentEntry?.title = currentString.trimingWhiteSpaces.removingNewLine
+            currentEntry?.title = currentString.trimmingWhiteSpaces.removingNewLine
         case FeedConstant.Entry.summary.value:
-            currentEntry?.summary = currentString.trimingWhiteSpaces.replacingNewLineWithSpace
+            currentEntry?.summary = currentString.trimmingWhiteSpaces.replacingNewLineWithSpace
         case FeedConstant.Entry.doi.value:
-            currentEntry?.doi = currentString.trimingWhiteSpaces.removingNewLine
+            currentEntry?.doi = currentString.trimmingWhiteSpaces.removingNewLine
         case FeedConstant.Entry.comment.value:
-            currentEntry?.comment = currentString.trimingWhiteSpaces.replacingNewLineWithSpace
+            currentEntry?.comment = currentString.trimmingWhiteSpaces.replacingNewLineWithSpace
         case FeedConstant.Entry.journalReference.value:
-            currentEntry?.journalReference = currentString.trimingWhiteSpaces.removingNewLine
+            currentEntry?.journalReference = currentString.trimmingWhiteSpaces.removingNewLine
         default:
             return false
         }
@@ -296,27 +298,23 @@ private extension ParserDelegate {
         
         switch elementName {
         case FeedConstant.Entry.Author.name.value:
-            currentAuthor?.name = currentString.trimingWhiteSpaces
+            currentAuthor?.name = currentString.trimmingWhiteSpaces
         case FeedConstant.Entry.Author.affiliation.value:
-            currentAuthor?.affiliation = currentString.trimingWhiteSpaces
+            currentAuthor?.affiliation = currentString.trimmingWhiteSpaces
         default:
             break
         }
         return true
     }
+    
+    func idFromAbstractLink(_ abstractLink: String) -> String {
+        guard var pathComponents = URL(string: abstractLink)?.pathComponents else {
+            return ""
+        }
+        
+        pathComponents.removeFirst(2)
+        
+        return pathComponents.joined(separator: "/")
+    }
 }
 
-private extension String {
-    
-    var trimingWhiteSpaces: String {
-        return trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    var removingNewLine: String {
-        replacingOccurrences(of: "\n", with: "")
-    }
-    
-    var replacingNewLineWithSpace: String {
-        replacingOccurrences(of: "\n", with: " ")
-    }
-}

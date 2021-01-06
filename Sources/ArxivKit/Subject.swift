@@ -1,10 +1,10 @@
 
 import Foundation
 
-/// Representation pf a single searchable arXive subject.
+/// Representation of a single searchable arXiv subject.
 /// Use `Subject` values with `ArxiveKit.Query.subject` to search for articles belonging to the subject.
 ///
-/// `Subject` cannot be constructed directly. Used predefined constants under `Subjects` namespace.
+/// All available subject constants are defined under `Subjects` namespace.
 public struct Subject: Hashable, Identifiable {
     
     private let nameKey = "name"
@@ -18,6 +18,14 @@ public struct Subject: Hashable, Identifiable {
         self.symbol = symbol
     }
     
+    /// Returns an arXiv `Subject` or `nil` if provided string is not a valid subject symbol.
+    public init?(arxivSubject symbol: String) {
+        if Subjects.dictionary[symbol] != nil && !Subjects.nonArXiveSubjects.contains(symbol) {
+            self.init(symbol)
+        }
+        return nil
+    }
+    
     /// Human-readable arXive subject name.
     public var name: String {
         return Subjects.dictionary[symbol]?[nameKey] as? String ?? ""
@@ -29,7 +37,9 @@ public struct Subject: Hashable, Identifiable {
         return childSubjects
     }
     
-    public let id = UUID()
+    public var id: Subject {
+        return self
+    }
 }
 
 /// Recursive tree structure used for grouping of arXive subjects.

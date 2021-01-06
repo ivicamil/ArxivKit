@@ -1,8 +1,6 @@
 
 import Foundation
 
-// versions
-
 private let titleKey = "ti"
 private let authorKey = "au"
 private let abstractKey = "abs"
@@ -86,8 +84,9 @@ public extension Query {
     }
 }
 
-extension Query {
-    
+public extension Query {
+
+    /// String representation of the query.
     var string: String {
         switch self {
         case let .title(string):
@@ -124,13 +123,36 @@ extension Query {
             return "(\(q1.string)+\(andNotKey)+\(q2.string))"
         }
     }
-}
-
-private extension String {
     
-    var removingNonEnglishCharacters: String {
-        let mutableString = NSMutableString(string: self)
-        CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
-        return mutableString as String
+    /// True if all of the query's arguments are empty strings, false otherwise.
+    var isEmpty: Bool {
+        switch self {
+        case let .title(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case let .author(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case let .abstract(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case let .comment(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case let .journalReference(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case .subject(_):
+             return false
+        case let .reportNumber(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case let .all(string):
+            return string.trimmingWhiteSpaces.isEmpty
+        case .submittedDate(_, _):
+            return false
+        case .lastUpdatedDate(_, _):
+            return false
+        case let .and(q1, q2):
+            return q1.isEmpty && q2.isEmpty
+        case let .or(q1, q2):
+            return q1.isEmpty && q2.isEmpty
+        case let .andNot(q1, q2):
+            return q1.isEmpty && q2.isEmpty
+        }
     }
 }
