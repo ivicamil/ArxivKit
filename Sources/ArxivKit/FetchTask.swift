@@ -14,9 +14,9 @@ public final class FetchTask {
     
     public let request: Request
         
-    private let urlSession: URLSession?
+    private weak var urlSession: URLSession?
     
-    private var dataTask: URLSessionDataTask?
+    private weak var dataTask: URLSessionDataTask?
     
     private var xmlParser: XMLParser?
     

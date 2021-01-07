@@ -51,10 +51,10 @@ public indirect enum SearchQuery  {
     case all(String)
     
     /// Searches for articles submited between the two dates.
-    case submittedDate(from :Date, to: Date)
+    case submitted(from :Date, to: Date)
     
     /// Searches for articles updated between the two dates.
-    case lastUpdatedDate(from :Date, to: Date)
+    case lastUpdated(from :Date, to: Date)
     
     /// Searches for articles satisfying both of the queries.
     case and(SearchQuery, SearchQuery)
@@ -90,13 +90,13 @@ public extension SearchQuery {
     var string: String {
         switch self {
         case let .title(string):
-            return "\(titleKey):\"\(string.removingNonEnglishCharacters)\""
+            return "\(titleKey):\"\(string.removingNonallowedCharacters)\""
         case let .author(string):
-            return "\(authorKey):\"\(string.removingNonEnglishCharacters)\""
+            return "\(authorKey):\"\(string.removingNonallowedCharacters)\""
         case let .abstract(string):
-            return "\(abstractKey):\"\(string.removingNonEnglishCharacters)\""
+            return "\(abstractKey):\"\(string.removingNonallowedCharacters)\""
         case let .comment(string):
-            return "\(commentKey):\"\(string.removingNonEnglishCharacters)\""
+            return "\(commentKey):\"\(string.removingNonallowedCharacters)\""
         case let .journalReference(string):
             return "\(journalReferenceKey):\(string)"
         case let .subject(subject):
@@ -104,13 +104,13 @@ public extension SearchQuery {
         case let .reportNumber(string):
             return "\(reportNumberKey):\(string)"
         case let .all(string):
-            return "\(allKey):\"\(string.removingNonEnglishCharacters)\""
-        case let .submittedDate(from, to):
+            return "\(allKey):\"\(string.removingNonallowedCharacters)\""
+        case let .submitted(from, to):
             let dateFormater = DateFormatter()
             dateFormater.locale = .current
             dateFormater.dateFormat = dateQueryFormat
             return "\(submittedDateKey):[\(dateFormater.string(from: from))+TO+\(dateFormater.string(from: to))]"
-        case let .lastUpdatedDate(from, to):
+        case let .lastUpdated(from, to):
             let dateFormater = DateFormatter()
             dateFormater.locale = .current
             dateFormater.dateFormat = dateQueryFormat
@@ -143,9 +143,9 @@ public extension SearchQuery {
             return string.trimmingWhiteSpaces.isEmpty
         case let .all(string):
             return string.trimmingWhiteSpaces.isEmpty
-        case .submittedDate(_, _):
+        case .submitted(_, _):
             return false
-        case .lastUpdatedDate(_, _):
+        case .lastUpdated(_, _):
             return false
         case let .and(q1, q2):
             return q1.isEmpty && q2.isEmpty
@@ -154,5 +154,14 @@ public extension SearchQuery {
         case let .andNot(q1, q2):
             return q1.isEmpty && q2.isEmpty
         }
+    }
+}
+
+private extension String {
+    
+    var removingNonallowedCharacters: String {
+        let mutableString = NSMutableString(string: self)
+        CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
+        return mutableString.replacingOccurrences(of: "\"", with: "") as String
     }
 }

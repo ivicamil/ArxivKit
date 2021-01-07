@@ -14,8 +14,4 @@ public final class FetchSession {
         return FetchTask(request: request, urlSession: urlSession)
     }
     
-    deinit {
-        // Is this necessary?
-        urlSession.invalidateAndCancel()
-    }
 }

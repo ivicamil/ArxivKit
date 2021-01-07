@@ -7,7 +7,7 @@ public struct Request {
     /// Query portion of the request.
     ///
     /// Default value is empty query `SearchQuery.all("")`.
-    /// Either a valid  non-empty`query` or a non-empty valid `idlist` must be provided.
+    /// Either a valid  non-empty`searchQuery` or a non-empty valid `idlist` must be provided.
     public let searchQuery: SearchQuery
     
     /// A list of article ids to search for.
@@ -36,13 +36,13 @@ public struct Request {
     private let sortOrderKey = "sortOrder"
     
     public init(
-        query: SearchQuery = .all(""),
+        searchQuery: SearchQuery = .all(""),
         idList: [String] = [],
         itemsPerPage: Int = 50,
         sortBy: SortBy = .lastUpdatedDate,
         sortOrder: SortOrder = .descending
     ) {
-        self.searchQuery = query
+        self.searchQuery = searchQuery
         self.idList = idList
         self.itemsPerPage = itemsPerPage <= 100 ? itemsPerPage : 100
         self.sortBy = sortBy
@@ -63,24 +63,11 @@ public struct Request {
 
 public extension Request {
     
-    /// Returns a new request for next page.
-    ///
-    /// Returned request is not valid if  its `startIndex` is equal to `numberOfPages` of corresponding response.
-    func nextPage() -> Request {
-        var nextPageRequest = self
-        nextPageRequest.startIndex = self.startIndex + 1
-        return nextPageRequest
-    }
-    
-    /// Returns a new request for previous page or nil, if the caller's startIndex is 0.
-    func previousPage() -> Request? {
-        if self.startIndex  == 0 {
-            return nil
-        } else {
-            var previousPageRequest = self
-            previousPageRequest.startIndex = self.startIndex - 1
-            return previousPageRequest
-        }
+    /// Returns a new request for given page `startIndex`.
+    func withStartIndex(_ index: Int) -> Request {
+        var page = self
+        page.startIndex = index
+        return page
     }
 }
 
@@ -92,27 +79,7 @@ public extension Request {
     /// - Parameter version: Desired version of the article. Default value 0 or any negative value returns request for the most recent version.
     static func article(id: String, version: Int = 0) -> Request  {
         let versionSuffix = version > 0 ? "v\(version)" : ""
-        return Request(idList: ["\(versionlessId(from: id))\(versionSuffix)"])
-    }
-    
-    static func versionOfId(_ id: String) -> String? {
-        
-        guard let rangeOfVersion = rangeOfVersion(in: id) else {
-            return nil
-        }
-        
-        return String(id[rangeOfVersion])
-    }
-    
-    static func versionlessId(from id: String) -> String {
-        guard let rangeOfVersion = rangeOfVersion(in: id) else {
-            return id
-        }
-        return id.replacingCharacters(in: rangeOfVersion, with: "")
-    }
-    
-    private static func rangeOfVersion(in articleID: String) -> Range<String.Index>? {
-        articleID.range(of: #"[v,V][1-9]+$"#, options: .regularExpression)
+        return Request(idList: ["\(Entry.versionlessId(from: id))\(versionSuffix)"])
     }
 }
 

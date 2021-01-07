@@ -19,11 +19,11 @@ The wrapper itself is released under MIT license (see [LICENSE](LICENSE)). For t
 
 ```swift
 
+let session = FetchSession()
+
 let electronQuery = SearchQuery.all("electron")
 
-let electronRequest = Request(query: electronQuery)
-
-let session = FetchSession()
+let electronRequest = Request(searchQuery: electronQuery)
 
 let fetchTask = session.fethTask(with: electronRequest)
 

@@ -15,10 +15,4 @@ extension String {
     var replacingNewLineWithSpace: String {
         replacingOccurrences(of: "\n", with: " ")
     }
-    
-    var removingNonEnglishCharacters: String {
-        let mutableString = NSMutableString(string: self)
-        CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
-        return mutableString as String
-    }
 }
