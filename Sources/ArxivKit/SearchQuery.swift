@@ -24,7 +24,7 @@ private let orKey = "OR"
 
 
 /// Query portion of `ArxiveKit.Request`.
-public indirect enum Query {
+public indirect enum SearchQuery  {
     
     /// Searches for articles containing given term in the title.
     case title(String)
@@ -57,34 +57,34 @@ public indirect enum Query {
     case lastUpdatedDate(from :Date, to: Date)
     
     /// Searches for articles satisfying both of the queries.
-    case and(Query, Query)
+    case and(SearchQuery, SearchQuery)
     
     /// Searches for articles satisfying any of the queries.
-    case or(Query, Query)
+    case or(SearchQuery, SearchQuery)
     
     /// Searches for articles satisfying the first, but not the second query.
-    case andNot(Query, Query)
+    case andNot(SearchQuery, SearchQuery)
 }
 
-public extension Query {
+public extension SearchQuery {
     
     /// Constructs `ArxiveKit.Query.and`.
-    func and(_ anotherQuery: Query) -> Query {
+    func and(_ anotherQuery: SearchQuery) -> SearchQuery {
         return .and(self, anotherQuery)
     }
     
     /// Constructs `ArxiveKit.Query.or`.
-    func or(_ anotherQuery: Query) -> Query {
+    func or(_ anotherQuery: SearchQuery) -> SearchQuery {
         return .or(self, anotherQuery)
     }
     
     /// Constructs `ArxiveKit.Query.andNot`.
-    func andNot(_ anotherQuery: Query) -> Query {
+    func andNot(_ anotherQuery: SearchQuery) -> SearchQuery {
         return .andNot(self, anotherQuery)
     }
 }
 
-public extension Query {
+public extension SearchQuery {
 
     /// String representation of the query.
     var string: String {

@@ -11,3 +11,7 @@ public enum Utilities {
         return Subjects.generateSwiftConstants()
     }
 }
+
+func test() {
+    
+}

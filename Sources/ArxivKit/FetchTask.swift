@@ -13,10 +13,8 @@ public final class FetchTask {
     }
     
     public let request: Request
-    
-    private let urlSessionConfiguration = URLSessionConfiguration.default
-    
-    private var urlSession: URLSession?
+        
+    private let urlSession: URLSession?
     
     private var dataTask: URLSessionDataTask?
     
@@ -28,8 +26,9 @@ public final class FetchTask {
     
     fileprivate var finishedParsing: ((Result<Response, Error>) -> ())?
     
-    public init(request: Request) {
+    init(request: Request, urlSession: URLSession) {
         self.request = request
+        self.urlSession = urlSession
     }
     
     public func run(completion: @escaping (Result<Response, Error>) -> ()) {
@@ -39,7 +38,6 @@ public final class FetchTask {
         }
         
         finishedParsing = completion
-        urlSession = URLSession(configuration: urlSessionConfiguration)
         dataTask = urlSession?.dataTask(with: URLRequest(url: requestURL)) { [weak self] data, response, error in
             guard let self = self else { return }
             if let error = error {
@@ -52,7 +50,7 @@ public final class FetchTask {
                     self.xmlParser?.parse()
                 }
             }
-            self.cleanupURLSession()
+            self.dataTask = nil
         }
         dataTask?.resume()
     }
@@ -62,14 +60,8 @@ public final class FetchTask {
             guard let self = self else { return }
             self.xmlParser?.abortParsing()
             self.cleanupXMLParser()
-            self.cleanupURLSession()
+            self.dataTask = nil
         }
-    }
-    
-    private func cleanupURLSession() {
-        self.urlSession?.invalidateAndCancel()
-        self.urlSession = nil
-        self.dataTask = nil
     }
     
     private func cleanupXMLParser() {

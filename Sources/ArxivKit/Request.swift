@@ -6,9 +6,9 @@ public struct Request {
     
     /// Query portion of the request.
     ///
-    /// Default value is empty query `Query.all("")`.
-    /// Either a valid `query` or a non-empty valid `idlist` must be provided.
-    public let query: Query
+    /// Default value is empty query `SearchQuery.all("")`.
+    /// Either a valid  non-empty`query` or a non-empty valid `idlist` must be provided.
+    public let searchQuery: SearchQuery
     
     /// A list of article ids to search for.
     ///
@@ -36,13 +36,13 @@ public struct Request {
     private let sortOrderKey = "sortOrder"
     
     public init(
-        query: Query = .all(""),
+        query: SearchQuery = .all(""),
         idList: [String] = [],
         itemsPerPage: Int = 50,
         sortBy: SortBy = .lastUpdatedDate,
         sortOrder: SortOrder = .descending
     ) {
-        self.query = query
+        self.searchQuery = query
         self.idList = idList
         self.itemsPerPage = itemsPerPage <= 100 ? itemsPerPage : 100
         self.sortBy = sortBy
@@ -127,8 +127,8 @@ public extension Request {
         
         components.queryItems = []
         
-        if !query.isEmpty {
-            components.queryItems?.append(URLQueryItem(name: searchQueryKey, value: query.string))
+        if !searchQuery.isEmpty {
+            components.queryItems?.append(URLQueryItem(name: searchQueryKey, value: searchQuery.string))
         }
         
         if !idList.isEmpty {
