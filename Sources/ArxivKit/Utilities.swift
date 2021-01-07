@@ -12,6 +12,3 @@ public enum Utilities {
     }
 }
 
-func test() {
-    
-}
