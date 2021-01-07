@@ -2,23 +2,23 @@
 import Foundation
 
 
-public final class FetchTask {
+public final class ArxivFetchTask {
     
-    public let request: Request
+    public let request: ArxivRequest
         
     private weak var urlSession: URLSession?
     
     private weak var dataTask: URLSessionDataTask?
     
-    private let parser = Parser()
+    private let parser = ArxivParser()
     
     private let parserQueue = DispatchQueue(label: "io.polifonia.ArticlesKit.parserQueue")
 
     private let id = UUID()
     
-    let completion: (Result<Response, ArxivKitError>) -> ()
+    let completion: (Result<ArxivResponse, ArxivKitError>) -> ()
     
-    init(request: Request, urlSession: URLSession, completion: @escaping (Result<Response, ArxivKitError>) -> ()) {
+    init(request: ArxivRequest, urlSession: URLSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
         self.request = request
         self.urlSession = urlSession
         self.completion = completion
@@ -57,9 +57,9 @@ public final class FetchTask {
     }
 }
 
-extension FetchTask: Hashable {
+extension ArxivFetchTask: Hashable {
     
-    public static func == (lhs: FetchTask, rhs: FetchTask) -> Bool {
+    public static func == (lhs: ArxivFetchTask, rhs: ArxivFetchTask) -> Bool {
         return lhs.id == rhs.id
     }
     

@@ -5,7 +5,7 @@ import Foundation
 /// Use `Subject` values with `ArxiveKit.Query.subject` to search for articles belonging to the subject.
 ///
 /// All available subject constants are defined under `Subjects` namespace.
-public struct Subject: Hashable, Identifiable {
+public struct ArxivSubject: Hashable, Identifiable {
     
     private let nameKey = "name"
     
@@ -20,7 +20,7 @@ public struct Subject: Hashable, Identifiable {
     
     /// Returns an arXiv `Subject` or `nil` if provided string is not a valid subject symbol.
     public init?(arxivSubject symbol: String) {
-        if Subjects.dictionary[symbol] != nil && !Subjects.nonArXiveSubjects.contains(symbol) {
+        if ArxivSubjects.dictionary[symbol] != nil && !ArxivSubjects.nonArXiveSubjects.contains(symbol) {
             self.init(symbol)
         }
         return nil
@@ -28,16 +28,16 @@ public struct Subject: Hashable, Identifiable {
     
     /// Human-readable arXive subject name.
     public var name: String {
-        return Subjects.dictionary[symbol]?[nameKey] as? String ?? ""
+        return ArxivSubjects.dictionary[symbol]?[nameKey] as? String ?? ""
     }
     
     /// Child subjects or empty array if the given subject does not have any chidlren.
-    public var children: [Subject] {
-        let childSubjects = (Subjects.dictionary[symbol]?[childSubjectsKey] as? [String])?.compactMap { Subject($0) } ?? []
+    public var children: [ArxivSubject] {
+        let childSubjects = (ArxivSubjects.dictionary[symbol]?[childSubjectsKey] as? [String])?.compactMap { ArxivSubject($0) } ?? []
         return childSubjects
     }
     
-    public var id: Subject {
+    public var id: ArxivSubject {
         return self
     }
 }
@@ -46,7 +46,7 @@ public struct Subject: Hashable, Identifiable {
 public indirect enum SubjectTree: Hashable {
     
     /// Leaf node, a single arXive suject.
-    case subject(Subject)
+    case subject(ArxivSubject)
     
     /// Arbitrary grouping of arXive subjects.
     case grouping(name: String, children: [SubjectTree])
@@ -75,7 +75,7 @@ public extension SubjectTree {
     }
     
     /// Node's subject if the node is `SubjectTree` or `nil` otherwise.
-    var subject: Subject? {
+    var subject: ArxivSubject? {
         switch self {
         case let .subject(s):
             return s

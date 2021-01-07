@@ -1,7 +1,7 @@
 
 import Foundation
 
-public struct Entry: Hashable, Identifiable {
+public struct ArxivEntry: Hashable, Identifiable {
     
     public struct Author: Hashable {
         
@@ -47,7 +47,7 @@ public struct Entry: Hashable, Identifiable {
     public internal(set) var  doi = ""
 }
 
-extension Entry: CustomStringConvertible {
+extension ArxivEntry: CustomStringConvertible {
     
     public var description: String {
         return """
@@ -79,9 +79,9 @@ extension Entry: CustomStringConvertible {
     }
 }
 
-public extension Entry {
+public extension ArxivEntry {
     
-    static var example: Entry {
+    static var example: ArxivEntry {
 
         let title = "Feynman Lectures on the Strong Interactions"
 
@@ -113,7 +113,7 @@ public extension Entry {
         98 pages, 117 figures; Feynman's personal course notes and audio   files for lectures 15, 17, 18 available at   http://www.physics.mcgill.ca/~jcline/Feynman/
         """
         
-        var example = Entry()
+        var example = ArxivEntry()
         example.title = title
         example.authors = authors
         example.summary = summary
@@ -130,11 +130,11 @@ public extension Entry {
     }
 }
 
-public extension Entry {
+public extension ArxivEntry {
     
     var version: Int? {
         
-        guard let rangeOfVersion = Entry.rangeOfVersion(in: id) else {
+        guard let rangeOfVersion = ArxivEntry.rangeOfVersion(in: id) else {
             return nil
         }
         
@@ -142,7 +142,7 @@ public extension Entry {
     }
     
     var latestVersionID: String {
-        return Entry.versionlessId(from: id)
+        return ArxivEntry.versionlessId(from: id)
     }
     
     internal static func versionlessId(from id: String) -> String {

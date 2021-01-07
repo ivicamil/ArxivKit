@@ -1,13 +1,13 @@
 
 import Foundation
 
-public final class Parser {
+public final class ArxivParser {
     
     private var xmlParser: XMLParser?
     
     private var xmlParserDelegate: ParserDelegate?
     
-    fileprivate var finishedParsing: ((Result<Response, ArxivKitError>) -> ())?
+    fileprivate var finishedParsing: ((Result<ArxivResponse, ArxivKitError>) -> ())?
     
     public init() {
         
@@ -16,9 +16,9 @@ public final class Parser {
 
 // MARK: - Public `Parser` Methods
 
-public extension Parser {
+public extension ArxivParser {
     
-    func parse(responseData: Data, completion: @escaping (Result<Response, ArxivKitError>) -> ()) {
+    func parse(responseData: Data, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
         finishedParsing = completion
         self.xmlParser = XMLParser(data: responseData)
         let xmlParserDelegate = ParserDelegate(parent: self)
@@ -34,7 +34,7 @@ public extension Parser {
 
 // MARK: - Private `Parser` Methods
 
-private extension Parser {
+private extension ArxivParser {
     
     func cleanupXMLParser() {
         self.xmlParser = nil
@@ -46,19 +46,19 @@ private extension Parser {
 
 private final class ParserDelegate: NSObject {
     
-    weak var parent: Parser?
+    weak var parent: ArxivParser?
     
     private var dateFormater: DateFormatter
     
-    private var response = Response()
+    private var response = ArxivResponse()
         
     private var currentString = ""
     
-    private var currentEntry: Entry?
+    private var currentEntry: ArxivEntry?
     
-    private var currentAuthor: Entry.Author?
+    private var currentAuthor: ArxivEntry.Author?
     
-    init(parent: Parser) {
+    init(parent: ArxivParser) {
         self.parent = parent
         dateFormater = DateFormatter()
         dateFormater.locale = .current
@@ -85,12 +85,12 @@ extension ParserDelegate: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
                 
         if elementName == FeedConstant.entry.value {
-            currentEntry = Entry()
+            currentEntry = ArxivEntry()
             return
         }
    
         if elementName == FeedConstant.Entry.author.value {
-            currentAuthor = Entry.Author()
+            currentAuthor = ArxivEntry.Author()
             return
         }
         

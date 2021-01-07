@@ -2,13 +2,13 @@
 import Foundation
 
 
-public struct Request {
+public struct ArxivRequest {
     
     /// Query portion of the request.
     ///
     /// Default value is empty query `SearchQuery.all("")`.
     /// Either a valid  non-empty`searchQuery` or a non-empty valid `idlist` must be provided.
-    public let searchQuery: SearchQuery
+    public let searchQuery: ArxivQuery
     
     /// A list of article ids to search for.
     ///
@@ -36,7 +36,7 @@ public struct Request {
     private let sortOrderKey = "sortOrder"
     
     public init(
-        searchQuery: SearchQuery = .all(""),
+        searchQuery: ArxivQuery = .all(""),
         idList: [String] = [],
         itemsPerPage: Int = 50,
         sortBy: SortBy = .lastUpdatedDate,
@@ -61,29 +61,29 @@ public struct Request {
     }
 }
 
-public extension Request {
+public extension ArxivRequest {
     
     /// Returns a new request for given page `startIndex`.
-    func withStartIndex(_ index: Int) -> Request {
+    func withStartIndex(_ index: Int) -> ArxivRequest {
         var page = self
         page.startIndex = index
         return page
     }
 }
 
-public extension Request {
+public extension ArxivRequest {
     
     /// Request for specific article with given id.
     ///
     /// - Parameter id: arXiv id of desired article.
     /// - Parameter version: Desired version of the article. Default value 0 or any negative value returns request for the most recent version.
-    static func article(id: String, version: Int = 0) -> Request  {
+    static func article(id: String, version: Int = 0) -> ArxivRequest  {
         let versionSuffix = version > 0 ? "v\(version)" : ""
-        return Request(idList: ["\(Entry.versionlessId(from: id))\(versionSuffix)"])
+        return ArxivRequest(idList: ["\(ArxivEntry.versionlessId(from: id))\(versionSuffix)"])
     }
 }
 
-public extension Request {
+public extension ArxivRequest {
     
     var url: URL? {
         var components = URLComponents()

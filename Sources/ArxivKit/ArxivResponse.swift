@@ -1,7 +1,7 @@
 
 import Foundation
 
-public struct Response {
+public struct ArxivResponse {
     
     init() {
         
@@ -21,10 +21,10 @@ public struct Response {
     
     public internal(set) var itemsPerPage = 0
     
-    public internal(set) var entries: [Entry] = []
+    public internal(set) var entries: [ArxivEntry] = []
 }
 
-public extension Response {
+public extension ArxivResponse {
     
     var numberOfPages: Int {
         return (totalResults + itemsPerPage - 1) / itemsPerPage
@@ -54,7 +54,7 @@ public extension Response {
 }
 
 
-extension Response: CustomStringConvertible {
+extension ArxivResponse: CustomStringConvertible {
     
     
     public var description: String {

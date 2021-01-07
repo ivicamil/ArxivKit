@@ -1,11 +1,11 @@
 
 /// A namespace for Subject constants.
-public enum Subjects {}
+public enum ArxivSubjects {}
 
-public extension Subjects {
+public extension ArxivSubjects {
     
    static var all = SubjectTree.grouping(
-        name: "\(Subject("main").name)",
+        name: "\(ArxivSubject("main").name)",
         children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
     )
     
@@ -34,395 +34,395 @@ public extension Subjects {
     enum NonlinearSciences {}
 }
 
-extension Subjects {
+extension ArxivSubjects {
         
     /// Non-arXiv subjects.
     static var nonArXiveSubjects = ["main", "physics-field"]
     
     /// Internal root subject.
-    static var main = Subject("main")
+    static var main = ArxivSubject("main")
     
     /// Internal physics group subject.
-    static var allPhysics = Subject("physics-field")
+    static var allPhysics = ArxivSubject("physics-field")
 }
 
 
-private extension Subjects {
+private extension ArxivSubjects {
     
     static var physicsGroup = SubjectTree.grouping(
         name: "Physics Subjects",
-        children: Subject("physics-field").children.map { .subject($0) }
+        children: ArxivSubject("physics-field").children.map { .subject($0) }
     )
     
-    static var nonPhysicsRootSubjects: [Subject] {
+    static var nonPhysicsRootSubjects: [ArxivSubject] {
         return main.children.filter { $0.symbol != allPhysics.symbol }
     }
 }
 
-public extension Subjects.OtherPhysicsSubjects {
+public extension ArxivSubjects.OtherPhysicsSubjects {
 
-    static let generalRelativityAndQuantumCosmology = Subject("gr-qc")
+    static let generalRelativityAndQuantumCosmology = ArxivSubject("gr-qc")
 
-    static let highEnergyPhysicsExperiment = Subject("hep-ex")
+    static let highEnergyPhysicsExperiment = ArxivSubject("hep-ex")
 
-    static let highEnergyPhysicsLattice = Subject("hep-lat")
+    static let highEnergyPhysicsLattice = ArxivSubject("hep-lat")
 
-    static let highEnergyPhysicsPhenomenology = Subject("hep-ph")
+    static let highEnergyPhysicsPhenomenology = ArxivSubject("hep-ph")
 
-    static let highEnergyPhysicsTheory = Subject("hep-th")
+    static let highEnergyPhysicsTheory = ArxivSubject("hep-th")
 
-    static let mathematicalPhysics = Subject("math-ph")
+    static let mathematicalPhysics = ArxivSubject("math-ph")
 
-    static let nuclearExperiment = Subject("nucl-ex")
+    static let nuclearExperiment = ArxivSubject("nucl-ex")
 
-    static let nuclearTheory = Subject("nucl-th")
+    static let nuclearTheory = ArxivSubject("nucl-th")
 
-    static let quantumPhysics = Subject("quant-ph")
+    static let quantumPhysics = ArxivSubject("quant-ph")
 }
 
-public extension Subjects.Mathematics {
+public extension ArxivSubjects.Mathematics {
 
-    static let all = Subject("math.*")
+    static let all = ArxivSubject("math.*")
 
-    static let algebraicGeometry = Subject("math.AG")
+    static let algebraicGeometry = ArxivSubject("math.AG")
 
-    static let algebraicTopology = Subject("math.AT")
+    static let algebraicTopology = ArxivSubject("math.AT")
 
-    static let analysisOfPdes = Subject("math.AP")
+    static let analysisOfPdes = ArxivSubject("math.AP")
 
-    static let categoryTheory = Subject("math.CT")
+    static let categoryTheory = ArxivSubject("math.CT")
 
-    static let classicalAnalysisAndOdes = Subject("math.CA")
+    static let classicalAnalysisAndOdes = ArxivSubject("math.CA")
 
-    static let combinatorics = Subject("math.CO")
+    static let combinatorics = ArxivSubject("math.CO")
 
-    static let comutativeAlgebra = Subject("math.AC")
+    static let comutativeAlgebra = ArxivSubject("math.AC")
 
-    static let complexVariables = Subject("math.CV")
+    static let complexVariables = ArxivSubject("math.CV")
 
-    static let differentialGeometry = Subject("math.DG")
+    static let differentialGeometry = ArxivSubject("math.DG")
 
-    static let dynamicalSystems = Subject("math.DS")
+    static let dynamicalSystems = ArxivSubject("math.DS")
 
-    static let functionalAnalysis = Subject("math.FA")
+    static let functionalAnalysis = ArxivSubject("math.FA")
 
-    static let generalMathematics = Subject("math.GM")
+    static let generalMathematics = ArxivSubject("math.GM")
 
-    static let generalTopology = Subject("math.GN")
+    static let generalTopology = ArxivSubject("math.GN")
 
-    static let geometricTopology = Subject("math.GT")
+    static let geometricTopology = ArxivSubject("math.GT")
 
-    static let groupTheory = Subject("math.GR")
+    static let groupTheory = ArxivSubject("math.GR")
 
-    static let historyAndOverview = Subject("math.HO")
+    static let historyAndOverview = ArxivSubject("math.HO")
 
-    static let informationTheory = Subject("math.IT")
+    static let informationTheory = ArxivSubject("math.IT")
 
-    static let kTheoryAndHomology = Subject("math.KT")
+    static let kTheoryAndHomology = ArxivSubject("math.KT")
 
-    static let logic = Subject("math.LO")
+    static let logic = ArxivSubject("math.LO")
 
-    static let mathematicalPhysics = Subject("math.MP")
+    static let mathematicalPhysics = ArxivSubject("math.MP")
 
-    static let metricGeometry = Subject("math.MG")
+    static let metricGeometry = ArxivSubject("math.MG")
 
-    static let numberTheory = Subject("math.NT")
+    static let numberTheory = ArxivSubject("math.NT")
 
-    static let numericalAnalysis = Subject("math.NA")
+    static let numericalAnalysis = ArxivSubject("math.NA")
 
-    static let operatorAlgebras = Subject("math.OA")
+    static let operatorAlgebras = ArxivSubject("math.OA")
 
-    static let optimizationAndControl = Subject("math.OC")
+    static let optimizationAndControl = ArxivSubject("math.OC")
 
-    static let probability = Subject("math.PR")
+    static let probability = ArxivSubject("math.PR")
 
-    static let quantumAlgebra = Subject("math.QA")
+    static let quantumAlgebra = ArxivSubject("math.QA")
 
-    static let representationTheory = Subject("math.RT")
+    static let representationTheory = ArxivSubject("math.RT")
 
-    static let ringsAndAlgebras = Subject("math.RA")
+    static let ringsAndAlgebras = ArxivSubject("math.RA")
 
-    static let spectralTheory = Subject("math.SP")
+    static let spectralTheory = ArxivSubject("math.SP")
 
-    static let statisticsTheory = Subject("math.ST")
+    static let statisticsTheory = ArxivSubject("math.ST")
 
-    static let symplecticGeometry = Subject("math.SG")
+    static let symplecticGeometry = ArxivSubject("math.SG")
 }
 
-public extension Subjects.QuantitativeBiology {
+public extension ArxivSubjects.QuantitativeBiology {
 
-    static let all = Subject("q-bio.*")
+    static let all = ArxivSubject("q-bio.*")
 
-    static let biomolecules = Subject("q-bio.BM")
+    static let biomolecules = ArxivSubject("q-bio.BM")
 
-    static let cellBehavior = Subject("q-bio.CB")
+    static let cellBehavior = ArxivSubject("q-bio.CB")
 
-    static let genomics = Subject("q-bio.GN")
+    static let genomics = ArxivSubject("q-bio.GN")
 
-    static let molecularNetworks = Subject("q-bio.MN")
+    static let molecularNetworks = ArxivSubject("q-bio.MN")
 
-    static let neuronsAndCognition = Subject("q-bio.NC")
+    static let neuronsAndCognition = ArxivSubject("q-bio.NC")
 
-    static let otherQuantitativeBiology = Subject("q-bio.OT")
+    static let otherQuantitativeBiology = ArxivSubject("q-bio.OT")
 
-    static let populationsAndEvolution = Subject("q-bio.PE")
+    static let populationsAndEvolution = ArxivSubject("q-bio.PE")
 
-    static let quantitativeMethods = Subject("q-bio.QM")
+    static let quantitativeMethods = ArxivSubject("q-bio.QM")
 
-    static let subcellularProcesses = Subject("q-bio.SC")
+    static let subcellularProcesses = ArxivSubject("q-bio.SC")
 
-    static let tissuesAndOrgans = Subject("q-bio.TO")
+    static let tissuesAndOrgans = ArxivSubject("q-bio.TO")
 }
 
-public extension Subjects.ComputerScience {
+public extension ArxivSubjects.ComputerScience {
 
-    static let all = Subject("cs.*")
+    static let all = ArxivSubject("cs.*")
 
-    static let artificialIntelligence = Subject("cs.AI")
+    static let artificialIntelligence = ArxivSubject("cs.AI")
 
-    static let computationAndLanguage = Subject("cs.CL")
+    static let computationAndLanguage = ArxivSubject("cs.CL")
 
-    static let computationalComplexity = Subject("cs.CC")
+    static let computationalComplexity = ArxivSubject("cs.CC")
 
-    static let computationalEngineeringFinanceAndScience = Subject("cs.CE")
+    static let computationalEngineeringFinanceAndScience = ArxivSubject("cs.CE")
 
-    static let computationalGeometry = Subject("cs.CG")
+    static let computationalGeometry = ArxivSubject("cs.CG")
 
-    static let computerScienceAndGameTheory = Subject("cs.GT")
+    static let computerScienceAndGameTheory = ArxivSubject("cs.GT")
 
-    static let computerVisionAndPatternRecognition = Subject("cs.CV")
+    static let computerVisionAndPatternRecognition = ArxivSubject("cs.CV")
 
-    static let computersAndSociety = Subject("cs.CY")
+    static let computersAndSociety = ArxivSubject("cs.CY")
 
-    static let cryptographyAndSecurity = Subject("cs.CR")
+    static let cryptographyAndSecurity = ArxivSubject("cs.CR")
 
-    static let dataStructuresAndAlgorithms = Subject("cs.DS")
+    static let dataStructuresAndAlgorithms = ArxivSubject("cs.DS")
 
-    static let databases = Subject("cs.DB")
+    static let databases = ArxivSubject("cs.DB")
 
-    static let digitalLibraries = Subject("cs.DL")
+    static let digitalLibraries = ArxivSubject("cs.DL")
 
-    static let discreteMathematics = Subject("cs.DM")
+    static let discreteMathematics = ArxivSubject("cs.DM")
 
-    static let distributedParallelAndClusterComputing = Subject("cs.DC")
+    static let distributedParallelAndClusterComputing = ArxivSubject("cs.DC")
 
-    static let emergingTechnologies = Subject("cs.ET")
+    static let emergingTechnologies = ArxivSubject("cs.ET")
 
-    static let formalLanguagesAndAutomataTheory = Subject("cs.FL")
+    static let formalLanguagesAndAutomataTheory = ArxivSubject("cs.FL")
 
-    static let generalLiterature = Subject("cs.GL")
+    static let generalLiterature = ArxivSubject("cs.GL")
 
-    static let graphics = Subject("cs.GR")
+    static let graphics = ArxivSubject("cs.GR")
 
-    static let hardwareArchitecture = Subject("cs.AR")
+    static let hardwareArchitecture = ArxivSubject("cs.AR")
 
-    static let humanComputerInteraction = Subject("cs.HC")
+    static let humanComputerInteraction = ArxivSubject("cs.HC")
 
-    static let informationRetrieval = Subject("cs.IR")
+    static let informationRetrieval = ArxivSubject("cs.IR")
 
-    static let informationTheory = Subject("cs.IT")
+    static let informationTheory = ArxivSubject("cs.IT")
 
-    static let learning = Subject("cs.LG")
+    static let learning = ArxivSubject("cs.LG")
 
-    static let logicInComputerScience = Subject("cs.LO")
+    static let logicInComputerScience = ArxivSubject("cs.LO")
 
-    static let mathematicalSoftware = Subject("cs.MS")
+    static let mathematicalSoftware = ArxivSubject("cs.MS")
 
-    static let multiagentSystems = Subject("cs.MA")
+    static let multiagentSystems = ArxivSubject("cs.MA")
 
-    static let multimedia = Subject("cs.MM")
+    static let multimedia = ArxivSubject("cs.MM")
 
-    static let networkingAndInternetArchitecture = Subject("cs.NI")
+    static let networkingAndInternetArchitecture = ArxivSubject("cs.NI")
 
-    static let neuralAndEvolutionaryComputing = Subject("cs.NE")
+    static let neuralAndEvolutionaryComputing = ArxivSubject("cs.NE")
 
-    static let numericalAnalysis = Subject("cs.NA")
+    static let numericalAnalysis = ArxivSubject("cs.NA")
 
-    static let operatingSystems = Subject("cs.OS")
+    static let operatingSystems = ArxivSubject("cs.OS")
 
-    static let otherComputerScience = Subject("cs.OH")
+    static let otherComputerScience = ArxivSubject("cs.OH")
 
-    static let performance = Subject("cs.PF")
+    static let performance = ArxivSubject("cs.PF")
 
-    static let programmingLanguages = Subject("cs.PL")
+    static let programmingLanguages = ArxivSubject("cs.PL")
 
-    static let robotics = Subject("cs.RO")
+    static let robotics = ArxivSubject("cs.RO")
 
-    static let socialAndInformationNetworks = Subject("cs.SI")
+    static let socialAndInformationNetworks = ArxivSubject("cs.SI")
 
-    static let softwareEngineering = Subject("cs.SE")
+    static let softwareEngineering = ArxivSubject("cs.SE")
 
-    static let sound = Subject("cs.SD")
+    static let sound = ArxivSubject("cs.SD")
 
-    static let symbolicComputation = Subject("cs.SC")
+    static let symbolicComputation = ArxivSubject("cs.SC")
 
-    static let systemsAndControl = Subject("cs.SY")
+    static let systemsAndControl = ArxivSubject("cs.SY")
 }
 
-public extension Subjects.QuantitativeFinance {
+public extension ArxivSubjects.QuantitativeFinance {
 
-    static let all = Subject("q-fin.*")
+    static let all = ArxivSubject("q-fin.*")
 
-    static let computationalFinance = Subject("q-fin.CP")
+    static let computationalFinance = ArxivSubject("q-fin.CP")
 
-    static let economics = Subject("q-fin.EC")
+    static let economics = ArxivSubject("q-fin.EC")
 
-    static let generalFinance = Subject("q-fin.GN")
+    static let generalFinance = ArxivSubject("q-fin.GN")
 
-    static let mathematicalFinance = Subject("q-fin.MF")
+    static let mathematicalFinance = ArxivSubject("q-fin.MF")
 
-    static let portfolioManagement = Subject("q-fin.PM")
+    static let portfolioManagement = ArxivSubject("q-fin.PM")
 
-    static let pricingOfSecurities = Subject("q-fin.PR")
+    static let pricingOfSecurities = ArxivSubject("q-fin.PR")
 
-    static let riskManagement = Subject("q-fin.RM")
+    static let riskManagement = ArxivSubject("q-fin.RM")
 
-    static let statisticalFinance = Subject("q-fin.ST")
+    static let statisticalFinance = ArxivSubject("q-fin.ST")
 
-    static let tradingAndMarketMicrostructure = Subject("q-fin.TR")
+    static let tradingAndMarketMicrostructure = ArxivSubject("q-fin.TR")
 }
 
-public extension Subjects.ElectricalEngineeringAndSystemsScience {
+public extension ArxivSubjects.ElectricalEngineeringAndSystemsScience {
 
-    static let all = Subject("eess.*")
+    static let all = ArxivSubject("eess.*")
 
-    static let audioAndSpeechProcessing = Subject("eess.AS")
+    static let audioAndSpeechProcessing = ArxivSubject("eess.AS")
 
-    static let imageAndVideoProcessing = Subject("eess.IV")
+    static let imageAndVideoProcessing = ArxivSubject("eess.IV")
 
-    static let signalProcessing = Subject("eess.SP")
+    static let signalProcessing = ArxivSubject("eess.SP")
 
-    static let systemsAndControl = Subject("eess.SY")
+    static let systemsAndControl = ArxivSubject("eess.SY")
 }
 
-public extension Subjects.Statistics {
+public extension ArxivSubjects.Statistics {
 
-    static let all = Subject("stat.*")
+    static let all = ArxivSubject("stat.*")
 
-    static let applications = Subject("stat.AP")
+    static let applications = ArxivSubject("stat.AP")
 
-    static let computation = Subject("stat.CO")
+    static let computation = ArxivSubject("stat.CO")
 
-    static let machineLearning = Subject("stat.ML")
+    static let machineLearning = ArxivSubject("stat.ML")
 
-    static let methodology = Subject("stat.ME")
+    static let methodology = ArxivSubject("stat.ME")
 
-    static let otherStatistics = Subject("stat.OT")
+    static let otherStatistics = ArxivSubject("stat.OT")
 
-    static let statisticsTheory = Subject("stat.TH")
+    static let statisticsTheory = ArxivSubject("stat.TH")
 }
 
-public extension Subjects.Physics {
+public extension ArxivSubjects.Physics {
 
-    static let all = Subject("physics.*")
+    static let all = ArxivSubject("physics.*")
 
-    static let acceleratorPhysics = Subject("physics.acc-ph")
+    static let acceleratorPhysics = ArxivSubject("physics.acc-ph")
 
-    static let atmosphericAndOceanicPhysics = Subject("physics.ao-ph")
+    static let atmosphericAndOceanicPhysics = ArxivSubject("physics.ao-ph")
 
-    static let atomicPhysics = Subject("physics.atom-ph")
+    static let atomicPhysics = ArxivSubject("physics.atom-ph")
 
-    static let atomicAndMolecularClusters = Subject("physics.atm-clus")
+    static let atomicAndMolecularClusters = ArxivSubject("physics.atm-clus")
 
-    static let biologicalPhysics = Subject("physics.bio-ph")
+    static let biologicalPhysics = ArxivSubject("physics.bio-ph")
 
-    static let chemicalPhysics = Subject("physics.chem-ph")
+    static let chemicalPhysics = ArxivSubject("physics.chem-ph")
 
-    static let classicalPhysics = Subject("physics.class-ph")
+    static let classicalPhysics = ArxivSubject("physics.class-ph")
 
-    static let computationalPhysics = Subject("physics.comp-ph")
+    static let computationalPhysics = ArxivSubject("physics.comp-ph")
 
-    static let dataAnalysisStatisticsAndProbability = Subject("physics.data-an")
+    static let dataAnalysisStatisticsAndProbability = ArxivSubject("physics.data-an")
 
-    static let fluidDynamics = Subject("physics.flu-dyn")
+    static let fluidDynamics = ArxivSubject("physics.flu-dyn")
 
-    static let generalPhysics = Subject("physics.gen-ph")
+    static let generalPhysics = ArxivSubject("physics.gen-ph")
 
-    static let geophysics = Subject("physics.geo-ph")
+    static let geophysics = ArxivSubject("physics.geo-ph")
 
-    static let historyAndPhilosophyOfPhysics = Subject("physics.hist-ph")
+    static let historyAndPhilosophyOfPhysics = ArxivSubject("physics.hist-ph")
 
-    static let instrumentationAndDetectors = Subject("physics.ins-det")
+    static let instrumentationAndDetectors = ArxivSubject("physics.ins-det")
 
-    static let medicalPhysics = Subject("physics.med-ph")
+    static let medicalPhysics = ArxivSubject("physics.med-ph")
 
-    static let optics = Subject("physics.optics")
+    static let optics = ArxivSubject("physics.optics")
 
-    static let physicsEducation = Subject("physics.ed-ph")
+    static let physicsEducation = ArxivSubject("physics.ed-ph")
 
-    static let physicsAndSociety = Subject("physics.soc-ph")
+    static let physicsAndSociety = ArxivSubject("physics.soc-ph")
 
-    static let plasmaPhysics = Subject("physics.plasm-ph")
+    static let plasmaPhysics = ArxivSubject("physics.plasm-ph")
 
-    static let popularPhysics = Subject("physics.pop-ph")
+    static let popularPhysics = ArxivSubject("physics.pop-ph")
 
-    static let spacePhysics = Subject("physics.space-ph")
+    static let spacePhysics = ArxivSubject("physics.space-ph")
 }
 
-public extension Subjects.CondensedMatter {
+public extension ArxivSubjects.CondensedMatter {
 
-    static let all = Subject("cond-mat.*")
+    static let all = ArxivSubject("cond-mat.*")
 
-    static let disorderedSystemsAndNeuralNetworks = Subject("cond-mat.dis-nn")
+    static let disorderedSystemsAndNeuralNetworks = ArxivSubject("cond-mat.dis-nn")
 
-    static let materialsScience = Subject("cond-mat.mtrl-sci")
+    static let materialsScience = ArxivSubject("cond-mat.mtrl-sci")
 
-    static let mesoscaleAndNanoscalePhysics = Subject("cond-mat.mes-hall")
+    static let mesoscaleAndNanoscalePhysics = ArxivSubject("cond-mat.mes-hall")
 
-    static let otherCondensedMatter = Subject("cond-mat.other")
+    static let otherCondensedMatter = ArxivSubject("cond-mat.other")
 
-    static let quantumGases = Subject("cond-mat.quant-gas")
+    static let quantumGases = ArxivSubject("cond-mat.quant-gas")
 
-    static let softCondensedMatter = Subject("cond-mat.soft")
+    static let softCondensedMatter = ArxivSubject("cond-mat.soft")
 
-    static let statisticalMechanics = Subject("cond-mat.stat-mech")
+    static let statisticalMechanics = ArxivSubject("cond-mat.stat-mech")
 
-    static let stronglyCorrelatedElectrons = Subject("cond-mat.str-el")
+    static let stronglyCorrelatedElectrons = ArxivSubject("cond-mat.str-el")
 
-    static let superconductivity = Subject("cond-mat.supr-con")
+    static let superconductivity = ArxivSubject("cond-mat.supr-con")
 }
 
-public extension Subjects.NonlinearSciences {
+public extension ArxivSubjects.NonlinearSciences {
 
-    static let all = Subject("nlin.*")
+    static let all = ArxivSubject("nlin.*")
 
 
-    static let adaptationAndSelfOrganizingSystems = Subject("nlin.AO")
+    static let adaptationAndSelfOrganizingSystems = ArxivSubject("nlin.AO")
 
-    static let cellularAutomataAndLatticeGases = Subject("nlin.CG")
+    static let cellularAutomataAndLatticeGases = ArxivSubject("nlin.CG")
 
-    static let chaoticDynamics = Subject("nlin.CD")
+    static let chaoticDynamics = ArxivSubject("nlin.CD")
 
-    static let exactlySolvableAndIntegrableSystems = Subject("nlin.SI")
+    static let exactlySolvableAndIntegrableSystems = ArxivSubject("nlin.SI")
 
-    static let patternFormationAndSolitons = Subject("nlin.PS")
+    static let patternFormationAndSolitons = ArxivSubject("nlin.PS")
 }
 
-public extension Subjects.Economy {
+public extension ArxivSubjects.Economy {
 
-    static let all = Subject("econ.*")
+    static let all = ArxivSubject("econ.*")
 
-    static let econometrics = Subject("econ.EM")
+    static let econometrics = ArxivSubject("econ.EM")
 
-    static let generalEconomics = Subject("econ.GN")
+    static let generalEconomics = ArxivSubject("econ.GN")
 
-    static let theoreticalEconomics = Subject("econ.TH")
+    static let theoreticalEconomics = ArxivSubject("econ.TH")
 }
 
-public extension Subjects.Astrophysics {
+public extension ArxivSubjects.Astrophysics {
 
-    static let all = Subject("astro-ph.*")
+    static let all = ArxivSubject("astro-ph.*")
 
-    static let cosmologyAndNongalacticAstrophysics = Subject("astro-ph.CO")
+    static let cosmologyAndNongalacticAstrophysics = ArxivSubject("astro-ph.CO")
 
-    static let earthAndPlanetaryAstrophysics = Subject("astro-ph.EP")
+    static let earthAndPlanetaryAstrophysics = ArxivSubject("astro-ph.EP")
 
-    static let astrophysicsOfGalaxies = Subject("astro-ph.GA")
+    static let astrophysicsOfGalaxies = ArxivSubject("astro-ph.GA")
 
-    static let highEnergyAstrophysicalPhenomena = Subject("astro-ph.HE")
+    static let highEnergyAstrophysicalPhenomena = ArxivSubject("astro-ph.HE")
 
-    static let instrumentationAndMethodsForAstrophysics = Subject("astro-ph.IM")
+    static let instrumentationAndMethodsForAstrophysics = ArxivSubject("astro-ph.IM")
 
-    static let solarAndStellarAstrophysics = Subject("astro-ph.SR")
+    static let solarAndStellarAstrophysics = ArxivSubject("astro-ph.SR")
 }
 

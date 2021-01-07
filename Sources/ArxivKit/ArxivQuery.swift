@@ -24,7 +24,7 @@ private let orKey = "OR"
 
 
 /// Query portion of `ArxiveKit.Request`.
-public indirect enum SearchQuery  {
+public indirect enum ArxivQuery  {
     
     /// Searches for articles containing given term in the title.
     case title(String)
@@ -42,7 +42,7 @@ public indirect enum SearchQuery  {
     case journalReference(String)
     
     /// Searches for articles belonging to given subject.
-    case subject(Subject)
+    case subject(ArxivSubject)
     
     /// Searches for articles containing given term in the report number.
     case reportNumber(String)
@@ -57,34 +57,34 @@ public indirect enum SearchQuery  {
     case lastUpdated(from :Date, to: Date)
     
     /// Searches for articles satisfying both of the queries.
-    case and(SearchQuery, SearchQuery)
+    case and(ArxivQuery, ArxivQuery)
     
     /// Searches for articles satisfying any of the queries.
-    case or(SearchQuery, SearchQuery)
+    case or(ArxivQuery, ArxivQuery)
     
     /// Searches for articles satisfying the first, but not the second query.
-    case andNot(SearchQuery, SearchQuery)
+    case andNot(ArxivQuery, ArxivQuery)
 }
 
-public extension SearchQuery {
+public extension ArxivQuery {
     
     /// Constructs `ArxiveKit.Query.and`.
-    func and(_ anotherQuery: SearchQuery) -> SearchQuery {
+    func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
         return .and(self, anotherQuery)
     }
     
     /// Constructs `ArxiveKit.Query.or`.
-    func or(_ anotherQuery: SearchQuery) -> SearchQuery {
+    func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
         return .or(self, anotherQuery)
     }
     
     /// Constructs `ArxiveKit.Query.andNot`.
-    func andNot(_ anotherQuery: SearchQuery) -> SearchQuery {
+    func andNot(_ anotherQuery: ArxivQuery) -> ArxivQuery {
         return .andNot(self, anotherQuery)
     }
 }
 
-public extension SearchQuery {
+public extension ArxivQuery {
 
     /// String representation of the query.
     var string: String {

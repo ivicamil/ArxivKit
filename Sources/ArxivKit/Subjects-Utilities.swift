@@ -1,15 +1,15 @@
 
 import Foundation
 
-extension Subjects {
+extension ArxivSubjects {
     
     static var dictionary: [String: [String: Any]] {
         let dictURL = Bundle.module.url(forResource: "ArxivSubjectsDictionary", withExtension: "plist")!
         return NSDictionary(contentsOf: dictURL) as? [String: [String: Any]] ?? [:]
     }
     
-    private static var allSubjects: [Subject] {
-        return dictionary.keys.map { Subject($0) }
+    private static var allSubjects: [ArxivSubject] {
+        return dictionary.keys.map { ArxivSubject($0) }
     }
     
     static func print() {
@@ -41,7 +41,7 @@ extension Subjects {
         code.append("}\n")
         
         code.append("\npublic extension Subjects.OtherPhysicsSubjects {\n")
-        for subject in Subject("physics-field").children {
+        for subject in ArxivSubject("physics-field").children {
             if !subject.symbol.hasSuffix("*")  {
                 code.append(constantForSubject(subject))
             }
@@ -60,15 +60,15 @@ extension Subjects {
         return code
     }
     
-    private static func constantForSubject(_ subject: Subject) -> String {
+    private static func constantForSubject(_ subject: ArxivSubject) -> String {
         return "\n\tstatic let \(constantNameForSubject(subject)) = Subject(\"\(subject.symbol)\")\n"
     }
     
-    private static func typeNameForSubject(_ subject: Subject) -> String {
+    private static func typeNameForSubject(_ subject: ArxivSubject) -> String {
         return String(subject.name.capitalized.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) })
     }
     
-    private static func constantNameForSubject(_ subject: Subject) -> String {
+    private static func constantNameForSubject(_ subject: ArxivSubject) -> String {
         let filteredName = String(subject.name.capitalized.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) })
         return filteredName.replacingCharacters(in: ...filteredName.startIndex, with: filteredName[filteredName.startIndex].lowercased())
     }
