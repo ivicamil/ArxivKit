@@ -25,9 +25,7 @@ let electronQuery = SearchQuery.all("electron")
 
 let electronRequest = Request(searchQuery: electronQuery)
 
-let fetchTask = session.fethTask(with: electronRequest)
-
-fetchTask.run { result in
+let fetchTask = session.fethTask(with: electronRequest) { result in
     switch result {
     case let .success(response):
         let articles = response.entries
@@ -36,6 +34,8 @@ fetchTask.run { result in
         // Handle error.
     }
 }
+
+fetchTask.run()
 
 ```
 ### Query Examples
