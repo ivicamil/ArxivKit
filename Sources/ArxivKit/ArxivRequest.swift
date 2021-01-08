@@ -4,26 +4,17 @@ import Foundation
 
 public struct ArxivRequest {
     
-    /// Query portion of the request.
-    ///
-    /// Default value is empty query `SearchQuery.all("")`.
-    /// Either a valid  non-empty`searchQuery` or a non-empty valid `idlist` must be provided.
     public let searchQuery: ArxivQuery
     
-    /// A list of article ids to search for.
-    ///
-    /// Default value is empty array.
-    /// Either a valid `query` or a non-empty valid `idlist` must be provided.
-    /// To search for specific version of an article, append the article's id with `vn` where `n` is the desired version number.
-    public let idList: [String]
+    public private(set) var idList: [String]
     
-    public internal(set) var startIndex: Int = 0
+    public private(set) var startIndex: Int = 0
     
-    public let itemsPerPage: Int
+    public private(set) var itemsPerPage: Int
     
-    public let sortBy: SortBy
+    public private(set) var sortedBy: SortingCriterion
     
-    public let sortOrder: SortOrder
+    public private(set) var sortingOrder: SortingOrder
    
     private let scheme = "https"
     private let host = "export.arxiv.org"
@@ -35,51 +26,71 @@ public struct ArxivRequest {
     private let sortByKey = "sortBy"
     private let sortOrderKey = "sortOrder"
     
-    public init(
-        searchQuery: ArxivQuery = .all(""),
-        idList: [String] = [],
-        itemsPerPage: Int = 50,
-        sortBy: SortBy = .lastUpdatedDate,
-        sortOrder: SortOrder = .descending
-    ) {
-        self.searchQuery = searchQuery
-        self.idList = idList
-        self.itemsPerPage = itemsPerPage <= 100 ? itemsPerPage : 100
-        self.sortBy = sortBy
-        self.sortOrder = sortOrder
+    public init(_ query: ArxivQuery) {
+        self.init(searchQuery: query)
     }
     
-    public enum SortBy : String {
+    public init(idList: [String]) {
+        self.init(ids: idList)
+    }
+    
+    init(
+        searchQuery: ArxivQuery = .empty,
+        ids: [String] = [],
+        itemsPerPage: Int = 50,
+        sortBy: SortingCriterion = .lastUpdatedDate,
+        sortOrder: SortingOrder = .descending
+    ) {
+        self.searchQuery = searchQuery
+        self.idList = ids
+        self.itemsPerPage = itemsPerPage <= 100 ? itemsPerPage : 100
+        self.sortedBy = sortBy
+        self.sortingOrder = sortOrder
+    }
+    
+    public enum SortingCriterion : String {
         case relevance = "relevance"
         case lastUpdatedDate = "lastUpdatedDate"
         case submitedDate = "submittedDate"
     }
     
-    public enum SortOrder : String {
+    public enum SortingOrder : String {
         case descending = "descending"
         case ascending = "ascending"
     }
 }
 
-public extension ArxivRequest {
+public extension ArxivQuery {
     
-    /// Returns a new request for given page `startIndex`.
-    func withStartIndex(_ index: Int) -> ArxivRequest {
-        var page = self
-        page.startIndex = index
-        return page
+    func request(idList: [String]) -> ArxivRequest {
+        return ArxivRequest(searchQuery: self, ids: idList)
     }
 }
 
 public extension ArxivRequest {
     
-    /// Request for specific article with given id.
-    ///
-    /// - Parameter id: arXiv id of desired article.
-    /// - Parameter version: Desired version of the article. Default value 0 or any negative value returns request for the most recent version.
-    static func article(id: String, version: Int = 0) -> ArxivRequest  {
-        let versionSuffix = version > 0 ? "v\(version)" : ""
-        return ArxivRequest(idList: ["\(ArxivEntry.versionlessId(from: id))\(versionSuffix)"])
+    func sortedBy(_ sortCriterion: SortingCriterion) -> ArxivRequest {
+        var request = self
+        request.sortedBy = sortCriterion
+        return request
+    }
+    
+    func sortingOrder(_ sortingOrder: SortingOrder) -> ArxivRequest {
+        var request = self
+        request.sortingOrder = sortingOrder
+        return request
+    }
+    
+    func startIndex(_ i: Int) -> ArxivRequest {
+        var request = self
+        request.startIndex = i
+        return request
+    }
+    
+    func itemsPerPage(_ n: Int) -> ArxivRequest {
+        var request = self
+        request.itemsPerPage = n
+        return request
     }
 }
 
@@ -103,8 +114,8 @@ public extension ArxivRequest {
         }
         
         components.queryItems?.append(contentsOf: [
-            URLQueryItem(name: sortOrderKey, value: sortOrder.rawValue),
-            URLQueryItem(name: sortByKey, value: sortBy.rawValue),
+            URLQueryItem(name: sortOrderKey, value: sortingOrder.rawValue),
+            URLQueryItem(name: sortByKey, value: sortedBy.rawValue),
             URLQueryItem(name: startIndexKey, value: "\(startIndex)"),
             URLQueryItem(name: itemsPerPageKey, value: "\(itemsPerPage)")
         ])
@@ -112,3 +123,5 @@ public extension ArxivRequest {
         return components.url
     }
 }
+
+

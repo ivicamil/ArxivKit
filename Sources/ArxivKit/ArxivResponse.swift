@@ -34,28 +34,27 @@ public extension ArxivResponse {
         return startIndex / itemsPerPage
     }
     
-    var previousPageIndex: Int? {
+    var previousPageStartIndex: Int? {
         guard currentPage != 0 else {
             return nil
         }
         return startIndex - itemsPerPage
     }
     
-    var nextPageIndex: Int? {
+    var nextPageStartIndex: Int? {
         guard currentPage < numberOfPages - 1 else {
             return nil
         }
         return startIndex + itemsPerPage
     }
     
-    var lastPageIndex: Int {
+    var lastPageStartIndex: Int {
         (numberOfPages - 1) * itemsPerPage
     }
 }
 
 
 extension ArxivResponse: CustomStringConvertible {
-    
     
     public var description: String {
         return """

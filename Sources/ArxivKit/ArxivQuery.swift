@@ -23,64 +23,80 @@ private let andNotKey = "ANDNOT"
 private let orKey = "OR"
 
 
-/// Query portion of `ArxiveKit.Request`.
+/// Query portion of `ArxivRequest`.
+
 public indirect enum ArxivQuery  {
     
     /// Searches for articles containing given term in the title.
-    case title(String)
+    case empty
+    
+    /// Searches for articles containing given term in the title.
+    case title(contains: String)
     
     /// Searches for articles containing given term in authors' names.
-    case author(String)
+    case author(contains: String)
     
     /// Searches for articles containing given term in the abstract.
-    case abstract(String)
+    case abstract(contains: String)
     
     /// Searches for articles containing given term in the abstract.
-    case comment(String)
+    case comment(contains: String)
     
     /// Searches for articles containing given term in the journal reference.
-    case journalReference(String)
+    case journalReference(contains: String)
     
     /// Searches for articles belonging to given subject.
-    case subject(ArxivSubject)
+    case subject(contains: ArxivSubject)
     
     /// Searches for articles containing given term in the report number.
-    case reportNumber(String)
+    case reportNumber(contains: String)
     
     /// Searches for articles containing given term in of the fields.
-    case all(String)
+    case anyField(contains: String)
     
     /// Searches for articles submited between the two dates.
-    case submitted(from :Date, to: Date)
+    case submitted(DateInterval)
     
     /// Searches for articles updated between the two dates.
-    case lastUpdated(from :Date, to: Date)
+    case lastUpdated(DateInterval)
     
     /// Searches for articles satisfying both of the queries.
-    case and(ArxivQuery, ArxivQuery)
+    case both(ArxivQuery, ArxivQuery)
     
     /// Searches for articles satisfying any of the queries.
-    case or(ArxivQuery, ArxivQuery)
+    case either(ArxivQuery, ArxivQuery)
     
     /// Searches for articles satisfying the first, but not the second query.
-    case andNot(ArxivQuery, ArxivQuery)
+    case firstAndNotSecond(ArxivQuery, ArxivQuery)
 }
 
 public extension ArxivQuery {
     
     /// Constructs `ArxiveKit.Query.and`.
     func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return .and(self, anotherQuery)
+        return .both(self, anotherQuery)
     }
     
     /// Constructs `ArxiveKit.Query.or`.
     func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return .or(self, anotherQuery)
+        return .either(self, anotherQuery)
     }
     
     /// Constructs `ArxiveKit.Query.andNot`.
     func andNot(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return .andNot(self, anotherQuery)
+        return .firstAndNotSecond(self, anotherQuery)
+    }
+    
+    func test(_ int: Int) -> ArxivQuery {
+        return self
+    }
+    
+    static func allOf(_ first: ArxivQuery, _ second: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
+        return otherQueries.reduce(first.and(second)) { $0.and($1) }
+    }
+    
+    static func anyOf(_ first: ArxivQuery, _ second: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
+        return otherQueries.reduce(first.or(second)) { $0.or($1) }
     }
 }
 
@@ -89,6 +105,8 @@ public extension ArxivQuery {
     /// String representation of the query.
     var string: String {
         switch self {
+        case .empty:
+            return ""
         case let .title(string):
             return "\(titleKey):\"\(string.removingNonallowedCharacters)\""
         case let .author(string):
@@ -103,23 +121,23 @@ public extension ArxivQuery {
             return "\(categoryKey):\(subject.symbol)"
         case let .reportNumber(string):
             return "\(reportNumberKey):\(string)"
-        case let .all(string):
+        case let .anyField(string):
             return "\(allKey):\"\(string.removingNonallowedCharacters)\""
-        case let .submitted(from, to):
+        case let .submitted(interval):
             let dateFormater = DateFormatter()
             dateFormater.locale = .current
             dateFormater.dateFormat = dateQueryFormat
-            return "\(submittedDateKey):[\(dateFormater.string(from: from))+TO+\(dateFormater.string(from: to))]"
-        case let .lastUpdated(from, to):
+            return "\(submittedDateKey):[\(dateFormater.string(from: interval.start))+TO+\(dateFormater.string(from: interval.end))]"
+        case let .lastUpdated(interval):
             let dateFormater = DateFormatter()
             dateFormater.locale = .current
             dateFormater.dateFormat = dateQueryFormat
-            return "\(lastUpdatedDateKey):[\(dateFormater.string(from: from))+TO+\(dateFormater.string(from: to))]"
-        case let .and(q1, q2):
+            return "\(lastUpdatedDateKey):[\(dateFormater.string(from: interval.start))+TO+\(dateFormater.string(from: interval.end))]"
+        case let .both(q1, q2):
             return "(\(q1.string)+\(andKey)+\(q2.string))"
-        case let .or(q1, q2):
+        case let .either(q1, q2):
             return "(\(q1.string)+\(orKey)+\(q2.string))"
-        case let .andNot(q1, q2):
+        case let .firstAndNotSecond(q1, q2):
             return "(\(q1.string)+\(andNotKey)+\(q2.string))"
         }
     }
@@ -127,6 +145,8 @@ public extension ArxivQuery {
     /// True if all of the query's arguments are empty strings, false otherwise.
     var isEmpty: Bool {
         switch self {
+        case .empty:
+            return true
         case let .title(string):
             return string.trimmingWhiteSpaces.isEmpty
         case let .author(string):
@@ -141,17 +161,17 @@ public extension ArxivQuery {
              return false
         case let .reportNumber(string):
             return string.trimmingWhiteSpaces.isEmpty
-        case let .all(string):
+        case let .anyField(string):
             return string.trimmingWhiteSpaces.isEmpty
-        case .submitted(_, _):
+        case .submitted(_):
             return false
-        case .lastUpdated(_, _):
+        case .lastUpdated(_):
             return false
-        case let .and(q1, q2):
+        case let .both(q1, q2):
             return q1.isEmpty && q2.isEmpty
-        case let .or(q1, q2):
+        case let .either(q1, q2):
             return q1.isEmpty && q2.isEmpty
-        case let .andNot(q1, q2):
+        case let .firstAndNotSecond(q1, q2):
             return q1.isEmpty && q2.isEmpty
         }
     }

@@ -14,7 +14,7 @@ public struct ArxivEntry: Hashable, Identifiable {
         public internal(set) var affiliation = ""
     }
     
-    public init() {
+    init() {
         
     }
     
@@ -144,18 +144,7 @@ public extension ArxivEntry {
     var latestVersionID: String {
         return ArxivEntry.versionlessId(from: id)
     }
-    
-    internal static func versionlessId(from id: String) -> String {
-        guard let rangeOfVersion = rangeOfVersion(in: id) else {
-            return id
-        }
-        return id.replacingCharacters(in: rangeOfVersion, with: "")
-    }
-    
-    private static func rangeOfVersion(in articleID: String) -> Range<String.Index>? {
-        articleID.range(of: #"[v,V][1-9]+$"#, options: .regularExpression)
-    }
-    
+
     var allVersionsIDs: [String] {
         guard let currentVersion = self.version else {
             return [id]
@@ -164,5 +153,19 @@ public extension ArxivEntry {
         return (1...currentVersion).map { n in
             "\(latestVersionID)v\(n)"
         }
+    }
+}
+
+extension ArxivEntry {
+    
+    static func versionlessId(from id: String) -> String {
+        guard let rangeOfVersion = rangeOfVersion(in: id) else {
+            return id
+        }
+        return id.replacingCharacters(in: rangeOfVersion, with: "")
+    }
+    
+    private static func rangeOfVersion(in articleID: String) -> Range<String.Index>? {
+        articleID.range(of: #"[v,V][1-9]+$"#, options: .regularExpression)
     }
 }
