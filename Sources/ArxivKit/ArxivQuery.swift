@@ -1,94 +1,107 @@
-
 import Foundation
 
-private let titleKey = "ti"
-private let authorKey = "au"
-private let abstractKey = "abs"
-private let commentKey = "co"
-private let journalReferenceKey = "jr"
-private let categoryKey = "cat"
-private let reportNumberKey = "rn"
-private let allKey = "all"
-private let submittedDateKey = "submittedDate"
-private let lastUpdatedDateKey = "lastUpdatedDate"
+public struct ArxivQuery {
+    
+    private var tree: ArxivQueryTree
+    
+    private init(_ tree: ArxivQueryTree) {
+        self.tree = tree
+    }
+}
 
-// Date Options
-private let fromKey = "from"
-private let toKey = "to"
-private let dateQueryFormat = "yyyyMMddHHmm"
+public extension ArxivQuery {
+    
+    struct Field {
+        
+        fileprivate enum Value {
+            case title
+            case abstract
+            case authors
+            case comment
+            case journalReference
+            case reportNumber
+            case any
+        }
+        
+        fileprivate let value: Value
+        
+        private init(_ field: Value) {
+            self.value = field
+        }
+        
+        public static var title = Field(.title)
+        
+        public static var abstract = Field(.abstract)
+        
+        public static var author = Field(.authors)
+        
+        public static var comment = Field(.comment)
+        
+        public static var journalReference = Field(.journalReference)
+        
+        public static var reportNumber = Field(.reportNumber)
+        
+        public static var any = Field(.any)
+    }
+}
 
-// Logical Operators
-private let andKey = "AND"
-private let andNotKey = "ANDNOT"
-private let orKey = "OR"
-
-
-/// Query portion of `ArxivRequest`.
-
-public indirect enum ArxivQuery  {
+public extension ArxivQuery {
     
-    /// Searches for articles containing given term in the title.
-    case empty
+    internal static var empty: ArxivQuery {
+        return ArxivQuery(.empty)
+    }
     
-    /// Searches for articles containing given term in the title.
-    case title(contains: String)
+    static func term(_ term: String, in field: Field) -> ArxivQuery {
+        let tree: ArxivQueryTree
+        
+        switch field.value  {
+        case .title:
+            tree = .title(contains: term)
+        case .abstract:
+            tree = .abstract(contains: term)
+        case .authors:
+            tree = .authors(contains: term)
+        case .comment:
+            tree = .comment(contains: term)
+        case .journalReference:
+            tree = .journalReference(contains: term)
+        case .reportNumber:
+            tree = .reportNumber(contains: term)
+        case .any:
+            tree = .anyField(contains: term)
+        }
+        
+        return ArxivQuery(tree)
+    }
     
-    /// Searches for articles containing given term in authors' names.
-    case author(contains: String)
+    static func subject(_ s: ArxivSubject) -> ArxivQuery {
+        return ArxivQuery(.subject(s))
+    }
     
-    /// Searches for articles containing given term in the abstract.
-    case abstract(contains: String)
+    static func submitted(_ interval: DateInterval) -> ArxivQuery {
+        return ArxivQuery(.submitted(interval))
+    }
     
-    /// Searches for articles containing given term in the abstract.
-    case comment(contains: String)
-    
-    /// Searches for articles containing given term in the journal reference.
-    case journalReference(contains: String)
-    
-    /// Searches for articles belonging to given subject.
-    case subject(contains: ArxivSubject)
-    
-    /// Searches for articles containing given term in the report number.
-    case reportNumber(contains: String)
-    
-    /// Searches for articles containing given term in of the fields.
-    case anyField(contains: String)
-    
-    /// Searches for articles submited between the two dates.
-    case submitted(DateInterval)
-    
-    /// Searches for articles updated between the two dates.
-    case lastUpdated(DateInterval)
-    
-    /// Searches for articles satisfying both of the queries.
-    case both(ArxivQuery, ArxivQuery)
-    
-    /// Searches for articles satisfying any of the queries.
-    case either(ArxivQuery, ArxivQuery)
-    
-    /// Searches for articles satisfying the first, but not the second query.
-    case firstAndNotSecond(ArxivQuery, ArxivQuery)
+    static func lastUpdated(_ interval: DateInterval) -> ArxivQuery {
+        return ArxivQuery(.lastUpdated(interval))
+    }
 }
 
 public extension ArxivQuery {
     
     /// Constructs `ArxiveKit.Query.and`.
-    func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return .both(self, anotherQuery)
+    private func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+        return ArxivQuery(.both(tree, anotherQuery.tree))
     }
     
     /// Constructs `ArxiveKit.Query.or`.
-    func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return .either(self, anotherQuery)
+    private func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+        return ArxivQuery(.either(tree, anotherQuery.tree))
     }
     
     /// Constructs `ArxiveKit.Query.andNot`.
-    func andNot(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return .firstAndNotSecond(self, anotherQuery)
-    }
-    
-    func test(_ int: Int) -> ArxivQuery {
-        return self
+    func excluding(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+        return ArxivQuery(.firstAndNotSecond(tree, anotherQuery.tree))
     }
     
     static func allOf(_ first: ArxivQuery, _ second: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
@@ -101,87 +114,12 @@ public extension ArxivQuery {
 }
 
 public extension ArxivQuery {
-
-    /// String representation of the query.
+    
     var string: String {
-        switch self {
-        case .empty:
-            return ""
-        case let .title(string):
-            return "\(titleKey):\"\(string.removingNonallowedCharacters)\""
-        case let .author(string):
-            return "\(authorKey):\"\(string.removingNonallowedCharacters)\""
-        case let .abstract(string):
-            return "\(abstractKey):\"\(string.removingNonallowedCharacters)\""
-        case let .comment(string):
-            return "\(commentKey):\"\(string.removingNonallowedCharacters)\""
-        case let .journalReference(string):
-            return "\(journalReferenceKey):\(string)"
-        case let .subject(subject):
-            return "\(categoryKey):\(subject.symbol)"
-        case let .reportNumber(string):
-            return "\(reportNumberKey):\(string)"
-        case let .anyField(string):
-            return "\(allKey):\"\(string.removingNonallowedCharacters)\""
-        case let .submitted(interval):
-            let dateFormater = DateFormatter()
-            dateFormater.locale = .current
-            dateFormater.dateFormat = dateQueryFormat
-            return "\(submittedDateKey):[\(dateFormater.string(from: interval.start))+TO+\(dateFormater.string(from: interval.end))]"
-        case let .lastUpdated(interval):
-            let dateFormater = DateFormatter()
-            dateFormater.locale = .current
-            dateFormater.dateFormat = dateQueryFormat
-            return "\(lastUpdatedDateKey):[\(dateFormater.string(from: interval.start))+TO+\(dateFormater.string(from: interval.end))]"
-        case let .both(q1, q2):
-            return "(\(q1.string)+\(andKey)+\(q2.string))"
-        case let .either(q1, q2):
-            return "(\(q1.string)+\(orKey)+\(q2.string))"
-        case let .firstAndNotSecond(q1, q2):
-            return "(\(q1.string)+\(andNotKey)+\(q2.string))"
-        }
+        return tree.string
     }
     
-    /// True if all of the query's arguments are empty strings, false otherwise.
     var isEmpty: Bool {
-        switch self {
-        case .empty:
-            return true
-        case let .title(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .author(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .abstract(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .comment(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .journalReference(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case .subject(_):
-             return false
-        case let .reportNumber(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .anyField(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case .submitted(_):
-            return false
-        case .lastUpdated(_):
-            return false
-        case let .both(q1, q2):
-            return q1.isEmpty && q2.isEmpty
-        case let .either(q1, q2):
-            return q1.isEmpty && q2.isEmpty
-        case let .firstAndNotSecond(q1, q2):
-            return q1.isEmpty && q2.isEmpty
-        }
-    }
-}
-
-private extension String {
-    
-    var removingNonallowedCharacters: String {
-        let mutableString = NSMutableString(string: self)
-        CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
-        return mutableString.replacingOccurrences(of: "\"", with: "") as String
+        return tree.isEmpty
     }
 }

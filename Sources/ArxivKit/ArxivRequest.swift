@@ -1,7 +1,6 @@
 
 import Foundation
 
-
 public struct ArxivRequest {
     
     public let searchQuery: ArxivQuery
@@ -26,8 +25,8 @@ public struct ArxivRequest {
     private let sortByKey = "sortBy"
     private let sortOrderKey = "sortOrder"
     
-    public init(_ query: ArxivQuery) {
-        self.init(searchQuery: query)
+    public init(idList: [String] = [], _ query: ArxivQuery) {
+        self.init(searchQuery: query, ids: idList)
     }
     
     public init(idList: [String]) {
@@ -48,22 +47,31 @@ public struct ArxivRequest {
         self.sortingOrder = sortOrder
     }
     
-    public enum SortingCriterion : String {
-        case relevance = "relevance"
-        case lastUpdatedDate = "lastUpdatedDate"
-        case submitedDate = "submittedDate"
+    public struct SortingCriterion {
+        
+        let rawValue: String
+        
+        private init(_ rawValue: String) {
+            self.rawValue = rawValue
+        }
+        
+        public static var relevance = SortingCriterion("relevance")
+        
+        public static var lastUpdatedDate = SortingCriterion("lastUpdatedDate")
+        
+        public static var submitedDate = SortingCriterion("submittedDate")
     }
     
-    public enum SortingOrder : String {
-        case descending = "descending"
-        case ascending = "ascending"
-    }
-}
-
-public extension ArxivQuery {
-    
-    func request(idList: [String]) -> ArxivRequest {
-        return ArxivRequest(searchQuery: self, ids: idList)
+    public struct SortingOrder {
+        
+        let rawValue: String
+        
+        private init(_ rawValue: String) {
+            self.rawValue = rawValue
+        }
+        
+        public static var descending = SortingOrder("descending")
+        public static var ascending = SortingOrder("ascending")
     }
 }
 
@@ -91,6 +99,26 @@ public extension ArxivRequest {
         var request = self
         request.itemsPerPage = n
         return request
+    }
+}
+
+public extension ArxivRequest {
+    
+    enum SearchScope {
+        case anyArticle
+        case articlesWithIDs([String])
+    }
+}
+
+public extension ArxivQuery {
+    
+    func search(in scope: ArxivRequest.SearchScope) -> ArxivRequest {
+        switch scope {
+        case .anyArticle:
+            return ArxivRequest(self)
+        case let .articlesWithIDs(idList):
+            return ArxivRequest(idList: idList, self)
+        }
     }
 }
 

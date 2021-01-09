@@ -67,3 +67,13 @@ extension ArxivFetchTask: Hashable {
         hasher.combine(id)
     }
 }
+
+public extension ArxivRequest {
+    
+    @discardableResult
+    func fetch(using session: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
+        let task = session.fethTask(with: self, completion: completion)
+        task.run()
+        return task
+    }
+}

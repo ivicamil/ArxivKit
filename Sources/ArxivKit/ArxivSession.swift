@@ -9,10 +9,12 @@ public final class ArxivSession {
     
     private var tasks: [Int: ArxivFetchTask] = [:]
     
-    public init() {
+    init() {
         let configuration = URLSessionConfiguration.default
         urlSession = URLSession(configuration: configuration)
     }
+    
+    public static var `default` = ArxivSession()
     
     public func fethTask(with request: ArxivRequest, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
         taskID += taskID
