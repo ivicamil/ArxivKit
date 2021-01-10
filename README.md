@@ -104,13 +104,6 @@ ArxivRequest(idList: entry.allVersionsIDs)
     }
 ```
 
-```swift
-ArxivRequest(idList: ["2101.02212", "2101.02215"])
-    .fetch(using: session) { result in
-        // Do something with the result
-    }
-```
-
 ### Paging Example
 
 ```swift
