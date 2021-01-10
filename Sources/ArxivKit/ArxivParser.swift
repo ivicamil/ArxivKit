@@ -1,6 +1,10 @@
 
 import Foundation
 
+#if canImport(FoundationXML)
+import FoundationXML
+#endif
+
 /**
  A parser for arXiv API atom feed.
  */

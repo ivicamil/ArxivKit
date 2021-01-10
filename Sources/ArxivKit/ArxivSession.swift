@@ -1,6 +1,10 @@
 
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  `ArxivSession`enapsulates network communication and keeps track of individual fetch tasks.
  

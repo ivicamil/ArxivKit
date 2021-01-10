@@ -1,6 +1,10 @@
 
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 /**
  A task used for fetching and parsing given `ArxivRequest`.
  
