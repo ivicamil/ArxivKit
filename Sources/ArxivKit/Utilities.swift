@@ -1,4 +1,5 @@
 
+/// Utilites used for library development and debugging.
 public enum Utilities {
     
     /// Prints human-readable list of all subjects.
@@ -6,7 +7,7 @@ public enum Utilities {
         ArxivSubjects.print()
     }
     
-    /// Generates `Subjects` namespace enum and all the constants.
+    /// Generates `ArxivSubjects` namespace enum and all the constants.
     public static func generateSubjectSwiftConstants() -> String {
         return ArxivSubjects.generateSwiftConstants()
     }

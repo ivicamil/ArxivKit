@@ -1,5 +1,4 @@
 
-
 import Foundation
 
 /**
@@ -19,7 +18,7 @@ public struct ArxivRequest {
      Returns zero-based index in the list of all the articles matching the `query` and belonging to `idList`,
      of the first article returned by the API call made with the request. It is set by `startIndex(Int)` method.
      
-     Use to imlement paging. For example, if `itemsPerPage` is 20, the first page corresponds to `startIndex` 0,
+     It can be used to imlement paging. For example, if `itemsPerPage` is 20, the first page corresponds to `startIndex` 0,
      the second page to `startIndex` 20, the third page to `startIndex` 60 etc.
      `ArxivReponse` values can be used for getting various page indicies for given response.
      */
@@ -29,7 +28,7 @@ public struct ArxivRequest {
     public private(set) var itemsPerPage: Int
     
     /// Returns sorting criterion for returned articles set by `sortedBy(SortingCriterion)` method. Default value is `.lastUpdatedDate`.
-    public private(set) var sortedBy: SortingCriterion
+    public private(set) var sortingCriterion: SortingCriterion
     
     /// Returns sorting order for returned articles set by `sortingOrder(SortingOrder)` method. Default value is `.descending`.
     public private(set) var sortingOrder: SortingOrder
@@ -85,7 +84,7 @@ public struct ArxivRequest {
         self.query = searchQuery
         self.idList = ids
         self.itemsPerPage = itemsPerPage
-        self.sortedBy = sortBy
+        self.sortingCriterion = sortBy
         self.sortingOrder = sortOrder
     }
     
@@ -127,15 +126,23 @@ public struct ArxivRequest {
 }
 
 public extension ArxivRequest {
-            
-    /// Returns a new request with provided sorting criterion for returned articles. Default value is `.lastUpdatedDate`.
-    func sortedBy(_ sortCriterion: SortingCriterion) -> ArxivRequest {
+           
+    /**
+     Returns a new request with provided sorting criterion for returned articles. Default value is `.lastUpdatedDate`.
+     
+     - Parameter sortCriterion: A sorting criterion.
+     */
+    func sortedBy(_ sortingCriterion: SortingCriterion) -> ArxivRequest {
         var request = self
-        request.sortedBy = sortCriterion
+        request.sortingCriterion = sortingCriterion
         return request
     }
     
-    /// Returns a new request with provided sorting order for returned articles. Default value is `.descending`.
+    /**
+     Returns a new request with provided sorting order for returned articles. Default value is `.descending`.
+     
+     - Parameter sortingOrder: A sorting order.
+     */
     func sortingOrder(_ sortingOrder: SortingOrder) -> ArxivRequest {
         var request = self
         request.sortingOrder = sortingOrder
@@ -146,9 +153,34 @@ public extension ArxivRequest {
      Returns a new request with provided zero-based index in the list of all the articles matching the `query` and belonging to the `idList`,
      of the first article returned by the API call made with the request.
      
+     - Parameter i: Start index of the request.
+     
      Use to imlement paging. For example, if `itemsPerPage` is 20, the first page corresponds to `startIndex` 0,
      the second page to `startIndex` 20, the third page to `startIndex` 60 etc.
      `ArxivReponse` values can be used for getting various page indicies for given response.
+     
+     From [arxiv API manual](https://arxiv.org/help/api/user-manual):
+     
+     In cases where the API needs to be called multiple times in a row, we encourage you to play nice and incorporate a 3 second delay in your code.
+
+     Because of speed limitations in our implementation of the API,
+     the maximum number of results returned from a single call (`itemsPerPage`) is limited to 30000 in slices of at most 2000 at a time,
+     using the `itemsPerPage` and `startIndex` query parameters.
+     
+     For example to retrieve matches 6001-8000:
+     
+     ```
+     ArxivQuery.term("electron", in: .any)
+         .makeRequest()
+         .startIndex(6000)
+         .itemsPerPage(8000)
+    ```
+     Large result sets put considerable load on the server and also take a long time to render.
+     We recommend to refine queries which return more than 1,000 results, or at least request smaller slices.
+     For bulk metadata harvesting or set information, etc., the OAI-PMH interface is more suitable.
+     A request with `itemsPerPage` > 30,000 will result in an HTTP 400 error code with appropriate explanation.
+     A request for 30000 results will typically take a little over 2 minutes to return a response of over 15MB.
+     Requests for fewer results are much faster and correspondingly smaller.
      */
     func startIndex(_ i: Int) -> ArxivRequest {
         var request = self
@@ -156,7 +188,34 @@ public extension ArxivRequest {
         return request
     }
     
-    /// Returns a new request with provided  maximum number of articles to be returned from a single API call. Default value is 50.
+    /**
+     Returns a new request with provided  maximum number of articles to be returned from a single API call. Default value is 50.
+     
+     - Parameter n: Maximum number of article per response.
+     
+     From [arxiv API manual](https://arxiv.org/help/api/user-manual):
+     
+     In cases where the API needs to be called multiple times in a row, we encourage you to play nice and incorporate a 3 second delay in your code.
+
+     Because of speed limitations in our implementation of the API,
+     the maximum number of results returned from a single call (`itemsPerPage`) is limited to 30000 in slices of at most 2000 at a time,
+     using the `itemsPerPage` and `startIndex` query parameters.
+     
+     For example to retrieve matches 6001-8000:
+     
+     ```
+     ArxivQuery.term("electron", in: .any)
+         .makeRequest()
+         .startIndex(6000)
+         .itemsPerPage(8000)
+    ```
+     Large result sets put considerable load on the server and also take a long time to render.
+     We recommend to refine queries which return more than 1,000 results, or at least request smaller slices.
+     For bulk metadata harvesting or set information, etc., the OAI-PMH interface is more suitable.
+     A request with `itemsPerPage` > 30,000 will result in an HTTP 400 error code with appropriate explanation.
+     A request for 30000 results will typically take a little over 2 minutes to return a response of over 15MB.
+     Requests for fewer results are much faster and correspondingly smaller.
+     */
     func itemsPerPage(_ n: Int) -> ArxivRequest {
         var request = self
         request.itemsPerPage = n
@@ -227,7 +286,7 @@ public extension ArxivRequest {
         
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: sortOrderKey, value: sortingOrder.rawValue),
-            URLQueryItem(name: sortByKey, value: sortedBy.rawValue),
+            URLQueryItem(name: sortByKey, value: sortingCriterion.rawValue),
             URLQueryItem(name: startIndexKey, value: "\(startIndex)"),
             URLQueryItem(name: itemsPerPageKey, value: "\(itemsPerPage)")
         ])

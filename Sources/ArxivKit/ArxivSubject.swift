@@ -1,48 +1,59 @@
 
 import Foundation
 
-/// Representation of a single searchable arXiv subject.
-/// Use `Subject` values with `ArxiveKit.Query.subject` to search for articles belonging to the subject.
-///
-/// All available subject constants are defined under `Subjects` namespace.
-public struct ArxivSubject: Hashable, Identifiable {
+/**
+ Representation of a single searchable arXiv subject.
+ 
+ Use `Subject` values with `ArxivQuery.subject` to retrieve articles belonging to the subject.
+ 
+ All available subject constants are defined under `ArxivSubjects` namespace.
+ */
+public struct ArxivSubject: Hashable {
     
     private let nameKey = "name"
     
     private let childSubjectsKey = "child subjects"
     
-    /// Unique arXive subject symbol.
+    /// Returns arXive category symbol of the subject.
     public let symbol: String
     
     init(_ symbol: String) {
         self.symbol = symbol
     }
     
-    /// Returns an arXiv `Subject` or `nil` if provided string is not a valid subject symbol.
-    public init?(arxivSubject symbol: String) {
+    /**
+     Constructs `ArxivSubject` for provideed symbol, or `nil` if provided string is not a valid arXiv category symbol.
+     
+     - Parameter symbol: A valid arXivCategory symbol.
+     */
+    public init?(symbol: String) {
         if ArxivSubjects.dictionary[symbol] != nil && !ArxivSubjects.nonArXiveSubjects.contains(symbol) {
             self.init(symbol)
         }
         return nil
     }
     
-    /// Human-readable arXive subject name.
+    /// Returns human-readable arXiv subject name.
     public var name: String {
         return ArxivSubjects.dictionary[symbol]?[nameKey] as? String ?? ""
     }
     
-    /// Child subjects or empty array if the given subject does not have any chidlren.
+    /// Returns an array of child subjects or empty array if the given subject does not have any chidlren.
     public var children: [ArxivSubject] {
         let childSubjects = (ArxivSubjects.dictionary[symbol]?[childSubjectsKey] as? [String])?.compactMap { ArxivSubject($0) } ?? []
         return childSubjects
     }
-    
-    public var id: ArxivSubject {
-        return self
-    }
 }
 
-/// Recursive tree structure used for grouping of arXive subjects.
+/**
+ Recursive tree structure used for grouping of arXive subjects.
+ 
+ It is used for making arbitrary group of arXiv subjects. For example, [arXiv.org](https://arxiv.org) organises
+ multiple subjects under umbrella term Physics. To represent such groups together with regular subjects, this library uses `SubjectTree`.
+ `ArxivSubjects.all` returns a `SubjectTree` that can be used to recursively enumerate all available subjects and their groupings as organised on [arXiv.org](https://arxiv.org).
+ 
+ Other arbitrary groupings can be constructed, depending on particular needs.
+ */
 public indirect enum SubjectTree: Hashable {
     
     /// Leaf node, a single arXive suject.
@@ -54,7 +65,7 @@ public indirect enum SubjectTree: Hashable {
 
 public extension SubjectTree {
     
-    /// Group name. If the node is single subject, group name is the subject name.
+    /// Returns group name. If the node is single subject, group name is the subject's name.
     var name: String {
         switch self {
         case let .subject(s):
@@ -64,7 +75,7 @@ public extension SubjectTree {
         }
     }
     
-    /// Child nodes of the given node.
+    /// Retunrs child nodes of the given node.
     var children: [SubjectTree] {
         switch self {
         case let .subject(s):
@@ -74,7 +85,7 @@ public extension SubjectTree {
         }
     }
     
-    /// Node's subject if the node is `SubjectTree` or `nil` otherwise.
+    /// Returns node's subject if the node is `.subject(_)` or `nil` otherwise.
     var subject: ArxivSubject? {
         switch self {
         case let .subject(s):

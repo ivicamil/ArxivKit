@@ -1,6 +1,9 @@
 
 import Foundation
 
+/**
+ A parser for arXiv API atom feed.
+ */
 public final class ArxivParser {
     
     private var xmlParser: XMLParser?
@@ -9,6 +12,7 @@ public final class ArxivParser {
     
     fileprivate var finishedParsing: ((Result<ArxivResponse, ArxivKitError>) -> ())?
     
+    /// Creates a parser.
     public init() {
         
     }
@@ -18,6 +22,15 @@ public final class ArxivParser {
 
 public extension ArxivParser {
     
+    /**
+     Parses provided response data into `ArxivResponse`.
+     
+     - Parameter responseData: Raw data of arXiv API response.
+     - Parameter completion: A function to be called after the parsing finishes.
+     
+     The completion handler takes a single `Result` argument, which is either a succesfuly
+     parsed response, or an error if one occurs.
+     */
     func parse(responseData: Data, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
         finishedParsing = completion
         self.xmlParser = XMLParser(data: responseData)
@@ -26,8 +39,15 @@ public extension ArxivParser {
         self.xmlParser?.parse()
     }
     
+    /**
+     Aborts parsing.
+     
+     After parsing is aborted, completion handler provided to `parse(responseData:completion:)`
+     is called with `.failure(ArxivKitError.parsingCanceled)`.
+     */
     func abort() {
         xmlParser?.abortParsing()
+        finishedParsing?(.failure(.parsingCanceled))
         cleanupXMLParser()
     }
 }
@@ -132,13 +152,13 @@ extension ParserDelegate: XMLParserDelegate {
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         if !((parseError as NSError).code == XMLParser.ErrorCode.delegateAbortedParseError.rawValue) {
-            parent?.finishedParsing?(.failure(.parseError(parseError.localizedDescription)))
+            parent?.finishedParsing?(.failure(.parseError(parseError)))
         }
         parent?.cleanupXMLParser()
     }
     
     func parser(_ parser: XMLParser, validationErrorOccurred validationError:Error) {
-        parent?.finishedParsing?(.failure(.validationError(validationError.localizedDescription)))
+        parent?.finishedParsing?(.failure(.validationError(validationError)))
         parent?.cleanupXMLParser()
     }
 }

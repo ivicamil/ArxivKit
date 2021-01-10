@@ -4,6 +4,8 @@ public enum ArxivSubjects {}
 
 public extension ArxivSubjects {
     
+    /// Returns a `SubjectTree` that can be used to recursively enumerate all available subjects
+    /// and their groupings as organised on [arXiv.org](https://arxiv.org).
    static var all = SubjectTree.grouping(
         name: "\(ArxivSubject("main").name)",
         children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
@@ -36,13 +38,10 @@ public extension ArxivSubjects {
 
 extension ArxivSubjects {
         
-    /// Non-arXiv subjects.
     static var nonArXiveSubjects = ["main", "physics-field"]
     
-    /// Internal root subject.
     static var main = ArxivSubject("main")
     
-    /// Internal physics group subject.
     static var allPhysics = ArxivSubject("physics-field")
 }
 

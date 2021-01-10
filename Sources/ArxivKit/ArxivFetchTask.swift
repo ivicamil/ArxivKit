@@ -1,9 +1,15 @@
 
 import Foundation
 
-
+/**
+ A task used for fetching and parsing given `ArxivRequest`.
+ 
+ Instances of the class are created indirectly, by `ArxivSession` object,
+ which retains created tasks and releases them upon completion.
+ */
 public final class ArxivFetchTask {
     
+    /// Returns request used for creating the task.
     public let request: ArxivRequest
         
     private weak var urlSession: URLSession?
@@ -13,8 +19,6 @@ public final class ArxivFetchTask {
     private let parser = ArxivParser()
     
     private let parserQueue = DispatchQueue(label: "io.polifonia.ArticlesKit.parserQueue")
-
-    private let id = UUID()
     
     let completion: (Result<ArxivResponse, ArxivKitError>) -> ()
     
@@ -24,6 +28,7 @@ public final class ArxivFetchTask {
         self.completion = completion
     }
     
+    /// Runs the task.
     public func run() {
         
         guard let requestURL = request.url else {
@@ -47,6 +52,12 @@ public final class ArxivFetchTask {
         dataTask?.resume()
     }
     
+    /**
+     Cancels the task.
+     
+     After the task is canceled, its completion handler
+     is called with `.failure(ArxivKitError.taskCanceled)`.
+     */
     public func cancel() {
         dataTask?.cancel()
         parserQueue.async { [weak self] in
@@ -57,19 +68,19 @@ public final class ArxivFetchTask {
     }
 }
 
-extension ArxivFetchTask: Hashable {
-    
-    public static func == (lhs: ArxivFetchTask, rhs: ArxivFetchTask) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-
 public extension ArxivRequest {
     
+    /**
+     Returns and runs an `ArxiveFetchTask` using provided session.
+     
+     - Parameter session: An `ArxivSession` object used for creating and running the task.
+     - Parameter completion: A function to be called after the task finishes.
+     
+     The completion handler takes a single `Result` argument, which is either a succesfuly
+     parsed response, or an error if one occurs.
+     
+     Created task is retained by the session and released upon completion.
+     */
     @discardableResult
     func fetch(using session: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
         let task = session.fethTask(with: self, completion: completion)

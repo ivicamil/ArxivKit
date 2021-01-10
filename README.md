@@ -25,9 +25,9 @@ let session = ArxivSession.default
 
 ### Searching Articles
 
-`ArxivQuery` type encapsulates different possible information that can be searched on [arXiv](https://arxiv.org). A query instance is used to construct `ArxivRequest`, which can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc. The request is used for constructing `ArxivFetchTask` object by calling `ArxivSession`'s `fethTask(with: ArxivRequest, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask`. Finally, the actual search is performed by calling `run()` on given task.
+`ArxivQuery` type encapsulates different possible information that can be searched on [arXiv](https://arxiv.org). A query instance is used to construct `ArxivRequest`, which can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc. The request is used for constructing `ArxivFetchTask` object by calling `ArxivSession`'s `fethTask(with:completion:)`. Finally, the actual search is performed by calling `run()` on given task.
 
-However, a more declarative and fluent approach is to construct ArxivRequest by calling func `makeRequest(scope: ArxivRequest.SearchScope) -> ArxivRequest` on an `ArxivQuery` instance, configure it by chaining desired modifiers and perform the search by calling func `fetch(using: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>)` at the end. Below are examples of some of the possible queries and requests.
+However, a more declarative and fluent approach is to construct ArxivRequest by calling func `makeRequest(scope:)` on an `ArxivQuery` instance, configure it by chaining desired modifiers and perform the search by calling func `fetch(using:completion:)` at the end. Below are examples of some of the possible queries and requests.
 
 ### Performing Search
 
