@@ -17,7 +17,7 @@ public final class ArxivSession {
     public static var `default` = ArxivSession()
     
     public func fethTask(with request: ArxivRequest, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
-        taskID += taskID
+        taskID += 1
         let taskKey = taskID
         
         let newTask = ArxivFetchTask(request: request, urlSession: urlSession) { [weak self] in
