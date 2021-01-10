@@ -1,6 +1,11 @@
 
 import Foundation
 
+#if os(Linux)
+import CoreFoundation
+#endif
+
+
 private let titleKey = "ti"
 private let authorKey = "au"
 private let abstractKey = "abs"

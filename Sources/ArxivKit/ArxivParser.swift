@@ -5,10 +5,6 @@ import Foundation
 import FoundationXML
 #endif
 
-#if os(Linux)
-import CoreFoundation
-#endif
-
 /**
  A parser for arXiv API atom feed.
  */
