@@ -71,20 +71,20 @@ indirect enum ArxivQueryTree  {
 }
 
 extension ArxivQueryTree {
-
+    
     /// String representation of the query.
     var string: String {
         switch self {
         case .empty:
             return ""
         case let .title(string):
-            return "\(titleKey):\"\(string.removingNonallowedCharacters)\""
+            return "\(titleKey):\(string.removingNonallowedCharacters)"
         case let .authors(string):
-            return "\(authorKey):\"\(string.removingNonallowedCharacters)\""
+            return "\(authorKey):\(string.removingNonallowedCharacters)"
         case let .abstract(string):
-            return "\(abstractKey):\"\(string.removingNonallowedCharacters)\""
+            return "\(abstractKey):\(string.removingNonallowedCharacters)"
         case let .comment(string):
-            return "\(commentKey):\"\(string.removingNonallowedCharacters)\""
+            return "\(commentKey):\(string.removingNonallowedCharacters)"
         case let .journalReference(string):
             return "\(journalReferenceKey):\(string)"
         case let .subject(subject):
@@ -92,7 +92,7 @@ extension ArxivQueryTree {
         case let .reportNumber(string):
             return "\(reportNumberKey):\(string)"
         case let .anyField(string):
-            return "\(allKey):\"\(string.removingNonallowedCharacters)\""
+            return "\(allKey):\(string.removingNonallowedCharacters)"
         case let .submitted(interval):
             let dateFormater = DateFormatter()
             dateFormater.locale = .current
@@ -152,7 +152,7 @@ private extension String {
     var removingNonallowedCharacters: String {
         let mutableString = NSMutableString(string: self)
         CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
-        return mutableString.replacingOccurrences(of: "\"", with: "") as String
+        return mutableString as String
     }
 }
 
