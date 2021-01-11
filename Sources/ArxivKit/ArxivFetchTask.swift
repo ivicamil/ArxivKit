@@ -10,7 +10,7 @@ import FoundationNetworking
  
  Instances of the class are created indirectly, by `ArxivSession` object.
  The session retains created tasks and releases them upon completion.
- */
+*/
 public final class ArxivFetchTask {
     
     /// Returns request specifying articles to be fetched by the task.
@@ -29,56 +29,40 @@ public final class ArxivFetchTask {
     private let sessionQueue = DispatchQueue(label: "io.polifonia.ArxivKit.sessionQueue")
     
     let completion: (Result<ArxivResponse, ArxivKitError>) -> ()
-    
-    private var previousTaskTimestamp: Date?
-    
+        
     init(request: ArxivRequest, arxivSession: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
         self.request = request
+        self.arxiveSession = arxivSession
         self.urlSession = arxivSession.urlSession
         self.completion = completion
     }
     
-    /// Runs the task.
-    public func run() {
+    /**
+     Runs the task.
+     
+     - Parameter delay: Minimal number of seconds before the task starts.
+     
+     Default value of the delay is 0 seconds. Provided negative values are ignorred. If multiple tasks are programatically run in a raw,
+     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
+     */
+    public func run(delay: Double = 0.0) {
         
         guard let requestURL = request.url else {
             completion(.failure(.invalidRequest))
             return
         }
         
-        func dispatch(_ block: @escaping () -> ()) {
-            
-            guard let previousTaskDate = previousTaskTimestamp else {
-                sessionQueue.async {
-                    block()
-                }
-                return
-            }
-            
-            guard let minimalDelay = arxiveSession?.minimalDelayBetweenTasks else {
-                sessionQueue.async {
-                    block()
-                }
-                return
-            }
-            
-            let now = Date()
-            let timeSincePreviousTask = now.timeIntervalSince(previousTaskDate)
-            
-            if timeSincePreviousTask < minimalDelay {
-                sessionQueue.asyncAfter(deadline: .now() + (minimalDelay - timeSincePreviousTask)) {
-                    block()
-                }
-            } else {
-                sessionQueue.async {
-                    block()
-                }
-            }
+        let existingTask = sessionQueue.sync { [weak self] in
+            return self?.dataTask
         }
         
-        dispatch { [weak self] in
+        guard existingTask == nil else {
+            return
+        }
+    
+        sessionQueue.asyncAfter(deadline: .now() + (delay < 0 ? 0 : delay)) { [weak self] in
             guard let self = self else { return }
-
+            
             self.dataTask = self.urlSession?.dataTask(with: URLRequest(url: requestURL)) { [weak self] data, response, error in
                 guard let self = self else { return }
                 
@@ -98,7 +82,6 @@ public final class ArxivFetchTask {
                 }
             }
             
-            self.previousTaskTimestamp = Date()
             self.dataTask?.resume()
         }
     }
@@ -129,16 +112,20 @@ public extension ArxivRequest {
      
      - Parameter session: An `ArxivSession` object used for creating and running the task.
      - Parameter completion: A function to be called after the task finishes.
+     - Parameter delay: Minimal number of seconds before the task starts.
      
      The completion handler takes a single `Result` argument, which is either a succesfuly
      parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
      
+     Default value of the delay is 0 seconds. Provided negative values are ignorred. If multiple tasks are programatically run in a raw,
+     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
+     
      - Note: Created task is retained by the session and released upon completion.
      */
     @discardableResult
-    func fetch(using session: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
+    func fetch(using session: ArxivSession, delay: Double = 0, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
         let task = session.fethTask(with: self, completion: completion)
-        task.run()
+        task.run(delay: delay < 0 ? 0 : delay)
         return task
     }
 }

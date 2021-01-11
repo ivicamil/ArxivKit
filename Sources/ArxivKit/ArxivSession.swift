@@ -15,15 +15,6 @@ import FoundationNetworking
  */
 public final class ArxivSession {
     
-    /**
-     Minimal number of seconds to wait before starting the next queued task.
-     
-     Default value of this property is `0`, which is suitable for cases where tasks are manualy triggered by users (e.g. in apps).
-     If multiple tasks are programatically run in a raw,
-     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
-     */
-    public let minimalDelayBetweenTasks: TimeInterval
-    
     let urlSession: URLSession
         
     private var taskID: Int = 0
@@ -31,19 +22,14 @@ public final class ArxivSession {
     private var tasks: [Int: ArxivFetchTask] = [:]
     
     /**
-     Creates a session with specified minimal delay between the tasks.
+     Creates a session using provided configuration.
      
-     - Parameter minimalDelayBetweenTasks: Minimal number of seconds to wait before running the next queued task.
-     
-     Default value of the delay is 0 seconds. Provided negative values are ignorred. If multiple tasks are programatically run in a raw,
-     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
+     If no configuration is provided, `URLSessionConfiguration.default` is used.
      
      - Note: Constructed session objects must be retained.
      */
-    public init(minimalDelayBetweenTasks: TimeInterval = 0) {
-        let configuration = URLSessionConfiguration.default
-        self.minimalDelayBetweenTasks = minimalDelayBetweenTasks < 0 ? 0 : minimalDelayBetweenTasks
-        urlSession = URLSession(configuration: configuration)
+    public init(urlSessionConfiguration: URLSessionConfiguration = .default) {
+        urlSession = URLSession(configuration: urlSessionConfiguration)
     }
     
     /**
