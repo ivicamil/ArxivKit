@@ -3,10 +3,14 @@ import Foundation
 
 extension ArxivSubjects {
     
+    
     static var dictionary: [String: [String: Any]] {
         let dictURL = Bundle.module.url(forResource: "ArxivSubjectsDictionary", withExtension: "plist")!
-        let maybeDictionary = try? NSDictionary(contentsOf: dictURL, error: ())
-        return maybeDictionary as? [String: [String: Any]] ?? [:]
+        guard let plistDoc = try? Data(contentsOf: dictURL) else {
+            return  [:]
+        }
+        let plistDict = try? PropertyListSerialization.propertyList(from: plistDoc, options: [], format: nil)
+        return plistDict as? [String: [String: Any]] ?? [:]
     }
     
     private static var allSubjects: [ArxivSubject] {
