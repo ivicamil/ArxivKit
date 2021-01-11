@@ -1,11 +1,6 @@
 
 import Foundation
 
-#if os(Linux)
-import CoreFoundation
-#endif
-
-
 private let titleKey = "ti"
 private let authorKey = "au"
 private let abstractKey = "abs"
@@ -83,13 +78,13 @@ extension ArxivQueryTree {
         case .empty:
             return ""
         case let .title(string):
-            return "\(titleKey):\(string.removingNonallowedCharacters)"
+            return "\(titleKey):\(string.removingDiacritics)"
         case let .authors(string):
-            return "\(authorKey):\(string.removingNonallowedCharacters)"
+            return "\(authorKey):\(string.removingDiacritics)"
         case let .abstract(string):
-            return "\(abstractKey):\(string.removingNonallowedCharacters)"
+            return "\(abstractKey):\(string.removingDiacritics)"
         case let .comment(string):
-            return "\(commentKey):\(string.removingNonallowedCharacters)"
+            return "\(commentKey):\(string.removingDiacritics)"
         case let .journalReference(string):
             return "\(journalReferenceKey):\(string)"
         case let .subject(subject):
@@ -97,7 +92,7 @@ extension ArxivQueryTree {
         case let .reportNumber(string):
             return "\(reportNumberKey):\(string)"
         case let .anyField(string):
-            return "\(allKey):\(string.removingNonallowedCharacters)"
+            return "\(allKey):\(string.removingDiacritics)"
         case let .submitted(interval):
             let dateFormater = DateFormatter()
             dateFormater.locale = .current
@@ -154,10 +149,8 @@ extension ArxivQueryTree {
 
 private extension String {
     
-    var removingNonallowedCharacters: String {
-        let mutableString = NSMutableString(string: self)
-        CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
-        return mutableString as String
+    var removingDiacritics: String {
+        return folding(options: .diacriticInsensitive, locale: .current)
     }
 }
 
