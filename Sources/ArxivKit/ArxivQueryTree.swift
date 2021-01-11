@@ -23,56 +23,25 @@ private let andNotKey = "ANDNOT"
 private let orKey = "OR"
 
 
-/// Query portion of `ArxivRequest`.
-
 indirect enum ArxivQueryTree  {
-    
-    /// Searches for articles containing given term in the title.
     case empty
-    
-    /// Searches for articles containing given term in the title.
     case title(contains: String)
-    
-    /// Searches for articles containing given term in authors' names.
     case authors(contains: String)
-    
-    /// Searches for articles containing given term in the abstract.
     case abstract(contains: String)
-    
-    /// Searches for articles containing given term in the abstract.
     case comment(contains: String)
-    
-    /// Searches for articles containing given term in the journal reference.
     case journalReference(contains: String)
-    
-    /// Searches for articles belonging to given subject.
     case subject(ArxivSubject)
-    
-    /// Searches for articles containing given term in the report number.
     case reportNumber(contains: String)
-    
-    /// Searches for articles containing given term in of the fields.
     case anyField(contains: String)
-    
-    /// Searches for articles submited between the two dates.
-    case submitted(DateInterval)
-    
-    /// Searches for articles updated between the two dates.
-    case lastUpdated(DateInterval)
-    
-    /// Searches for articles satisfying both of the queries.
+    case submitted(in: DateInterval)
+    case lastUpdated(in: DateInterval)
     case both(ArxivQueryTree, ArxivQueryTree)
-    
-    /// Searches for articles satisfying any of the queries.
     case either(ArxivQueryTree, ArxivQueryTree)
-    
-    /// Searches for articles satisfying the first, but not the second query.
     case firstAndNotSecond(ArxivQueryTree, ArxivQueryTree)
 }
 
 extension ArxivQueryTree {
     
-    /// String representation of the query.
     var string: String {
         switch self {
         case .empty:
@@ -112,7 +81,6 @@ extension ArxivQueryTree {
         }
     }
     
-    /// True if all of the query's arguments are empty strings, false otherwise.
     var isEmpty: Bool {
         switch self {
         case .empty:

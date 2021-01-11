@@ -1,5 +1,5 @@
 
-/// A namespace for Subject constants.
+/// Namespace for all Subject constants.
 public enum ArxivSubjects {}
 
 public extension ArxivSubjects {
@@ -11,28 +11,40 @@ public extension ArxivSubjects {
         children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
     )
     
+    /// Namespace for physics subject that are not classified under Condensed Matter, Astrophysics or Physics.
     enum OtherPhysicsSubjects {}
 
+    /// Namespace for Condensed Matter subject constants.
     enum CondensedMatter {}
 
+    /// Namespace for Economy subject constants.
     enum Economy {}
 
+    /// Namespace for Statistics subject constants.
     enum Statistics {}
 
+    /// Namespace for Compute Science subject constants.
     enum ComputerScience {}
 
+    /// Namespace for Astrophysics subject constants.
     enum Astrophysics {}
 
+    /// Namespace for Electrical Engineering And Systems Science subject constants.
     enum ElectricalEngineeringAndSystemsScience {}
 
+    /// Namespace for Quantitative Biology subject constants.
     enum QuantitativeBiology {}
 
+    /// Namespace for Mathematics subject constants.
     enum Mathematics {}
 
+    /// Namespace for Quantitative Finance subject constants.
     enum QuantitativeFinance {}
 
+    /// Namespace for Physics subject constants.
     enum Physics {}
 
+    /// Namespace for Physics Nonlinear Sciences constants.
     enum NonlinearSciences {}
 }
 

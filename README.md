@@ -61,10 +61,10 @@ ArxivQuery.subject(ArxivSubjects.Physics.computationalPhysics)
 
 let now = Date()
 let fiveDaysAgo = Date(timeInterval: -5 * 24 * 60 * 60, since: now)
-let lastFiveDays = DateInterval(start: fiveDaysAgo, end: now)
+let theLastFiveDays = DateInterval(start: fiveDaysAgo, end: now)
 
-ArxivQuery.submitted(lastFiveDays)
-ArxivQuery.lastUpdated(lastFiveDays)
+ArxivQuery.submitted(in: theLastFiveDays)
+ArxivQuery.lastUpdated(in: theLastFiveDays)
 ```
 
 ### Complex Queries
@@ -81,7 +81,6 @@ ArxivQuery
     .excluding(
         .term("Cu", in: .title)
     )
-}
 ```
 
 ### Fetching Specific Articles

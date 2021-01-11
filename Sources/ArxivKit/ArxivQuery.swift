@@ -8,7 +8,7 @@ import Foundation
  Queries can be combined to construct arbitrarily complex queries by using `allOf` and `anyOf` combinators.
  It is also possible to exclude articles matching a query by using `excluding` combinator.
  
- Use `search(in: Arxivrequest.SearchScope)` method to transform a query into an `ArxivRequest`.
+ Use `makeRequest(scope:)` method or `ArxivRequest(scope:query)` to transform a query into an `ArxivRequest`.
  */
 public struct ArxivQuery {
     
@@ -27,16 +27,6 @@ public extension ArxivQuery {
      To search given term in any field, use `ArxivQuery.Field.any`.
      */
     struct Field {
-        
-        fileprivate enum Value {
-            case title
-            case abstract
-            case authors
-            case comment
-            case journalReference
-            case reportNumber
-            case any
-        }
         
         fileprivate let value: Value
         
@@ -67,6 +57,19 @@ public extension ArxivQuery {
     }
 }
 
+private extension ArxivQuery.Field {
+    
+    enum Value {
+        case title
+        case abstract
+        case authors
+        case comment
+        case journalReference
+        case reportNumber
+        case any
+    }
+}
+
 public extension ArxivQuery {
     
     internal static var empty: ArxivQuery {
@@ -77,9 +80,9 @@ public extension ArxivQuery {
      Returns a query for retrieving the articles containing provided term in the specified field.
      
         - Parameter term: A string to search for.
-        - Parameter in: A field too search for provided term.
+        - Parameter in: An article field to search for provided term.
      
-    Folowing infomration regarding the term string was copied from [arXiv.org](https://arxiv.org/search/)
+     From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
     **Wildcards:**
 
@@ -138,7 +141,7 @@ public extension ArxivQuery {
      
      - Parameter interval: A date interval.
     */
-    static func submitted(_ interval: DateInterval) -> ArxivQuery {
+    static func submitted(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.submitted(interval))
     }
     
@@ -147,7 +150,7 @@ public extension ArxivQuery {
      
      - Parameter interval: A date interval.
     */
-    static func lastUpdated(_ interval: DateInterval) -> ArxivQuery {
+    static func lastUpdated(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.lastUpdated(interval))
     }
 }
