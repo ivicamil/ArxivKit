@@ -33,7 +33,7 @@ public extension ArxivParser {
      - Parameter completion: A function to be called after the parsing finishes.
      
      The completion handler takes a single `Result` argument, which is either a succesfuly
-     parsed response, or an error if one occurs.
+     parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
      */
     func parse(responseData: Data, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
         finishedParsing = completion
@@ -174,7 +174,7 @@ extension ParserDelegate: XMLParserDelegate {
     }
 }
 
-// MARK: - Private `ParserDelefate` methods
+// MARK: - Private `ParserDelegate` methods
 
 private extension ParserDelegate {
     
@@ -271,7 +271,7 @@ private extension ParserDelegate {
         
         switch elementName {
         case FeedConstant.Entry.id.value:
-            currentEntry?.id = idFromAbstractLink(currentString.trimmingWhiteSpaces)
+            currentEntry?.id = idFromAbstractURL(currentString.trimmingWhiteSpaces)
         case FeedConstant.Entry.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             if let updatedDate = dateFormater.date(from: currentString) {
@@ -316,8 +316,8 @@ private extension ParserDelegate {
         return true
     }
     
-    func idFromAbstractLink(_ abstractLink: String) -> String {
-        guard var pathComponents = URL(string: abstractLink)?.pathComponents else {
+    func idFromAbstractURL(_ abstractURLString: String) -> String {
+        guard var pathComponents = URL(string: abstractURLString)?.pathComponents else {
             return ""
         }
         

@@ -1,17 +1,34 @@
 
-/// Namespace for all Subject constants.
+/**
+ Namespace for all Subject constants.
+    
+ It contains following nested subject namespaces:
+ 
+ - `Physics`
+ - `Astrophysics`
+ - `CondensedMatter`
+ - `NonlinearSciences`
+ - `OtherPhysicsSubjects`
+ - `Mathematics`
+ - `ComputerScience`
+ - `QuantitativeBiology`
+ - `ElectricalEngineeringAndSystemsScience`
+ - `Statistics`
+ - `QuantitativeFinance`
+ - `Economy`
+ */
 public enum ArxivSubjects {}
 
 public extension ArxivSubjects {
     
-    /// Returns a `SubjectTree` that can be used to recursively enumerate all available subjects
+    /// Returns a tree that can be used to recursively enumerate all available subjects
     /// and their groupings as organised on [arXiv.org](https://arxiv.org).
    static var all = SubjectTree.grouping(
         name: "\(ArxivSubject("main").name)",
         children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
     )
     
-    /// Namespace for physics subject that are not classified under Condensed Matter, Astrophysics or Physics.
+    /// Namespace for physics subject that are not classified under Physics, Astrophysics, Condensed Matter or Nonlinear Sciences .
     enum OtherPhysicsSubjects {}
 
     /// Namespace for Condensed Matter subject constants.
@@ -56,7 +73,6 @@ extension ArxivSubjects {
     
     static var allPhysics = ArxivSubject("physics-field")
 }
-
 
 private extension ArxivSubjects {
     
@@ -396,7 +412,6 @@ public extension ArxivSubjects.CondensedMatter {
 public extension ArxivSubjects.NonlinearSciences {
 
     static let all = ArxivSubject("nlin.*")
-
 
     static let adaptationAndSelfOrganizingSystems = ArxivSubject("nlin.AO")
 

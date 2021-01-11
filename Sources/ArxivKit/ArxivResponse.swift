@@ -2,53 +2,60 @@
 import Foundation
 
 /**
- `ArxivResponse` is parsed arXiv API reponse.
+ A parsed arXiv API reponse.
 */
 public struct ArxivResponse {
     
     init() {
-        
+        id = ""
+        title = ""
+        link = URL(string: "https://arxiv.org/")!
+        updated = Date(timeIntervalSince1970: 0)
+        totalResults = 0
+        startIndex = 0
+        itemsPerPage = 0
+        entries = []
     }
     
     /**
-     Returns the value of arXiv feed id element.
+     Returns the value of arXiv feed `id` element.
      
      From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
-     The <id> element serves as a unique id for query defined by reponse's `title`,
+     The `<id>` element serves as a unique id for query defined by reponse's `title`,
      and is useful if you are writing a program such as a feed reader that wants to keep track of all the feeds requested in the past.
      This id can then be used as a key in a database.
      
      The id is guaranteed to be unique for each query.
      */
-    public internal(set) var id = ""
+    public internal(set) var id: String
     
     /**
-     Returns the value of arXiv feed title element.
+     Returns the value of arXiv feed `title` element.
      
      From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
      The title contains a canonicalized version of the query used to call the API.
      The canonicalization includes all parameters, using their defaults if they were not included,
-     and always puts them in the order search_query,id_list,start,max_results,
+     and always puts them in the order search_query, id_list, start, max_results,
      even if they were specified in a different order in the actual query.
     */
-    public internal(set) var title = ""
+    public internal(set) var title: String
     
     /**
-     Returns the value of arXiv feed link element.
+     Returns the value of arXiv feed `link` element.
      
      From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
-     The <link> element provides a URL that can be used to retrieve this feed again.
+     The `<link>` element provides a URL that can be used to retrieve this feed again.
      
      Note that the url in the link represents the canonicalized version of the query.
-     The <link> provides a GET requestable url, even if the original request was done via POST.
+     The `<link>` provides a `GET` requestable url, even if the original request was done via `POST`.
      */
-    public internal(set) var link = URL(string: "https://arxiv.org/")!
+    public internal(set) var link: URL
     
     /**
-     Returns the value of arXiv feed updated element.
+     Returns the value of arXiv feed `updated` element.
      
      From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
@@ -62,21 +69,19 @@ public struct ArxivResponse {
      Please cache your results. This primarily applies to production systems,
      and of course you are free to play around with the API while you are developing your program!
      */
-    public internal(set) var updated = Date(timeIntervalSince1970: 0)
+    public internal(set) var updated: Date
     
-    /// Returns total number of articles matching the query defined by `ArxiveRequest`.
-    public internal(set) var totalResults = 0
+    /// Returns total number of articles matching the query as specified by `ArxiveRequest`.
+    public internal(set) var totalResults: Int
     
-    /// Returns zero-based index of the first article in the list of total results,
-    /// set by `startIndex(_)` on `an ArxiveRequest`.
-    public internal(set) var startIndex = 0
+    /// Returns zero-based index of the first article in response as specified by `ArxiveRequest`,
+    public internal(set) var startIndex:  Int
     
-    /// Returns maximum number of article per response,
-    /// set by `itemsPerPage(_)` on `an ArxiveRequest`.
-    public internal(set) var itemsPerPage = 0
+    /// Returns maximum number of article per response as specified by `ArxiveRequest`,
+    public internal(set) var itemsPerPage: Int
     
-    /// Returns an array od articles matching the query defined by `ArxiveRequest`.
-    public internal(set) var entries: [ArxivEntry] = []
+    /// Returns an array od articles matching the query specified by `ArxiveRequest`.
+    public internal(set) var entries: [ArxivEntry]
 }
 
 public extension ArxivResponse {
@@ -86,12 +91,15 @@ public extension ArxivResponse {
         return (totalResults + itemsPerPage - 1) / itemsPerPage
     }
     
-    /// Returns zero-based current page index of the reponse.
+    /// Returns zero-based index for current page.
+    ///
+    /// - Note: This is the index of the current page itself, not start index of the first article in the reposnse.
+    /// The latter is obtained from `startIndex` property.
     var currentPage: Int {
         return startIndex / itemsPerPage
     }
     
-    /// Returns zero-based start index of the previous page, or `nil` if `currentPage ==  0`.
+    /// Returns zero-based `startIndex` of the previous page, or `nil` if `currentPage ==  0`.
     var previousPageStartIndex: Int? {
         guard currentPage != 0 else {
             return nil
@@ -99,7 +107,7 @@ public extension ArxivResponse {
         return startIndex - itemsPerPage
     }
     
-    /// Returns zero-based start index of the next page, or `nil` if `currentPage == numberOfPages - 1`.
+    /// Returns zero-based `startIndex` of the next page, or `nil` if `currentPage == numberOfPages - 1`.
     var nextPageStartIndex: Int? {
         guard currentPage < numberOfPages - 1 else {
             return nil
@@ -107,7 +115,7 @@ public extension ArxivResponse {
         return startIndex + itemsPerPage
     }
     
-    /// Returns zero-based start index of the last page.
+    /// Returns zero-based `startIndex` of the last page.
     var lastPageStartIndex: Int {
         (numberOfPages - 1) * itemsPerPage
     }

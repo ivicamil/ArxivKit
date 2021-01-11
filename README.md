@@ -17,10 +17,10 @@ The wrapper itself is released under MIT license (see [LICENSE](LICENSE)). For t
 
 ### Arxiv Session
 
-Arxiv session object enapsulates network communication and keeps track of individual fetch tasks. Due to internal implementation details, It is more efficient to reuse a single session instance for all requests inside the app or command line tool. Currently, only  `ArxivSession.default` instance is available. Future `ArxivKit` versions may include configurable initialisers. Construct and store a session object by calling its constructor:
+`ArxivSession` object enapsulates network communication and keeps track of individual fetch tasks. It is strongly recomended to reuse a single session instance for multiple related tasks or even a single instance for the entire app or command line tool. To use any of the APIS from the package, at least one session objecct must be created and retained:
 
 ```swift
-let session = ArxivSession.default
+let session = ArxivSession()
 ```
 
 ### Searching Articles

@@ -46,9 +46,9 @@ public struct ArxivSubject: Hashable {
 }
 
 /**
- Recursive tree structure used for grouping of arXive subjects.
+ Recursive tree structure used for grouping arXiv subjects.
  
- It is used for making arbitrary group of arXiv subjects. For example, [arXiv.org](https://arxiv.org) organises
+ Use for making arbitrary groups of arXiv subjects. For example, [arXiv.org](https://arxiv.org) organises
  multiple subjects under umbrella term Physics. To represent such groups together with regular subjects, this library uses `SubjectTree`.
  `ArxivSubjects.all` returns a `SubjectTree` that can be used to recursively enumerate all available subjects and their groupings as organised on [arXiv.org](https://arxiv.org).
  

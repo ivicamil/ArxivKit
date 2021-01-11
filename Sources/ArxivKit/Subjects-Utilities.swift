@@ -3,7 +3,6 @@ import Foundation
 
 extension ArxivSubjects {
     
-    
     static var dictionary: [String: [String: Any]] {
         let dictURL = Bundle.module.url(forResource: "ArxivSubjectsDictionary", withExtension: "plist")!
         guard let plistDoc = try? Data(contentsOf: dictURL) else {

@@ -1,14 +1,13 @@
 import Foundation
 
 /**
- Defines search criteria for arXiv request.
+ Specifies search criteria for arXiv request.
  
  `ArxivQuery` represents either a search term in specified article field,
- a query for retrieving articles published or updated in specified date interval or articles categorised under specified subject.
+ a date intervarl in which desired articles were published or updated or an arXive subject.
+ 
  Queries can be combined to construct arbitrarily complex queries by using `allOf` and `anyOf` combinators.
  It is also possible to exclude articles matching a query by using `excluding` combinator.
- 
- Use `makeRequest(scope:)` method or `ArxivRequest(scope:query)` to transform a query into an `ArxivRequest`.
  */
 public struct ArxivQuery {
     
@@ -17,70 +16,50 @@ public struct ArxivQuery {
     private init(_ tree: ArxivQueryTree) {
         self.tree = tree
     }
-}
-
-public extension ArxivQuery {
     
     /**
-     `ArxivQuery.Field` is used to restrict term search to specific article field.
+     Used to restrict term search to specific article field.
      
      To search given term in any field, use `ArxivQuery.Field.any`.
      */
-    struct Field {
+    public struct Field {
         
-        fileprivate let value: Value
+        let rawValue: Value
         
         private init(_ field: Value) {
-            self.value = field
+            self.rawValue = field
         }
         
-        /// Used to define a query for retrieving the articles containing a term in the title.
+        /// Search sor a term inside the title.
         public static var title = Field(.title)
         
-        /// Used to define a query for retrieving the articles containing a term in the abstract (summary).
+        /// Search sor a term inside the abstract (summary).
         public static var abstract = Field(.abstract)
         
-        /// Used to define a query for retrieving the articles containing a term in the authors' names.
+        /// Search sor a term inside the authors' names.
         public static var author = Field(.authors)
         
-        /// Used to define a query for retrieving the articles containing a term in the comment.
+        /// Search sor a term inside in the comment.
         public static var comment = Field(.comment)
         
-        /// Used to define a query for retrieving the articles containing a term in the journal reference.
+        /// Search sor a term inside the journal reference.
         public static var journalReference = Field(.journalReference)
         
-        /// Used to define a query for retrieving the articles containing a term in the report number.
+        /// Search sor a term inside the report number.
         public static var reportNumber = Field(.reportNumber)
         
-        /// Used to define a query for retrieving the articles containing a term in any field.
+        /// Search sor a term inside any field.
         public static var any = Field(.any)
     }
 }
 
-private extension ArxivQuery.Field {
-    
-    enum Value {
-        case title
-        case abstract
-        case authors
-        case comment
-        case journalReference
-        case reportNumber
-        case any
-    }
-}
-
 public extension ArxivQuery {
-    
-    internal static var empty: ArxivQuery {
-        return ArxivQuery(.empty)
-    }
     
     /**
      Returns a query for retrieving the articles containing provided term in the specified field.
      
         - Parameter term: A string to search for.
-        - Parameter in: An article field to search for provided term.
+        - Parameter in: An article field to be searched for provided term.
      
      From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
@@ -107,7 +86,7 @@ public extension ArxivQuery {
     static func term(_ term: String, in field: Field) -> ArxivQuery {
         let tree: ArxivQueryTree
         
-        switch field.value  {
+        switch field.rawValue  {
         case .title:
             tree = .title(contains: term)
         case .abstract:
@@ -139,34 +118,26 @@ public extension ArxivQuery {
     /**
      Returns a query for retrieving the articles whose first version was published in provided date interval.
      
-     - Parameter interval: A date interval.
+     - Parameter interval: Desired time interval.
     */
     static func submitted(in interval: DateInterval) -> ArxivQuery {
-        return ArxivQuery(.submitted(interval))
+        return ArxivQuery(.submitted(in: interval))
     }
     
     /**
      Returns a query for retrieving the articles whose most recent version was published in provided date interval.
      
-     - Parameter interval: A date interval.
+     - Parameter interval: Desired time interval.
     */
     static func lastUpdated(in interval: DateInterval) -> ArxivQuery {
-        return ArxivQuery(.lastUpdated(interval))
+        return ArxivQuery(.lastUpdated(in: interval))
     }
 }
 
 public extension ArxivQuery {
     
-    private func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return ArxivQuery(.both(tree, anotherQuery.tree))
-    }
-    
-    private func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return ArxivQuery(.either(tree, anotherQuery.tree))
-    }
-    
     /**
-     Returns a query for retrieving the articles matching the query **AND NOT** the provided argument query.
+     Returns a new query for retrieving the articles matching the query **AND NOT** the provided argument query.
     
      - Parameter anotherQuery:A query that retrieved articles do not match.
      */
@@ -175,29 +146,29 @@ public extension ArxivQuery {
     }
     
     /**
-     Returns a query for retrieving the articles matching **ALL** of the provided subqueries.
+     Returns a new query for retrieving the articles matching **ALL** of the provided subqueries.
     
-     - Parameter first: The first subquery.
+     - Parameter firstQuery: The first subquery.
      
-     - Parameter second: The second subquery.
+     - Parameter secondQuery: The second subquery.
      
-     - Parameter otherQueries: Any number of subqueries.
+     - Parameter otherQueries: Additional optional subqueries.
      */
-    static func allOf(_ first: ArxivQuery, _ second: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
-        return otherQueries.reduce(first.and(second)) { $0.and($1) }
+    static func allOf(_ firstQuery: ArxivQuery, _ secondQuery: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
+        return otherQueries.reduce(firstQuery.and(secondQuery)) { $0.and($1) }
     }
     
     /**
      Returns a query for retrieving the articles matching **ANY** of the provided subqueries.
     
-     - Parameter first: The first subquery.
+     - Parameter firstQuery: The first subquery.
      
-     - Parameter second: The second subquery.
+     - Parameter secondQuery: The second subquery.
      
-     - Parameter otherQueries: Any number of subqueries.
+     - Parameter otherQueries: Additional optional subqueries.
      */
-    static func anyOf(_ first: ArxivQuery, _ second: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
-        return otherQueries.reduce(first.or(second)) { $0.or($1) }
+    static func anyOf(_ firstQuery: ArxivQuery, _ secondQuery: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
+        return otherQueries.reduce(firstQuery.or(secondQuery)) { $0.or($1) }
     }
 }
 
@@ -211,7 +182,39 @@ public extension ArxivQuery {
 
 extension ArxivQuery {
     
+    private func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+        return ArxivQuery(.both(tree, anotherQuery.tree))
+    }
+    
+    private func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+        return ArxivQuery(.either(tree, anotherQuery.tree))
+    }
+}
+
+extension ArxivQuery {
+    
+    static var empty: ArxivQuery {
+        return ArxivQuery(.empty)
+    }
+}
+
+
+extension ArxivQuery {
+    
     var isEmpty: Bool {
         return tree.isEmpty
+    }
+}
+
+extension ArxivQuery.Field {
+    
+    enum Value {
+        case title
+        case abstract
+        case authors
+        case comment
+        case journalReference
+        case reportNumber
+        case any
     }
 }
