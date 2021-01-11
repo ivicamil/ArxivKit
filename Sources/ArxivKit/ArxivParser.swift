@@ -40,7 +40,11 @@ public extension ArxivParser {
         self.xmlParser = XMLParser(data: responseData)
         let xmlParserDelegate = ParserDelegate(parent: self)
         self.xmlParser?.delegate = xmlParserDelegate
-        self.xmlParser?.parse()
+        let success = self.xmlParser?.parse()
+        if let success = success, !success, let error = xmlParser?.parserError {
+            finishedParsing?(.failure(.parseError(error)))
+            cleanupXMLParser()
+        }
     }
     
     /**
@@ -98,12 +102,7 @@ extension ParserDelegate: XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        if response.entries.count == 1 && response.entries[0].title == FeedConstant.Entry.errorTitle.value {
-            parent?.finishedParsing?(.failure(.apiError(response.entries[0].summary)))
-        } else {
-            parent?.finishedParsing?(.success(response))
-        }
-        parent?.cleanupXMLParser()
+        
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -134,6 +133,16 @@ extension ParserDelegate: XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
        
+        if elementName == FeedConstant.feed.value {
+            if response.entries.count == 1 && response.entries[0].title == FeedConstant.Entry.errorTitle.value {
+                parent?.finishedParsing?(.failure(.apiError(response.entries[0].summary)))
+            } else {
+                parent?.finishedParsing?(.success(response))
+            }
+            parent?.cleanupXMLParser()
+            return
+        }
+        
         if let author = currentAuthor, elementName == FeedConstant.Entry.author.value {
             currentEntry?.authors.append(author)
             currentAuthor = nil
@@ -150,8 +159,6 @@ extension ParserDelegate: XMLParserDelegate {
            currentString = ""
             return
         }
-        
-        
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
