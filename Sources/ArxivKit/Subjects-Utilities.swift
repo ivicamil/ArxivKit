@@ -5,7 +5,8 @@ extension ArxivSubjects {
     
     static var dictionary: [String: [String: Any]] {
         let dictURL = Bundle.module.url(forResource: "ArxivSubjectsDictionary", withExtension: "plist")!
-        return NSDictionary(contentsOf: dictURL) as? [String: [String: Any]] ?? [:]
+        let maybeDictionary = try? NSDictionary(contentsOf: dictURL, error: ())
+        return maybeDictionary as? [String: [String: Any]] ?? [:]
     }
     
     private static var allSubjects: [ArxivSubject] {
