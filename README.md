@@ -58,7 +58,7 @@ ArxivQuery.term("AMS", in: .journalReference)
 
 ArxivQuery.subject(ArxivSubjects.Physics.computationalPhysics)
 
-rxivQuery.sumbitted(in: .past(.month))
+rxivQuery.submitted(in: .past(.month))
 ArxivQuery.lastUpdated(in: .past(5, unit: .day))
 ```
 

@@ -13,6 +13,8 @@ import FoundationNetworking
 */
 public final class ArxivFetchTask {
     
+    public typealias CompetionHandler = (Result<ArxivResponse, ArxivKitError>) -> ()
+    
     /// Returns request specifying articles to be fetched by the task.
     public let request: ArxivRequest
     
@@ -28,7 +30,7 @@ public final class ArxivFetchTask {
     
     let completion: (Result<ArxivResponse, ArxivKitError>) -> ()
         
-    init(request: ArxivRequest, arxivSession: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
+    init(request: ArxivRequest, arxivSession: ArxivSession, completion: @escaping CompetionHandler) {
         self.request = request
         self.arxiveSession = arxivSession
         self.urlSession = arxivSession.urlSession
@@ -104,7 +106,7 @@ public extension ArxivRequest {
      a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
      */
     @discardableResult
-    func fetch(using session: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
+    func fetch(using session: ArxivSession, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
         let task = session.fethTask(with: self, completion: completion)
         task.run()
         return task
