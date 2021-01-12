@@ -23,3 +23,84 @@ import Foundation
  
  */
 
+
+@_functionBuilder
+public struct SignleExpressionBuilder {
+    
+    static func buildBlock(queryExp: ArxivQueryExpression) -> ArxivQueryExpression {
+        return AnyQueryExpression(query: queryExp.query)
+    }
+}
+
+@_functionBuilder
+public struct AnyOfBuilder {
+    
+    static func buildBlock(
+        _ firstExp: ArxivQueryExpression,
+        _ secondExp: ArxivQueryExpression,
+        _ otherExps: ArxivQueryExpression...
+    ) -> AnyQueryExpression {
+        let query = otherExps.reduce(firstExp.query.or(secondExp.query)) { $0.or($1.query) }
+        return AnyQueryExpression(query: query)
+    }
+}
+
+@_functionBuilder
+public struct AllOfBuilder {
+    
+    static func buildBlock(
+        _ firstExp: ArxivQueryExpression,
+        _ secondExp: ArxivQueryExpression,
+        _ otherExps: ArxivQueryExpression...
+    ) -> AnyQueryExpression {
+        let query = otherExps.reduce(firstExp.query.and(secondExp.query)) { $0.and($1.query) }
+        return AnyQueryExpression(query: query)
+    }
+}
+
+
+public extension ArxivQueryExpression {
+    
+    func excluding(_ otherExp: ArxivQueryExpression) -> ArxivQueryExpression {
+        return AnyQueryExpression(query: query.excluding(otherExp.query))
+    }
+    
+    func excluding(@SignleExpressionBuilder _ content: () -> ArxivQueryExpression) -> ArxivQueryExpression {
+        return excluding(content())
+    }
+}
+
+public struct AnyOf: ArxivQueryExpression {
+    
+    public let query: ArxivQuery
+    
+    
+    init(
+        _ firstExp: ArxivQueryExpression,
+        _ secondExp: ArxivQueryExpression,
+        _ otherExps: ArxivQueryExpression...
+    ) {
+        
+        query = otherExps.reduce(firstExp.query.or(secondExp.query)) { $0.or($1.query) }
+    }
+}
+
+public struct AllOf: ArxivQueryExpression {
+    
+    public let query: ArxivQuery
+    
+    
+    init(
+        _ firstExp: ArxivQueryExpression,
+        _ secondExp: ArxivQueryExpression,
+        _ otherExps: ArxivQueryExpression...
+    ) {
+        
+        query = otherExps.reduce(firstExp.query.and(secondExp.query)) { $0.and($1.query) }
+    }
+}
+
+public extension ArxivQuery {
+    
+    
+}

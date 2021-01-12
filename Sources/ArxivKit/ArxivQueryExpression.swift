@@ -28,8 +28,8 @@ public struct Submitted: ArxivQueryExpression {
         query = .sumbitted(in: interval)
     }
     
-    public init(in interval: DateInterval?) {
-        query = .sumbitted(in: <#T##DateInterval#>)
+    public init(in period: PastPeriodFromNow) {
+        query = .submitted(in: period)
     }
 }
 
@@ -42,39 +42,4 @@ public struct LastUpdated: ArxivQueryExpression {
     }
 }
 
-public extension ArxivQueryExpression {
-    
-    func excluding(_ otherExp: ArxivQueryExpression) -> ArxivQueryExpression {
-        return AnyQueryExpression(query: query.excluding(otherExp.query))
-    }
-}
 
-public struct AnyOf: ArxivQueryExpression {
-    
-    public let query: ArxivQuery
-    
-    
-    init(
-        _ firstExp: ArxivQueryExpression,
-        _ secondExp: ArxivQueryExpression,
-        _ otherExps: ArxivQueryExpression...
-    ) {
-        
-        query = otherExps.reduce(firstExp.query.or(secondExp.query)) { $0.or($1.query) }
-    }
-}
-
-public struct AllOf: ArxivQueryExpression {
-    
-    public let query: ArxivQuery
-    
-    
-    init(
-        _ firstExp: ArxivQueryExpression,
-        _ secondExp: ArxivQueryExpression,
-        _ otherExps: ArxivQueryExpression...
-    ) {
-        
-        query = otherExps.reduce(firstExp.query.and(secondExp.query)) { $0.and($1.query) }
-    }
-}
