@@ -176,26 +176,32 @@ public extension ArxivQuery {
      Returns a new query for retrieving the articles matching **ALL** of the provided subqueries.
     
      - Parameter firstQuery: The first subquery.
-     
-     - Parameter secondQuery: The second subquery.
-     
+          
      - Parameter otherQueries: Additional optional subqueries.
      */
-    static func allOf(_ firstQuery: ArxivQuery, _ secondQuery: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
-        return otherQueries.reduce(firstQuery.and(secondQuery)) { $0.and($1) }
+    static func allOf(_ firstQuery: ArxivQuery, _ otherQueries: ArxivQuery...) -> ArxivQuery {
+        
+        guard let secondQuery = otherQueries.first else {
+            return firstQuery
+        }
+        
+        return otherQueries.dropFirst().reduce(firstQuery.and(secondQuery)) { $0.and($1) }
     }
     
     /**
      Returns a query for retrieving the articles matching **ANY** of the provided subqueries.
     
      - Parameter firstQuery: The first subquery.
-     
-     - Parameter secondQuery: The second subquery.
-     
+          
      - Parameter otherQueries: Additional optional subqueries.
      */
-    static func anyOf(_ firstQuery: ArxivQuery, _ secondQuery: ArxivQuery,_ otherQueries: ArxivQuery...) -> ArxivQuery {
-        return otherQueries.reduce(firstQuery.or(secondQuery)) { $0.or($1) }
+    static func anyOf(_ firstQuery: ArxivQuery, _ otherQueries: ArxivQuery...) -> ArxivQuery {
+        
+        guard let secondQuery = otherQueries.first else {
+            return firstQuery
+        }
+        
+        return otherQueries.dropFirst().reduce(firstQuery.or(secondQuery)) { $0.or($1) }
     }
 }
 
