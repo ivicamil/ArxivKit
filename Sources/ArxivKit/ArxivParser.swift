@@ -10,6 +10,8 @@ import FoundationXML
  */
 public final class ArxivParser {
     
+    public typealias CompetionHandler = (Result<ArxivResponse, ArxivKitError>) -> ()
+    
     private var xmlParser: XMLParser?
     
     private var xmlParserDelegate: ParserDelegate?
@@ -28,6 +30,8 @@ public final class ArxivParser {
 
 public extension ArxivParser {
     
+    
+    
     /**
      Parses provided response data into `ArxivResponse`.
      
@@ -37,7 +41,7 @@ public extension ArxivParser {
      The completion handler takes a single `Result` argument, which is either a succesfuly
      parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
      */
-    func parse(responseData: Data, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
+    func parse(responseData: Data, completion: @escaping CompetionHandler) {
         parserQueue.async { [weak self] in
             guard let self = self else { return }
             self.finishedParsing = completion

@@ -32,6 +32,11 @@ public final class ArxivSession {
         urlSession = URLSession(configuration: urlSessionConfiguration)
     }
     
+    
+}
+
+public extension ArxivSession {
+    
     /**
      Returns a task for fetching and parsing articles specified by provided request.
      
@@ -43,7 +48,7 @@ public final class ArxivSession {
      
      - Note: Created task is retained by the session and released upon completion.
      */
-    public func fethTask(with request: ArxivRequest, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
+    func fethTask(with request: ArxivRequest, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
         taskID += 1
         let taskKey = taskID
         
@@ -56,4 +61,3 @@ public final class ArxivSession {
         return newTask
     }
 }
-

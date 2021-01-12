@@ -123,7 +123,7 @@ public extension ArxivQuery {
      
      - Parameter interval: Desired date interval.
     */
-    static func sumbitted(in interval: DateInterval) -> ArxivQuery {
+    static func submitted(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.submitted(in: interval))
     }
     
