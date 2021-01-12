@@ -59,7 +59,9 @@ public extension ArxivQuery {
      Returns a query for retrieving the articles containing provided term in the specified field.
      
         - Parameter term: A string to search for.
-        - Parameter in: An article field to be searched for provided term.
+        - Parameter field: An article field to be searched for provided term.
+     
+     Default value of `field` parameter isis `.any`.
      
      From [arxiv API manual](https://arxiv.org/help/api/user-manual):
      
@@ -83,7 +85,7 @@ public extension ArxivQuery {
      - All journal reference searches that do not contain a wildcard are literal searches: a search for Physica A will match all papers with journal references containing Physica A, but a search for Physica A, 245 (1997) 181 will only return the paper with journal reference Physica A, 245 (1997) 181.
      
      */
-    static func term(_ term: String, in field: Field) -> ArxivQuery {
+    static func term(_ term: String, in field: Field = .any) -> ArxivQuery {
         let tree: ArxivQueryTree
         
         switch field.rawValue  {
@@ -120,7 +122,7 @@ public extension ArxivQuery {
      
      - Parameter interval: Desired time interval.
     */
-    static func submitted(in interval: DateInterval) -> ArxivQuery {
+    static func sumbitted(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.submitted(in: interval))
     }
     

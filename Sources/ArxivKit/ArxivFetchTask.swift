@@ -23,9 +23,7 @@ public final class ArxivFetchTask {
     private weak var dataTask: URLSessionDataTask?
     
     private let parser = ArxivParser()
-    
-    private let parserQueue = DispatchQueue(label: "io.polifonia.ArxivKit.parserQueue")
-    
+        
     private let sessionQueue = DispatchQueue(label: "io.polifonia.ArxivKit.sessionQueue")
     
     let completion: (Result<ArxivResponse, ArxivKitError>) -> ()
@@ -40,28 +38,21 @@ public final class ArxivFetchTask {
     /**
      Runs the task.
      
-     - Parameter delay: Minimal number of seconds before the task starts.
-     
-     Default value of the delay is 0 seconds. Provided negative values are ignorred. If multiple tasks are programatically run in a raw,
+     - Note: If multiple tasks are programatically run in a raw,
      a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
      */
-    public func run(delay: Double = 0.0) {
-        
-        guard let requestURL = request.url else {
-            completion(.failure(.invalidRequest))
-            return
-        }
-        
-        let existingTask = sessionQueue.sync { [weak self] in
-            return self?.dataTask
-        }
-        
-        guard existingTask == nil else {
-            return
-        }
-    
-        sessionQueue.asyncAfter(deadline: .now() + (delay < 0 ? 0 : delay)) { [weak self] in
+    public func run() {
+        sessionQueue.async { [weak self] in
             guard let self = self else { return }
+            
+            guard let requestURL = self.request.url else {
+                self.completion(.failure(.invalidRequest))
+                return
+            }
+            
+            guard self.dataTask == nil else {
+                return
+            }
             
             self.dataTask = self.urlSession?.dataTask(with: URLRequest(url: requestURL)) { [weak self] data, response, error in
                 guard let self = self else { return }
@@ -71,15 +62,10 @@ public final class ArxivFetchTask {
                         self.completion(.failure(.urlDomainError(error)))
                     }
                 } else if let data = data {
-                    self.parserQueue.async { [weak self] in
-                        guard let self = self else { return }
-                        self.parser.parse(responseData: data, completion: self.completion)
-                    }
+                    self.parser.parse(responseData: data, completion: self.completion)
                 }
                 
-                self.sessionQueue.async { [weak self] in
-                    self?.dataTask = nil
-                }
+                self.dataTask = nil
             }
             
             self.dataTask?.resume()
@@ -93,14 +79,10 @@ public final class ArxivFetchTask {
      is called with `.failure(ArxivKitError.taskCanceled)`.
      */
     public func cancel() {
-        dataTask?.cancel()
         self.sessionQueue.async { [weak self] in
+            self?.dataTask?.cancel()
             self?.dataTask = nil
-        }
-        parserQueue.async { [weak self] in
-            guard let self = self else { return }
-            self.parser.abort()
-            self.completion(.failure(.taskCanceled))
+            self?.completion(.failure(.taskCanceled))
         }
     }
 }
@@ -112,20 +94,19 @@ public extension ArxivRequest {
      
      - Parameter session: An `ArxivSession` object used for creating and running the task.
      - Parameter completion: A function to be called after the task finishes.
-     - Parameter delay: Minimal number of seconds before the task starts.
      
      The completion handler takes a single `Result` argument, which is either a succesfuly
      parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
-     
-     Default value of the delay is 0 seconds. Provided negative values are ignorred. If multiple tasks are programatically run in a raw,
-     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
-     
+          
      - Note: Created task is retained by the session and released upon completion.
+     
+     If multiple tasks are programatically run in a raw,
+     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
      */
     @discardableResult
-    func fetch(using session: ArxivSession, delay: Double = 0, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
+    func fetch(using session: ArxivSession, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) -> ArxivFetchTask {
         let task = session.fethTask(with: self, completion: completion)
-        task.run(delay: delay < 0 ? 0 : delay)
+        task.run()
         return task
     }
 }

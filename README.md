@@ -13,19 +13,27 @@ The wrapper itself is released under MIT license (see [LICENSE](LICENSE)). For t
 
 ---
 
+## Supported Platforms
+
+- macOS
+- iOS, iPadOS, Mac Catalyst
+- Linux (tested on Ubuntu 20.04)
+
 ## Usage
 
 ### Arxiv Session
 
-`ArxivSession` object enapsulates network communication and keeps track of individual fetch tasks. It is strongly recomended to reuse a single session instance for multiple related tasks or even a single instance for the entire app or command line tool. To use any of the APIS from the package, at least one session objecct must be created and retained:
+`ArxivSession` object enapsulates network communication and keeps track of individual fetch tasks. It is strongly recomended to reuse a single session instance for multiple related tasks or even a single instance for the entire app or command line tool. To use any of the APIs from the package, at least one session object must be created and retained:
 
 ```swift
 let session = ArxivSession()
 ```
 
-### Searching Articles
+Under the hood, `ArxivSession` uses a `URLSession` instance which can be configurred by providing a custom `URLSessionConfiguration` object to `ArxivSession` initialiser.  `ArxivSession` should be sufficient for many applications. If that's not the case, clients can implement their own networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
 
-`ArxivQuery` type encapsulates different possible information that can be searched on [arXiv](https://arxiv.org). A query instance is used to construct `ArxivRequest`, which can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc. The request is used for constructing `ArxivFetchTask` object by calling `ArxivSession`'s `fethTask(with:completion:)`. Finally, the actual search is performed by calling `run()` on given task.
+### Fetching Articles
+
+`ArxivQuery` type specifies different possible information that can be searched on [arXiv](https://arxiv.org). A query instance is used to construct `ArxivRequest`, which can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc. The request is used for constructing `ArxivFetchTask` object by calling `fethTask(with:completion:)` on a session. Finally, the actual search is performed by calling `run()` on given task.
 
 However, a more declarative and fluent approach is to construct ArxivRequest by calling func `makeRequest(scope:)` on an `ArxivQuery` instance, configure it by chaining desired modifiers and perform the search by calling func `fetch(using:completion:)` at the end. Below are examples of some of the possible queries and requests.
 
@@ -33,7 +41,7 @@ However, a more declarative and fluent approach is to construct ArxivRequest by 
 
 ```swift
 ArxivQuery
-    .term("electron", in: .any)
+    .term("electron")
     .makeRequest()
     .fetch(using: session) { result in
         switch result {
@@ -50,7 +58,7 @@ ArxivQuery
 ### Simple Queries
 
 ```swift
-ArxivQuery.term("dft", in: .any)
+ArxivQuery.term("dft")
 ArxivQuery.term("dft", in: .title)
 ArxivQuery.term("dft", in: .abstract)
 ArxivQuery.term("Feynman", in: .author)
@@ -110,7 +118,7 @@ var currentReposnse: ArxivResponse?
 
 func fetchElectronArticles(startIndex i: Int) {
     ArxivQuery
-        .term("electron", in: .any)
+        .term("electron")
         .makeRequest()
         .itemsPerPage(20)
         .startIndex(i)
@@ -140,9 +148,9 @@ if let reponse = currentReposnse, let secondPageIndex = reponse.nextPageStartInd
 ```swift
 
 ArxivQuery
-    .term("electron", in: .any)
+    .term("electron")
     .makeRequest()
-    .sortedBy(.relevance)
+    .sorted(by: .relevance)
     .sortingOrder(.descending)
     .itemsPerPage(20)
     .startIndex(60)

@@ -10,7 +10,7 @@ public struct ArxivResponse {
         id = ""
         title = ""
         link = URL(string: "https://arxiv.org/")!
-        updated = Date(timeIntervalSince1970: 0)
+        lastUpdateDate = Date(timeIntervalSince1970: 0)
         totalResults = 0
         startIndex = 0
         itemsPerPage = 0
@@ -69,7 +69,7 @@ public struct ArxivResponse {
      Please cache your results. This primarily applies to production systems,
      and of course you are free to play around with the API while you are developing your program!
      */
-    public internal(set) var updated: Date
+    public internal(set) var lastUpdateDate: Date
     
     /// Returns total number of articles matching the query as specified by `ArxiveRequest`.
     public internal(set) var totalResults: Int
@@ -130,7 +130,7 @@ extension ArxivResponse: CustomStringConvertible {
         title: \(title)
         link: \(link.absoluteString)
 
-        updated: \(updated)
+        updated: \(lastUpdateDate)
 
         total results: \(totalResults)
         current page: \(startIndex)

@@ -32,10 +32,10 @@ public struct ArxivEntry: Hashable, Identifiable {
     public internal(set) var title: String
     
     /// Returnes the date in which the first version of the article was submitted and processed.
-    public internal(set) var  published: Date
+    public internal(set) var  submissionDate: Date
     
     /// Returned the date on which the current version of the article  was submitted and processed.
-    public internal(set) var  updated: Date
+    public internal(set) var  lastUpdateDate: Date
     
     /// Returnes article's abstract.
     public internal(set) var  summary: String
@@ -86,8 +86,8 @@ public struct ArxivEntry: Hashable, Identifiable {
     init() {
         id = ""
         title = ""
-        published = Date(timeIntervalSince1970: 0)
-        updated = Date(timeIntervalSince1970: 0)
+        submissionDate = Date(timeIntervalSince1970: 0)
+        lastUpdateDate = Date(timeIntervalSince1970: 0)
         summary = ""
         authors = []
         categories = []
@@ -115,8 +115,8 @@ extension ArxivEntry: CustomStringConvertible {
         primary subject: \(primaryCategory)
         all subjects: \(categories.joined(separator: ", "))
 
-        published: \(published)
-        last updated: \(updated)
+        published: \(submissionDate)
+        last updated: \(lastUpdateDate)
 
         id: \(id)
         doi: \(doi)
@@ -173,8 +173,8 @@ public extension ArxivEntry {
         example.summary = summary
         example.primaryCategory = primarySubject
         example.categories = allSubjects
-        example.published = published
-        example.updated = updated
+        example.submissionDate = published
+        example.lastUpdateDate = updated
         example.id = id
         example.abstractURL = abstractURL
         example.pdfURL = pdfURL

@@ -26,7 +26,7 @@ public struct ArxivRequest {
     /// Returns maximum number of articles to be returned from a single API call. Set using `itemsPerPage(_)` method. Default value is 50.
     public private(set) var itemsPerPage: Int
     
-    /// Returns sorting criterion for returned articles. Set using `sortedBy(_)` method. Default value is `.lastUpdatedDate`.
+    /// Returns sorting criterion for returned articles. Set using `sorted(by:)` method. Default value is `.lastUpdateDate`.
     public private(set) var sortingCriterion: SortingCriterion
     
     /// Returns sorting order for returned articles. Set using `sortingOrder(_)` method. Default value is `.descending`.
@@ -80,7 +80,7 @@ public struct ArxivRequest {
         ids: [String] = [],
         startIndex: Int = 0,
         itemsPerPage: Int = 50,
-        sortBy: SortingCriterion = .lastUpdatedDate,
+        sortBy: SortingCriterion = .lastUpdateDate,
         sortOrder: SortingOrder = .descending
     ) {
         self.query = searchQuery
@@ -105,10 +105,10 @@ public struct ArxivRequest {
         public static var relevance = SortingCriterion("relevance")
         
         /// Sort returned articles by submission date of the most recent version.
-        public static var lastUpdatedDate = SortingCriterion("lastUpdatedDate")
+        public static var lastUpdateDate = SortingCriterion("lastUpdatedDate")
         
         /// Sort returned articles by submission date of the first version.
-        public static var submitedDate = SortingCriterion("submittedDate")
+        public static var submissionDate = SortingCriterion("submittedDate")
     }
     
     /// Specifies sorting order for articles returned by API calls.
@@ -135,7 +135,7 @@ public extension ArxivRequest {
      
      - Parameter sortCriterion: A sorting criterion.
      */
-    func sortedBy(_ sortingCriterion: SortingCriterion) -> ArxivRequest {
+    func sorted(by sortingCriterion: SortingCriterion) -> ArxivRequest {
         var request = self
         request.sortingCriterion = sortingCriterion
         return request

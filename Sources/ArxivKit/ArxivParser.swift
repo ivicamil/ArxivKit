@@ -14,6 +14,8 @@ public final class ArxivParser {
     
     private var xmlParserDelegate: ParserDelegate?
     
+    private let parserQueue = DispatchQueue(label: "io.polifonia.ArxivKit.parserQueue")
+
     fileprivate var finishedParsing: ((Result<ArxivResponse, ArxivKitError>) -> ())?
     
     /// Creates a parser.
@@ -36,14 +38,17 @@ public extension ArxivParser {
      parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
      */
     func parse(responseData: Data, completion: @escaping (Result<ArxivResponse, ArxivKitError>) -> ()) {
-        finishedParsing = completion
-        self.xmlParser = XMLParser(data: responseData)
-        let xmlParserDelegate = ParserDelegate(parent: self)
-        self.xmlParser?.delegate = xmlParserDelegate
-        let success = self.xmlParser?.parse()
-        if let success = success, !success, let error = xmlParser?.parserError {
-            finishedParsing?(.failure(.parseError(error)))
-            cleanupXMLParser()
+        parserQueue.async { [weak self] in
+            guard let self = self else { return }
+            self.finishedParsing = completion
+            self.xmlParser = XMLParser(data: responseData)
+            let xmlParserDelegate = ParserDelegate(parent: self)
+            self.xmlParser?.delegate = xmlParserDelegate
+            let success = self.xmlParser?.parse()
+            if let success = success, !success, let error = self.xmlParser?.parserError {
+                self.finishedParsing?(.failure(.parseError(error)))
+                self.cleanupXMLParser()
+            }
         }
     }
     
@@ -54,9 +59,11 @@ public extension ArxivParser {
      is called with `.failure(ArxivKitError.parsingCanceled)`.
      */
     func abort() {
-        xmlParser?.abortParsing()
-        finishedParsing?(.failure(.parsingCanceled))
-        cleanupXMLParser()
+        parserQueue.async { [weak self] in
+            self?.xmlParser?.abortParsing()
+            self?.finishedParsing?(.failure(.parsingCanceled))
+            self?.cleanupXMLParser()
+        }
     }
 }
 
@@ -242,7 +249,7 @@ private extension ParserDelegate {
         case FeedConstant.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss-hh:mm"
             if let updatedDate = dateFormater.date(from: currentString) {
-                response.updated = updatedDate
+                response.lastUpdateDate = updatedDate
             }
         case FeedConstant.totalResults.value:
             if let totalResultsInt = Int(currentString.trimmingWhiteSpaces) {
@@ -275,12 +282,12 @@ private extension ParserDelegate {
         case FeedConstant.Entry.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             if let updatedDate = dateFormater.date(from: currentString) {
-                currentEntry?.updated = updatedDate
+                currentEntry?.lastUpdateDate = updatedDate
             }
         case FeedConstant.Entry.published.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             if let publishedDate = dateFormater.date(from: currentString) {
-                currentEntry?.published = publishedDate
+                currentEntry?.submissionDate = publishedDate
             }
         case FeedConstant.Entry.title.value:
             currentEntry?.title = currentString.trimmingWhiteSpaces.removingNewLine
