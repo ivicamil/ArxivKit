@@ -61,12 +61,8 @@ public struct AllOfBuilder {
 
 public extension ArxivQueryExpression {
     
-    func excluding(_ otherExp: ArxivQueryExpression) -> ArxivQueryExpression {
-        return AnyQueryExpression(query: query.excluding(otherExp.query))
-    }
-    
     func excluding(@SignleExpressionBuilder _ content: () -> ArxivQueryExpression) -> ArxivQueryExpression {
-        return excluding(content())
+        return AnyQueryExpression(query: query.excluding(content().query))
     }
 }
 
@@ -100,7 +96,4 @@ public struct AllOf: ArxivQueryExpression {
     }
 }
 
-public extension ArxivQuery {
-    
-    
-}
+
