@@ -166,6 +166,8 @@ public extension ArxivQuery {
     /**
      Returns a new query for retrieving the articles matching the query **AND NOT** the provided argument query.
     
+     - Parameter firstQuery: The first subquery.
+     
      - Parameter anotherQuery:A query that retrieved articles do not match.
      */
     func excluding(_ anotherQuery: ArxivQuery) -> ArxivQuery {
