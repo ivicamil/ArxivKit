@@ -117,44 +117,45 @@ public extension ArxivQuery {
         return ArxivQuery(.subject(subject))
     }
     
+    
     /**
-     Returns a query for retrieving the articles whose first version was published in provided date interval.
+     Returns a query for retrieving the articles whose first version was published in provided interval.
      
-     - Parameter interval: Desired time interval.
+     - Parameter interval: Desired date interval.
     */
     static func sumbitted(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.submitted(in: interval))
     }
     
     /**
-     Returns a query for retrieving the articles whose first version was published in provided date interval.
+     Returns a query for retrieving the articles whose most recent version was published in provided interval.
      
-     - Parameter interval: Desired time interval.
-    */
-    static func sumbitted(in interval: DateInterval?) -> ArxivQuery? {
-        guard let interval = interval else {
-            return nil
-        }
-        return ArxivQuery(.submitted(in: interval))
-    }
-    
-    /**
-     Returns a query for retrieving the articles whose most recent version was published in provided date interval.
-     
-     - Parameter interval: Desired time interval.
+     - Parameter interval: Desired date interval.
     */
     static func lastUpdated(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.lastUpdated(in: interval))
     }
     
     /**
-     Returns a query for retrieving the articles whose most recent version was published in provided date interval.
+     Returns a query for retrieving the articles whose most recent version was published in provided interval.
      
-     - Parameter interval: Desired time interval.
+     - Parameter interval: Desired date interval.
     */
-    static func lastUpdated(in interval: DateInterval?) -> ArxivQuery? {
-        guard let interval = interval else {
-            return nil
+    static func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
+        guard let interval = period.dateInterval else {
+            return .invalid
+        }
+        return ArxivQuery(.submitted(in: interval))
+    }
+    
+    /**
+     Returns a query for retrieving the articles whose most recent version was published in provided time period.
+     
+     - Parameter period: Desired time period.
+    */
+    static func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
+        guard let interval = period.dateInterval else {
+            return .invalid
         }
         return ArxivQuery(.lastUpdated(in: interval))
     }
@@ -219,6 +220,10 @@ extension ArxivQuery {
 
 extension ArxivQuery {
     
+    static var invalid: ArxivQuery {
+        return ArxivQuery(.invalid)
+    }
+    
     static var empty: ArxivQuery {
         return ArxivQuery(.empty)
     }
@@ -226,6 +231,10 @@ extension ArxivQuery {
 
 
 extension ArxivQuery {
+    
+    var isInvalid: Bool {
+        return tree.isInvalid
+    }
     
     var isEmpty: Bool {
         return tree.isEmpty

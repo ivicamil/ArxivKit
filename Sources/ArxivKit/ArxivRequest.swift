@@ -272,6 +272,11 @@ public extension ArxivRequest {
     
     /// A URL for making arXiv API calls specified by the request or `nil` if the request is not valid.
     var url: URL? {
+        
+        if let query = query, query.isInvalid {
+            return nil
+        }
+        
         var components = URLComponents()
         
         components.scheme = scheme
