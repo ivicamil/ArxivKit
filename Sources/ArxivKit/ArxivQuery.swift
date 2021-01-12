@@ -9,7 +9,7 @@ import Foundation
  Queries can be combined to construct arbitrarily complex queries by using `allOf` and `anyOf` combinators.
  It is also possible to exclude articles matching a query by using `excluding` combinator.
  */
-public struct ArxivQuery {
+public struct ArxivQuery: Codable {
     
     private var tree: ArxivQueryTree
     
@@ -22,7 +22,7 @@ public struct ArxivQuery {
      
      To search given term in any field, use `ArxivQuery.Field.any`.
      */
-    public struct Field {
+    public struct Field: Codable {
         
         let rawValue: Value
         
@@ -127,11 +127,35 @@ public extension ArxivQuery {
     }
     
     /**
+     Returns a query for retrieving the articles whose first version was published in provided date interval.
+     
+     - Parameter interval: Desired time interval.
+    */
+    static func sumbitted(in interval: DateInterval?) -> ArxivQuery? {
+        guard let interval = interval else {
+            return nil
+        }
+        return ArxivQuery(.submitted(in: interval))
+    }
+    
+    /**
      Returns a query for retrieving the articles whose most recent version was published in provided date interval.
      
      - Parameter interval: Desired time interval.
     */
     static func lastUpdated(in interval: DateInterval) -> ArxivQuery {
+        return ArxivQuery(.lastUpdated(in: interval))
+    }
+    
+    /**
+     Returns a query for retrieving the articles whose most recent version was published in provided date interval.
+     
+     - Parameter interval: Desired time interval.
+    */
+    static func lastUpdated(in interval: DateInterval?) -> ArxivQuery? {
+        guard let interval = interval else {
+            return nil
+        }
         return ArxivQuery(.lastUpdated(in: interval))
     }
 }
@@ -210,7 +234,7 @@ extension ArxivQuery {
 
 extension ArxivQuery.Field {
     
-    enum Value {
+    enum Value: String, Codable {
         case title
         case abstract
         case authors

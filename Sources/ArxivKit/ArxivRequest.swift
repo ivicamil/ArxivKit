@@ -1,10 +1,20 @@
 
 import Foundation
 
+private let scheme = "https"
+private let host = "export.arxiv.org"
+private let path = "/api/query"
+private let searchQueryKey = "search_query"
+private let idListKey = "id_list"
+private let startIndexKey = "start"
+private let itemsPerPageKey = "max_results"
+private let sortByKey = "sortBy"
+private let sortOrderKey = "sortOrder"
+
 /**
  A full sppecification of an arXiv API request.
  */
-public struct ArxivRequest {
+public struct ArxivRequest: Codable {
     
     /// Returns a query used for  the request or `nil` if the request consists of `idList` only.
     public let query: ArxivQuery?
@@ -31,16 +41,6 @@ public struct ArxivRequest {
     
     /// Returns sorting order for returned articles. Set using `sortingOrder(_)` method. Default value is `.descending`.
     public private(set) var sortingOrder: SortingOrder
-   
-    private let scheme = "https"
-    private let host = "export.arxiv.org"
-    private let path = "/api/query"
-    private let searchQueryKey = "search_query"
-    private let idListKey = "id_list"
-    private let startIndexKey = "start"
-    private let itemsPerPageKey = "max_results"
-    private let sortByKey = "sortBy"
-    private let sortOrderKey = "sortOrder"
     
     /**
      Creates a request for retrieving the articles matching provided query and belonging to optionally provided ID list.
@@ -93,7 +93,7 @@ public struct ArxivRequest {
     
     
     /// Specifies sorting criteria for  articles returned by API calls.
-    public struct SortingCriterion {
+    public struct SortingCriterion: Codable {
         
         let rawValue: String
         
@@ -112,7 +112,7 @@ public struct ArxivRequest {
     }
     
     /// Specifies sorting order for articles returned by API calls.
-    public struct SortingOrder {
+    public struct SortingOrder: Codable {
         
         let rawValue: String
         

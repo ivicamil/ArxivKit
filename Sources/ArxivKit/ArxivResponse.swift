@@ -4,7 +4,7 @@ import Foundation
 /**
  A parsed arXiv API reponse.
 */
-public struct ArxivResponse {
+public struct ArxivResponse: Codable {
     
     init() {
         id = ""

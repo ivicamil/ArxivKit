@@ -4,10 +4,10 @@ import Foundation
 /**
  A single parsed `entry` element from arXiv API reponse.
 */
-public struct ArxivEntry: Hashable, Identifiable {
+public struct ArxivEntry: Hashable, Codable {
     
     /// A single parsed `author` element from arXiv API reponse.
-    public struct Author: Hashable {
+    public struct Author: Hashable, Codable {
         
         /// Returns author's name.
         public internal(set) var name: String

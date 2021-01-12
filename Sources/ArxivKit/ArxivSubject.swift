@@ -1,6 +1,10 @@
 
 import Foundation
 
+private let nameKey = "name"
+
+private let childSubjectsKey = "child subjects"
+
 /**
  Representation of a single searchable arXiv subject.
  
@@ -8,11 +12,7 @@ import Foundation
  
  All available subject constants are defined under `ArxivSubjects` namespace.
  */
-public struct ArxivSubject: Hashable {
-    
-    private let nameKey = "name"
-    
-    private let childSubjectsKey = "child subjects"
+public struct ArxivSubject: Hashable, Codable {
     
     /// Returns arXive category symbol of the subject.
     public let symbol: String

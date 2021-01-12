@@ -2,16 +2,7 @@
 
 Swift DSL wrapper for arXiv API.
 
----
-**NOTE**
-
-**Currently in beta. Public API may change.**
-
 This project is not affiliated with [arXiv.org](https://arxiv.org). 
-
-The wrapper itself is released under MIT license (see [LICENSE](LICENSE)). For terms and conditions of using the arXiv API itself see [arXiv API Help](https://arxiv.org/help/api).
-
----
 
 ## Supported Platforms
 
@@ -67,12 +58,8 @@ ArxivQuery.term("AMS", in: .journalReference)
 
 ArxivQuery.subject(ArxivSubjects.Physics.computationalPhysics)
 
-let now = Date()
-let fiveDaysAgo = Date(timeInterval: -5 * 24 * 60 * 60, since: now)
-let theLastFiveDays = DateInterval(start: fiveDaysAgo, end: now)
-
-ArxivQuery.submitted(in: theLastFiveDays)
-ArxivQuery.lastUpdated(in: theLastFiveDays)
+rxivQuery.sumbitted(in: .past(.month))
+ArxivQuery.lastUpdated(in: .past(5, unit: .day))
 ```
 
 ### Complex Queries
@@ -100,7 +87,7 @@ ArxivRequest(idList: ["2101.02212", "2101.02215"])
     }
 ```
 
-### Fetching All Versions of an Articles
+### Fetching All Versions of an Article
 
 ```swift
 let entry: ArxivEntry = ...
@@ -159,4 +146,6 @@ ArxivQuery
     }
 ```
 
+## License
 
+`ArxivKit` is released under [MIT license](LICENSE)). For terms and conditions of using the arXiv API itself see [arXiv API Help](https://arxiv.org/help/api).

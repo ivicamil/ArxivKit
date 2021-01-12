@@ -28,7 +28,7 @@ public extension ArxivSubjects {
         children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
     )
     
-    /// Namespace for physics subject that are not classified under Physics, Astrophysics, Condensed Matter or Nonlinear Sciences .
+    /// Namespace for physics subject that are not classified under Physics, Astrophysics, Condensed Matter or Nonlinear Sciences.
     enum OtherPhysicsSubjects {}
 
     /// Namespace for Condensed Matter subject constants.
