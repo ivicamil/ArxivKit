@@ -208,11 +208,11 @@ public extension ArxivQuery {
 
 extension ArxivQuery {
     
-    private func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+    func and(_ anotherQuery: ArxivQuery) -> ArxivQuery {
         return ArxivQuery(.both(tree, anotherQuery.tree))
     }
     
-    private func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+   func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
         return ArxivQuery(.either(tree, anotherQuery.tree))
     }
 }

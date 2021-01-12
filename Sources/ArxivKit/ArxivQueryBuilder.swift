@@ -1,4 +1,5 @@
 
+import Foundation
 
 /**
  
@@ -21,3 +22,4 @@
  - buildLimitedAvailability(_ component: Component) -> Component is used to transform the partial result produced by buildBlock in a limited-availability context (such as if #available) into one suitable for any context. It is optional, and is only needed by function builders that might carry type information from inside an if #available outside it.
  
  */
+
