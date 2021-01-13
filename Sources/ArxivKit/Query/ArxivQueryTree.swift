@@ -131,7 +131,7 @@ extension ArxivQueryTree {
 
 extension ArxivQueryTree: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: CodingKey {
         case invalid
         case empty
         case title

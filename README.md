@@ -20,7 +20,7 @@ This project is not affiliated with [arXiv.org](https://arxiv.org).
 let session = ArxivSession()
 ```
 
-Under the hood, `ArxivSession` uses a `URLSession` instance which can be configurred by providing a custom `URLSessionConfiguration` object to `ArxivSession` initialiser.  `ArxivSession` should be sufficient for many applications. If that's not the case, clients can implement their own networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
+Under the hood, `ArxivSession` uses a `URLSession` instance which can be configured by providing a custom `URLSessionConfiguration` object to `ArxivSession` initialiser.  `ArxivSession` should be sufficient for many applications. If that's not the case, clients can implement their own networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
 
 ### Fetching Articles
 

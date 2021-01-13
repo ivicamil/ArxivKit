@@ -89,10 +89,10 @@ public final class ArxivFetchTask {
     }
 }
 
-public extension ArxivRequest {
+public extension ArxivRequestSpecification {
     
     /**
-     Returns and runs a task for fetching and parsing articles described by the request, by using provided session.
+     Returns and runs a task for fetching and parsing articles described by the request specification, by using provided session.
      
      - Parameter session: An `ArxivSession` object used for creating and running the task.
      - Parameter completion: A function to be called after the task finishes.
@@ -107,9 +107,8 @@ public extension ArxivRequest {
      */
     @discardableResult
     func fetch(using session: ArxivSession, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
-        let task = session.fethTask(with: self, completion: completion)
+        let task = session.fethTask(with: arxivRequest, completion: completion)
         task.run()
         return task
     }
 }
-

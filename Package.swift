@@ -22,7 +22,7 @@ let package = Package(
         .target(
             name: "ArxivKit",
             dependencies: [],
-            resources: [.process("ArxivSubjectsDictionary.plist")]),
+            resources: [.process("Subject/ArxivSubjectsDictionary.plist")]),
         .testTarget(
             name: "ArxivKitTests",
             dependencies: ["ArxivKit"]),

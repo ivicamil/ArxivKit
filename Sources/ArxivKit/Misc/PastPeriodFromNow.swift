@@ -6,7 +6,7 @@ import Foundation
  */
 public struct PastPeriodFromNow: Hashable, Codable {
     
-    /// Calendar components relevant for searching arXiv articles by date.
+    /// Calendar components for constructing a period.
     public enum CalendarUnit: String, Hashable, Codable {
         
         case day

@@ -13,7 +13,7 @@ public struct ArxivQuery: Codable {
     
     private var tree: ArxivQueryTree
     
-    private init(_ tree: ArxivQueryTree) {
+    fileprivate init(_ tree: ArxivQueryTree) {
         self.tree = tree
     }
     
@@ -163,52 +163,6 @@ public extension ArxivQuery {
 
 public extension ArxivQuery {
     
-    /**
-     Returns a new query for retrieving the articles matching the query **AND NOT** the provided argument query.
-    
-     - Parameter firstQuery: The first subquery.
-     
-     - Parameter anotherQuery:A query that retrieved articles do not match.
-     */
-    func excluding(_ anotherQuery: ArxivQuery) -> ArxivQuery {
-        return ArxivQuery(.firstAndNotSecond(tree, anotherQuery.tree))
-    }
-    
-    /**
-     Returns a new query for retrieving the articles matching **ALL** of the provided subqueries.
-    
-     - Parameter firstQuery: The first subquery.
-          
-     - Parameter otherQueries: Additional optional subqueries.
-     */
-    static func allOf(_ firstQuery: ArxivQuery, _ otherQueries: ArxivQuery...) -> ArxivQuery {
-        
-        guard let secondQuery = otherQueries.first else {
-            return firstQuery
-        }
-        
-        return otherQueries.dropFirst().reduce(firstQuery.and(secondQuery)) { $0.and($1) }
-    }
-    
-    /**
-     Returns a query for retrieving the articles matching **ANY** of the provided subqueries.
-    
-     - Parameter firstQuery: The first subquery.
-          
-     - Parameter otherQueries: Additional optional subqueries.
-     */
-    static func anyOf(_ firstQuery: ArxivQuery, _ otherQueries: ArxivQuery...) -> ArxivQuery {
-        
-        guard let secondQuery = otherQueries.first else {
-            return firstQuery
-        }
-        
-        return otherQueries.dropFirst().reduce(firstQuery.or(secondQuery)) { $0.or($1) }
-    }
-}
-
-public extension ArxivQuery {
-    
     /// Returns a string representation of the query.
     var string: String {
         return tree.string
@@ -259,5 +213,181 @@ extension ArxivQuery.Field {
         case journalReference
         case reportNumber
         case any
+    }
+}
+
+// MARK: - Global Functions Used For Query Expressions
+
+/**
+ Returns a query for retrieving the articles containing provided term in the specified field.
+ 
+    - Parameter term: A string to search for.
+    - Parameter field: An article field to be searched for provided term.
+ 
+ Default value of `field` parameter isis `.any`.
+ 
+ From [arxiv API manual](https://arxiv.org/help/api/user-manual):
+ 
+**Wildcards:**
+
+- Use ? to replace a single character or * to replace any number of characters.
+ Can be used in any field, but not in the first character position. See Journal References tips for exceptions.
+ 
+ **Expressions:**
+ 
+ - TeX expressions can be searched, enclosed in single $ characters.
+
+ **Phrases:**
+
+ - Enclose phrases in double quotes for exact matches in title, abstract, and comments.
+ 
+ **Journal References:**
+
+ - If a journal reference search contains a wildcard, matches will be made using wildcard matching as expected. For example, math* will match math, maths, mathematics.
+ - If a journal reference search does not contain a wildcard, only exact phrases entered will be matched. For example, math would match math or math and science but not maths or mathematics.
+ - All journal reference searches that do not contain a wildcard are literal searches: a search for Physica A will match all papers with journal references containing Physica A, but a search for Physica A, 245 (1997) 181 will only return the paper with journal reference Physica A, 245 (1997) 181.
+ 
+ */
+public func term(_ term: String, in field: ArxivQuery.Field = .any) -> ArxivQuery {
+    let tree: ArxivQueryTree
+    
+    switch field.rawValue  {
+    case .title:
+        tree = .title(contains: term)
+    case .abstract:
+        tree = .abstract(contains: term)
+    case .authors:
+        tree = .authors(contains: term)
+    case .comment:
+        tree = .comment(contains: term)
+    case .journalReference:
+        tree = .journalReference(contains: term)
+    case .reportNumber:
+        tree = .reportNumber(contains: term)
+    case .any:
+        tree = .anyField(contains: term)
+    }
+    
+    return ArxivQuery(tree)
+}
+
+/**
+ Returns a query for retrieving  the articles categorised under provided arXiv subject.
+ 
+ - Parameter subject: An arXive subject. Possible values are defined under `ArxivSubjects` namespace.
+*/
+public func subject(_ subject: ArxivSubject) -> ArxivQuery {
+    return ArxivQuery(.subject(subject))
+}
+
+
+/**
+ Returns a query for retrieving the articles whose first version was published in provided interval.
+ 
+ - Parameter interval: Desired date interval.
+*/
+public func submitted(in interval: DateInterval) -> ArxivQuery {
+    return ArxivQuery(.submitted(in: interval))
+}
+
+/**
+ Returns a query for retrieving the articles whose most recent version was published in provided interval.
+ 
+ - Parameter interval: Desired date interval.
+*/
+public func lastUpdated(in interval: DateInterval) -> ArxivQuery {
+    return ArxivQuery(.lastUpdated(in: interval))
+}
+
+/**
+ Returns a query for retrieving the articles whose most recent version was published in provided interval.
+ 
+ - Parameter interval: Desired date interval.
+*/
+public func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
+    guard let interval = period.dateInterval else {
+        return .invalid
+    }
+    return ArxivQuery(.submitted(in: interval))
+}
+
+/**
+ Returns a query for retrieving the articles whose most recent version was published in provided time period.
+ 
+ - Parameter period: Desired time period.
+*/
+public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
+    guard let interval = period.dateInterval else {
+        return .invalid
+    }
+    return ArxivQuery(.lastUpdated(in: interval))
+}
+
+/**
+ Returns a new query for retrieving the articles matching **ALL** of the provided subqueries.
+
+ - Parameter firstQuery: The first subquery.
+      
+ - Parameter otherQueries: Additional optional subqueries.
+ */
+public func allOf(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
+    
+    let queryList = content()
+    let firstQuery = queryList.first
+    let otherQueries = queryList.tail
+    
+    guard let secondQuery = otherQueries.first else {
+        return firstQuery
+    }
+    
+    return otherQueries.dropFirst().reduce(firstQuery.and(secondQuery)) { $0.and($1) }
+}
+
+/**
+ Returns a query for retrieving the articles matching **ANY** of the provided subqueries.
+
+ - Parameter firstQuery: The first subquery.
+      
+ - Parameter otherQueries: Additional optional subqueries.
+ */
+public func anyOf(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
+    
+    let queryList = content()
+    let firstQuery = queryList.first
+    let otherQueries = queryList.tail
+    
+    guard let secondQuery = otherQueries.first else {
+        return firstQuery
+    }
+    
+    return otherQueries.dropFirst().reduce(firstQuery.or(secondQuery)) { $0.or($1) }
+}
+
+public extension ArxivQuery {
+    
+    /**
+     Returns a new query for retrieving the articles matching the query **AND NOT** the provided subqueries.
+    
+     - Parameter firstExcluded: A subqeuery to exclude.
+     
+     - Parameter otherExcluded: Other optional subqueries to exclude.
+     
+     Semantics of the returned query is to exclude all the articles that match any of the provided subqueries.
+     In other words, `.excluding { q1; q2; q3 }` is equivalent to `.excluding { anyOf { q1; q2; q3 } }`.
+     Providing `.allOf` as the only subquery has no effect and doesn't filter out any result.
+     `.excluding { allOf { q1; q2; q; } }` gives the same results as a query without calling `excluding`.
+     */
+    func excluding(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
+        
+        let queryList = content()
+        let firstQuery = queryList.first
+        let otherQueries = queryList.tail
+        
+        guard let secondQuery = otherQueries.first else {
+            return ArxivQuery(.firstAndNotSecond(tree, firstQuery.tree))
+        }
+        
+        let excludedQuery = otherQueries.dropFirst().reduce(firstQuery.or(secondQuery)) { $0.or($1) }
+        return ArxivQuery(.firstAndNotSecond(tree, excludedQuery.tree))
     }
 }
