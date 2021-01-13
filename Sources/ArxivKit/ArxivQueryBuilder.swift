@@ -27,7 +27,7 @@ import Foundation
 @_functionBuilder
 public struct SignleExpressionBuilder {
     
-    static func buildBlock(queryExp: ArxivQueryExpression) -> ArxivQueryExpression {
+    public static func buildBlock(_ queryExp: ArxivQueryExpression) -> ArxivQueryExpression {
         return AnyQueryExpression(query: queryExp.query)
     }
 }
@@ -35,12 +35,14 @@ public struct SignleExpressionBuilder {
 @_functionBuilder
 public struct AnyOfBuilder {
     
-    static func buildBlock(
+    public static func buildBlock(
         _ firstExp: ArxivQueryExpression,
-        _ secondExp: ArxivQueryExpression,
         _ otherExps: ArxivQueryExpression...
-    ) -> AnyQueryExpression {
-        let query = otherExps.reduce(firstExp.query.or(secondExp.query)) { $0.or($1.query) }
+    ) -> ArxivQueryExpression {
+        guard let secondExp = otherExps.first else {
+            return firstExp
+        }
+        let query = otherExps.dropFirst().reduce(firstExp.query.or(secondExp.query)) { $0.or($1.query) }
         return AnyQueryExpression(query: query)
     }
 }
@@ -48,12 +50,14 @@ public struct AnyOfBuilder {
 @_functionBuilder
 public struct AllOfBuilder {
     
-    static func buildBlock(
+    public static func buildBlock(
         _ firstExp: ArxivQueryExpression,
-        _ secondExp: ArxivQueryExpression,
         _ otherExps: ArxivQueryExpression...
-    ) -> AnyQueryExpression {
-        let query = otherExps.reduce(firstExp.query.and(secondExp.query)) { $0.and($1.query) }
+    ) -> ArxivQueryExpression {
+        guard let secondExp = otherExps.first else {
+            return firstExp
+        }
+        let query = otherExps.dropFirst().reduce(firstExp.query.and(secondExp.query)) { $0.and($1.query) }
         return AnyQueryExpression(query: query)
     }
 }
@@ -70,14 +74,8 @@ public struct AnyOf: ArxivQueryExpression {
     
     public let query: ArxivQuery
     
-    
-    init(
-        _ firstExp: ArxivQueryExpression,
-        _ secondExp: ArxivQueryExpression,
-        _ otherExps: ArxivQueryExpression...
-    ) {
-        
-        query = otherExps.reduce(firstExp.query.or(secondExp.query)) { $0.or($1.query) }
+    public init(@AnyOfBuilder _ content: () -> ArxivQueryExpression) {
+        self.query = content().query
     }
 }
 
@@ -85,14 +83,8 @@ public struct AllOf: ArxivQueryExpression {
     
     public let query: ArxivQuery
     
-    
-    init(
-        _ firstExp: ArxivQueryExpression,
-        _ secondExp: ArxivQueryExpression,
-        _ otherExps: ArxivQueryExpression...
-    ) {
-        
-        query = otherExps.reduce(firstExp.query.and(secondExp.query)) { $0.and($1.query) }
+    public init(@AllOfBuilder _ content: () -> ArxivQueryExpression) {
+        self.query = content().query
     }
 }
 

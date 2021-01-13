@@ -39,6 +39,15 @@ public struct Term: ArxivQueryExpression {
     }
 }
 
+public struct Subject: ArxivQueryExpression {
+    
+    public let query: ArxivQuery
+    
+    public init(_ arxivSubject: ArxivSubject) {
+        query = .subject(arxivSubject)
+    }
+}
+
 public struct Submitted: ArxivQueryExpression {
     
     public let query: ArxivQuery
