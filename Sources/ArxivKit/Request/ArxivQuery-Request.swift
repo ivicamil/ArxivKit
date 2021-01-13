@@ -1,43 +1,27 @@
 
-/**
- Provides a preconfigured arXiv request.
- */
-public protocol ArxivRequestSpecification {
 
-    /**
-     Returns a preconfigured arXiv request.
-     
-     Conforming type decide and document default configuration of the request.
-     */
-    var arxivRequest: ArxivRequest { get }
-}
-
-public extension ArxivRequestSpecification {
+public extension ArxivQuery {
     
     /**
-     Returns a new request specifying sorting criterion for returned articles.
+     Returns a request created with `ArxivRequest(self)` specifying sorting criterion for returned articles.
      
      - Parameter sortCriterion: A sorting criterion.
      */
     func sorted(by sortingCriterion: ArxivRequest.SortingCriterion) -> ArxivRequest {
-        var request = arxivRequest
-        request.sortingCriterion = sortingCriterion
-        return request
+        return ArxivRequest(self).sorted(by: sortingCriterion)
     }
     
     /**
-     Returns a new request specifying sorting order for returned articles.
+     Returns a request created with `ArxivRequest(self)` specifying sorting order for returned articles.
      
      - Parameter sortingOrder: A sorting order.
      */
     func sortingOrder(_ sortingOrder: ArxivRequest.SortingOrder) -> ArxivRequest {
-        var request = arxivRequest
-        request.sortingOrder = sortingOrder
-        return request
+        return ArxivRequest(self).sortingOrder(sortingOrder)
     }
     
     /**
-     Returns a new request specifying zero-based index of the first article in the response..
+     Returns a request created with `ArxivRequest(self)` specifying zero-based index of the first article in the response..
      
      - Parameter i: Start index of the request.
      
@@ -70,13 +54,11 @@ public extension ArxivRequestSpecification {
      Requests for fewer results are much faster and correspondingly smaller.
      */
     func startIndex(_ i: Int) -> ArxivRequest {
-        var request = arxivRequest
-        request.startIndex = i
-        return request
+        return ArxivRequest(self).startIndex(i)
     }
     
     /**
-     Returns a new request specifying maximum number of articles to be returned from a single API call.
+     Returns a request created with `ArxivRequest(self)` specifying maximum number of articles to be returned from a single API call.
      
      - Parameter n: Maximum number of articles per response.
      
@@ -104,24 +86,6 @@ public extension ArxivRequestSpecification {
      Requests for fewer results are much faster and correspondingly smaller.
      */
     func itemsPerPage(_ n: Int) -> ArxivRequest {
-        var request = arxivRequest
-        request.itemsPerPage = n
-        return request
-    }
-}
-
-extension ArxivRequest: ArxivRequestSpecification {
-    
-    /// Returns `self`.
-    public var arxivRequest: ArxivRequest {
-        return self
-    }
-}
-
-extension ArxivQuery: ArxivRequestSpecification {
-    
-    /// Returns `ArxivRequest(self)`.
-    public var arxivRequest: ArxivRequest {
-        return ArxivRequest(self)
+        return ArxivRequest(self).itemsPerPage(n)
     }
 }

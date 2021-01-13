@@ -89,10 +89,10 @@ public final class ArxivFetchTask {
     }
 }
 
-public extension ArxivRequestSpecification {
+public extension ArxivRequest {
     
     /**
-     Returns and runs a task for fetching and parsing articles described by the request specification, by using provided session.
+     Creates and and runs a task described by request, by using provided session. Method returns the task after it starts running.
      
      - Parameter session: An `ArxivSession` object used for creating and running the task.
      - Parameter completion: A function to be called after the task finishes.
@@ -107,8 +107,31 @@ public extension ArxivRequestSpecification {
      */
     @discardableResult
     func fetch(using session: ArxivSession, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
-        let task = session.fethTask(with: arxivRequest, completion: completion)
+        let task = session.fethTask(with: self, completion: completion)
         task.run()
         return task
+    }
+}
+
+public extension ArxivQuery {
+    
+    /**
+     Creates a request from itself by calling `ArxivRequest(self)` and uses that request to
+     create and run a task, by using provided session. Method returns the task after it starts running.
+     
+     - Parameter session: An `ArxivSession` object used for creating and running the task.
+     - Parameter completion: A function to be called after the task finishes.
+     
+     The completion handler takes a single `Result` argument, which is either a succesfuly
+     parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
+          
+     - Note: Created task is retained by the session and released upon completion.
+     
+     If multiple tasks are programatically run in a raw,
+     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
+     */
+    @discardableResult
+    func fetch(using session: ArxivSession, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
+        ArxivRequest(self).fetch(using: session, completion: completion)
     }
 }
