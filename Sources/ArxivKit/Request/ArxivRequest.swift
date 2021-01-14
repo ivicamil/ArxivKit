@@ -1,159 +1,43 @@
 
-import Foundation
-
-private let scheme = "https"
-private let host = "export.arxiv.org"
-private let path = "/api/query"
-private let searchQueryKey = "search_query"
-private let idListKey = "id_list"
-private let startIndexKey = "start"
-private let itemsPerPageKey = "max_results"
-private let sortByKey = "sortBy"
-private let sortOrderKey = "sortOrder"
-
 /**
- A full sppecification of an arXiv API request.
+ A type providing specification of aXiv API request.
  */
-public struct ArxivRequest: Codable {
-    
-    /// Returns a query used for  the request or `nil` if the request consists of `idList` only.
-    public let query: ArxivQuery?
-    
-    /// Returns an array od article ids. If the array is non-empty, qyery matching is limmited to specified articles.
-    public private(set) var idList: [String]
+public protocol ArxivRequest {
     
     /**
-     Returns zero-based index of the first article in the response. Set using `startIndex(_)` method.
-     Default value is `0`.
+     Returns full specification of the request.
      
-     The index can be used to implement paging. For example, if `itemsPerPage` is 20, the first page is with `startIndex == 0` ,
-     the second with `startIndex == 20`, the third with `startIndex == 60` etc.
-     
-     `ArxivReponse` values can be used for getting various page indicies for given response.
+     Conformig type decide and document configuration of the returned specification.
      */
-    public private(set) var startIndex: Int
-    
-    /// Returns maximum number of articles to be returned from a single API call. Set using `itemsPerPage(_)` method. Default value is 50.
-    public private(set) var itemsPerPage: Int
-    
-    /// Returns sorting criterion for returned articles. Set using `sorted(by:)` method. Default value is `.lastUpdateDate`.
-    public private(set) var sortingCriterion: SortingCriterion
-    
-    /// Returns sorting order for returned articles. Set using `sortingOrder(_)` method. Default value is `.descending`.
-    public private(set) var sortingOrder: SortingOrder
-    
-    /**
-     Creates a request for retrieving the articles matching provided query and belonging to optionally provided ID list.
-     
-     - Parameter scope: Search scope for matching the query. Default value is `.anyArticle`
-     - Parameter query: A specification of search criteria for the request.
-     
-     If `specificArticles(idList:)` scope is provided, only the articles with specified IDs will be matched againt the `query`.
-     
-     To retrieve a specific version of an article, end the corresponding ID with `vN` suffix where `N` is the desired version number. If an identifier without the suffix is provided,
-     the most recent version will be retrieved. `ArxivEntry` type has properties for getting the version versioned IDs of the corresponing article.
-     
-     For detailed explanation of arXiv identifiers see [arXiv help](https://arxiv.org/help/arxiv_identifier).
-     
-     - Note: A fluent alternative to using this initaliser is `makeRequest(scope:)` method on `ArxivQuery`.
-     */
-    public init(scope: SearchScope = .anyArticle, _ query: ArxivQuery) {
-        self.init(searchQuery: query, ids: scope.idList)
-    }
-    
-    /**
-     Creates a request for retrieving the articles specified by provided IDs.
-     
-      - Parameter idList: A list of arXiv article IDs.
-     
-     To retrieve a specific version of an article, end the corresponding ID with `vN` suffix where `N` is the desired version number. If an identifier without the suffix is provided,
-     the most recent version will be retrieved. `ArxivEntry` type has properties for getting the version and versioned IDs of the corresponing article.
-     
-     For detailed explanation of arXiv identifiers see [arXiv help](https://arxiv.org/help/arxiv_identifier).
-     */
-    public init(idList: [String]) {
-        self.init(ids: idList)
-    }
-    
-    init(
-        searchQuery: ArxivQuery = .empty,
-        ids: [String] = [],
-        startIndex: Int = 0,
-        itemsPerPage: Int = 50,
-        sortBy: SortingCriterion = .lastUpdateDate,
-        sortOrder: SortingOrder = .descending
-    ) {
-        self.query = searchQuery
-        self.idList = ids
-        self.startIndex = startIndex
-        self.itemsPerPage = itemsPerPage
-        self.sortingCriterion = sortBy
-        self.sortingOrder = sortOrder
-    }
-    
-    
-    /// Specifies sorting criteria for  articles returned by API calls.
-    public struct SortingCriterion: Codable {
-        
-        let rawValue: String
-        
-        private init(_ rawValue: String) {
-            self.rawValue = rawValue
-        }
-        
-        /// Sort returned articles by relevance.
-        public static var relevance = SortingCriterion("relevance")
-        
-        /// Sort returned articles by submission date of the most recent version.
-        public static var lastUpdateDate = SortingCriterion("lastUpdatedDate")
-        
-        /// Sort returned articles by submission date of the first version.
-        public static var submissionDate = SortingCriterion("submittedDate")
-    }
-    
-    /// Specifies sorting order for articles returned by API calls.
-    public struct SortingOrder: Codable {
-        
-        let rawValue: String
-        
-        private init(_ rawValue: String) {
-            self.rawValue = rawValue
-        }
-        
-        /// Sort returned articles in descending order.
-        public static var descending = SortingOrder("descending")
-        
-        /// Sort returned articles in ascending order.
-        public static var ascending = SortingOrder("ascending")
-    }
+    var requestSpecification: ArxivRequestSpecification { get }
 }
 
 public extension ArxivRequest {
-           
+    
     /**
-     Returns a new request specifying sorting criterion for returned articles.
+     Returns a new request changing the sorting criterion in `requestSpecification`.
      
      - Parameter sortCriterion: A sorting criterion.
      */
-    func sorted(by sortingCriterion: SortingCriterion) -> ArxivRequest {
-        var request = self
+    func sorted(by sortingCriterion: ArxivRequestSpecification.SortingCriterion) -> ArxivRequest {
+        var request = requestSpecification
         request.sortingCriterion = sortingCriterion
         return request
     }
     
     /**
-     Returns a new request specifying sorting order for returned articles.
+     Returns a new request changing the sorting order in `requestSpecification`.
      
      - Parameter sortingOrder: A sorting order.
      */
-    func sortingOrder(_ sortingOrder: SortingOrder) -> ArxivRequest {
-        var request = self
+    func sortingOrder(_ sortingOrder: ArxivRequestSpecification.SortingOrder) -> ArxivRequest {
+        var request = requestSpecification
         request.sortingOrder = sortingOrder
         return request
     }
     
     /**
-     Returns a new request specifying zero-based index of the first article in the response..
+     Returns a new request changing the start index in `requestSpecification`.
      
      - Parameter i: Start index of the request.
      
@@ -173,8 +57,7 @@ public extension ArxivRequest {
      For example to retrieve matches 6001-8000:
      
      ```
-     ArxivQuery.term("electron", in: .any)
-         .makeRequest()
+     term("electron", in: .any)
          .startIndex(6000)
          .itemsPerPage(8000)
     ```
@@ -186,13 +69,13 @@ public extension ArxivRequest {
      Requests for fewer results are much faster and correspondingly smaller.
      */
     func startIndex(_ i: Int) -> ArxivRequest {
-        var request = self
+        var request = requestSpecification
         request.startIndex = i
         return request
     }
     
     /**
-     Returns a new request specifying maximum number of articles to be returned from a single API call.
+     Returns a new request changing the number of items per single response page in `requestSpecification`.
      
      - Parameter n: Maximum number of articles per response.
      
@@ -207,8 +90,7 @@ public extension ArxivRequest {
      For example to retrieve matches 6001-8000:
      
      ```
-     ArxivQuery.term("electron", in: .any)
-         .makeRequest()
+     term("electron", in: .any)
          .startIndex(6000)
          .itemsPerPage(8000)
     ```
@@ -220,87 +102,25 @@ public extension ArxivRequest {
      Requests for fewer results are much faster and correspondingly smaller.
      */
     func itemsPerPage(_ n: Int) -> ArxivRequest {
-        var request = self
+        var request = requestSpecification
         request.itemsPerPage = n
         return request
     }
 }
 
-public extension ArxivRequest {
+extension ArxivQuery: ArxivRequest {
     
-    /// Defines scope of the articles to be matched against an `ArxivQuery`.
-    enum SearchScope {
-        
-        /// Match a query against all available articles.
-        case anyArticle
-        
-        /// Match a query only against the articles specified by provided IDs.
-        case specificArticles(idList: [String])
-        
-        /// A list of arXiv IDs defining the scope or empty list if `self == .anyArticle`.
-        public var idList: [String] {
-            switch self {
-            case .anyArticle:
-                return []
-            case let .specificArticles(ids):
-                return ids
-            }
-        }
+    /// Returns `ArxivRequestSpecification(query: self)`.
+    public var requestSpecification: ArxivRequestSpecification {
+        return ArxivRequestSpecification(query: self)
     }
 }
 
-public extension ArxivQuery {
+extension ArxivRequestSpecification: ArxivRequest {
     
-    /**
-     Creates a request for retrieving the articles matching the query and belonging to the optional ID list.
-     
-     - Parameter scope: Search scope for matching the query. Default value is `.anyArticle`
-     
-     If `specificArticles(idList:)` scope is provided, only the articles with specified IDs will be matched againt the query.
-     
-     To retrieve a specific version of an article, end the corresponding ID with `vN` suffix where `N` is the desired version number. If an identifier without the suffix is provided,
-     the most recent version will be retrieved. `ArxivEntry` type has properties for getting the version and versioned IDs of the corresponing article.
-     
-     For detailed explanation of arXiv identifiers see [arXiv help](https://arxiv.org/help/arxiv_identifier).
-     */
-    func makeRequest(scope: ArxivRequest.SearchScope = .anyArticle) -> ArxivRequest {
-        return ArxivRequest(scope: scope, self)
-    }
-}
-
-public extension ArxivRequest {
-    
-    /// A URL for making arXiv API calls specified by the request or `nil` if the request is not valid.
-    var url: URL? {
-        
-        if let query = query, query.isInvalid {
-            return nil
-        }
-        
-        var components = URLComponents()
-        
-        components.scheme = scheme
-        components.host = host
-        components.path = path
-        
-        components.queryItems = []
-        
-        if let query = query, !query.isEmpty {
-            components.queryItems?.append(URLQueryItem(name: searchQueryKey, value: query.string))
-        }
-        
-        if !idList.isEmpty {
-            components.queryItems?.append(URLQueryItem(name: idListKey, value: idList.joined(separator: ",")))
-        }
-        
-        components.queryItems?.append(contentsOf: [
-            URLQueryItem(name: sortOrderKey, value: sortingOrder.rawValue),
-            URLQueryItem(name: sortByKey, value: sortingCriterion.rawValue),
-            URLQueryItem(name: startIndexKey, value: "\(startIndex)"),
-            URLQueryItem(name: itemsPerPageKey, value: "\(itemsPerPage)")
-        ])
-        
-        return components.url
+    /// Returns `self`.
+    public var requestSpecification: ArxivRequestSpecification {
+        return self
     }
 }
 

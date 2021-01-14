@@ -47,7 +47,7 @@ public final class ArxivFetchTask {
         sessionQueue.async { [weak self] in
             guard let self = self else { return }
             
-            guard let requestURL = self.request.url else {
+            guard let requestURL = self.request.requestSpecification.url else {
                 self.completion(.failure(.invalidRequest))
                 return
             }
@@ -92,7 +92,27 @@ public final class ArxivFetchTask {
 public extension ArxivRequest {
     
     /**
-     Creates and and runs a task described by request, by using provided session. Method returns the task after it starts running.
+     Returns a task described by the request, created by  provided session.
+     
+     - Parameter session: An `ArxivSession` object used for creating and running the task.
+     - Parameter completion: A function to be called after the task finishes.
+     
+     The completion handler takes a single `Result` argument, which is either a succesfuly
+     parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
+          
+     - Note: Created task is retained by the session and released upon completion.
+     
+     If multiple tasks are programatically run in a raw,
+     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
+     */
+    @discardableResult
+    func fetchTask(using session: ArxivSession, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
+        let task = session.fethTask(with: self, completion: completion)
+        return task
+    }
+    
+    /**
+     Uses provided session to creates and and run a task described by the request. Method returns the task after it starts running.
      
      - Parameter session: An `ArxivSession` object used for creating and running the task.
      - Parameter completion: A function to be called after the task finishes.
@@ -110,28 +130,5 @@ public extension ArxivRequest {
         let task = session.fethTask(with: self, completion: completion)
         task.run()
         return task
-    }
-}
-
-public extension ArxivQuery {
-    
-    /**
-     Creates a request from itself by calling `ArxivRequest(self)` and uses that request to
-     create and run a task, by using provided session. Method returns the task after it starts running.
-     
-     - Parameter session: An `ArxivSession` object used for creating and running the task.
-     - Parameter completion: A function to be called after the task finishes.
-     
-     The completion handler takes a single `Result` argument, which is either a succesfuly
-     parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
-          
-     - Note: Created task is retained by the session and released upon completion.
-     
-     If multiple tasks are programatically run in a raw,
-     a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
-     */
-    @discardableResult
-    func fetch(using session: ArxivSession, completion: @escaping ArxivFetchTask.CompetionHandler) -> ArxivFetchTask {
-        ArxivRequest(self).fetch(using: session, completion: completion)
     }
 }

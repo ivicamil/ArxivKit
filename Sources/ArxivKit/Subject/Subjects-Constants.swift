@@ -1,92 +1,42 @@
 
-/**
- Namespace for all Subject constants.
-    
- It contains following nested subject namespaces:
- 
- - `Physics`
- - `Astrophysics`
- - `CondensedMatter`
- - `NonlinearSciences`
- - `OtherPhysicsSubjects`
- - `Mathematics`
- - `ComputerScience`
- - `QuantitativeBiology`
- - `ElectricalEngineeringAndSystemsScience`
- - `Statistics`
- - `QuantitativeFinance`
- - `Economy`
- */
-public enum ArxivSubjects {}
 
-public extension ArxivSubjects {
-    
-    /// Returns a tree that can be used to recursively enumerate all available subjects
-    /// and their groupings as organised on [arXiv.org](https://arxiv.org).
-   static var all = SubjectTree.grouping(
-        name: "\(ArxivSubject("main").name)",
-        children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
-    )
-    
-    /// Namespace for physics subject that are not classified under Physics, Astrophysics, Condensed Matter or Nonlinear Sciences.
-    enum OtherPhysicsSubjects {}
+/// Namespace for physics subject that are not classified under Physics, Astrophysics, Condensed Matter or Nonlinear Sciences.
+public enum OtherPhysicsSubjects {}
 
-    /// Namespace for Condensed Matter subject constants.
-    enum CondensedMatter {}
+/// Namespace for Condensed Matter subject constants.
+public enum CondensedMatter {}
 
-    /// Namespace for Economy subject constants.
-    enum Economy {}
+/// Namespace for Economy subject constants.
+public enum Economy {}
 
-    /// Namespace for Statistics subject constants.
-    enum Statistics {}
+/// Namespace for Statistics subject constants.
+public enum Statistics {}
 
-    /// Namespace for Compute Science subject constants.
-    enum ComputerScience {}
+/// Namespace for Compute Science subject constants.
+public enum ComputerScience {}
 
-    /// Namespace for Astrophysics subject constants.
-    enum Astrophysics {}
+/// Namespace for Astrophysics subject constants.
+public enum Astrophysics {}
 
-    /// Namespace for Electrical Engineering And Systems Science subject constants.
-    enum ElectricalEngineeringAndSystemsScience {}
+/// Namespace for Electrical Engineering And Systems Science subject constants.
+public enum ElectricalEngineeringAndSystemsScience {}
 
-    /// Namespace for Quantitative Biology subject constants.
-    enum QuantitativeBiology {}
+/// Namespace for Quantitative Biology subject constants.
+public enum QuantitativeBiology {}
 
-    /// Namespace for Mathematics subject constants.
-    enum Mathematics {}
+/// Namespace for Mathematics subject constants.
+public enum Mathematics {}
 
-    /// Namespace for Quantitative Finance subject constants.
-    enum QuantitativeFinance {}
+/// Namespace for Quantitative Finance subject constants.
+public enum QuantitativeFinance {}
 
-    /// Namespace for Physics subject constants.
-    enum Physics {}
+/// Namespace for Physics subject constants.
+public enum Physics {}
 
-    /// Namespace for Physics Nonlinear Sciences constants.
-    enum NonlinearSciences {}
-}
+/// Namespace for Physics Nonlinear Sciences constants.
+public enum NonlinearSciences {}
 
-extension ArxivSubjects {
-        
-    static var nonArXiveSubjects = ["main", "physics-field"]
-    
-    static var main = ArxivSubject("main")
-    
-    static var allPhysics = ArxivSubject("physics-field")
-}
-
-private extension ArxivSubjects {
-    
-    static var physicsGroup = SubjectTree.grouping(
-        name: "Physics Subjects",
-        children: ArxivSubject("physics-field").children.map { .subject($0) }
-    )
-    
-    static var nonPhysicsRootSubjects: [ArxivSubject] {
-        return main.children.filter { $0.symbol != allPhysics.symbol }
-    }
-}
-
-public extension ArxivSubjects.OtherPhysicsSubjects {
+public extension OtherPhysicsSubjects {
 
     static let generalRelativityAndQuantumCosmology = ArxivSubject("gr-qc")
 
@@ -107,7 +57,7 @@ public extension ArxivSubjects.OtherPhysicsSubjects {
     static let quantumPhysics = ArxivSubject("quant-ph")
 }
 
-public extension ArxivSubjects.Mathematics {
+public extension Mathematics {
 
     static let all = ArxivSubject("math.*")
 
@@ -176,7 +126,7 @@ public extension ArxivSubjects.Mathematics {
     static let symplecticGeometry = ArxivSubject("math.SG")
 }
 
-public extension ArxivSubjects.QuantitativeBiology {
+public extension QuantitativeBiology {
 
     static let all = ArxivSubject("q-bio.*")
 
@@ -201,7 +151,7 @@ public extension ArxivSubjects.QuantitativeBiology {
     static let tissuesAndOrgans = ArxivSubject("q-bio.TO")
 }
 
-public extension ArxivSubjects.ComputerScience {
+public extension ComputerScience {
 
     static let all = ArxivSubject("cs.*")
 
@@ -286,7 +236,7 @@ public extension ArxivSubjects.ComputerScience {
     static let systemsAndControl = ArxivSubject("cs.SY")
 }
 
-public extension ArxivSubjects.QuantitativeFinance {
+public extension QuantitativeFinance {
 
     static let all = ArxivSubject("q-fin.*")
 
@@ -309,7 +259,7 @@ public extension ArxivSubjects.QuantitativeFinance {
     static let tradingAndMarketMicrostructure = ArxivSubject("q-fin.TR")
 }
 
-public extension ArxivSubjects.ElectricalEngineeringAndSystemsScience {
+public extension ElectricalEngineeringAndSystemsScience {
 
     static let all = ArxivSubject("eess.*")
 
@@ -322,7 +272,7 @@ public extension ArxivSubjects.ElectricalEngineeringAndSystemsScience {
     static let systemsAndControl = ArxivSubject("eess.SY")
 }
 
-public extension ArxivSubjects.Statistics {
+public extension Statistics {
 
     static let all = ArxivSubject("stat.*")
 
@@ -339,7 +289,7 @@ public extension ArxivSubjects.Statistics {
     static let statisticsTheory = ArxivSubject("stat.TH")
 }
 
-public extension ArxivSubjects.Physics {
+public extension Physics {
 
     static let all = ArxivSubject("physics.*")
 
@@ -386,7 +336,7 @@ public extension ArxivSubjects.Physics {
     static let spacePhysics = ArxivSubject("physics.space-ph")
 }
 
-public extension ArxivSubjects.CondensedMatter {
+public extension CondensedMatter {
 
     static let all = ArxivSubject("cond-mat.*")
 
@@ -409,7 +359,7 @@ public extension ArxivSubjects.CondensedMatter {
     static let superconductivity = ArxivSubject("cond-mat.supr-con")
 }
 
-public extension ArxivSubjects.NonlinearSciences {
+public extension NonlinearSciences {
 
     static let all = ArxivSubject("nlin.*")
 
@@ -424,7 +374,7 @@ public extension ArxivSubjects.NonlinearSciences {
     static let patternFormationAndSolitons = ArxivSubject("nlin.PS")
 }
 
-public extension ArxivSubjects.Economy {
+public extension Economy {
 
     static let all = ArxivSubject("econ.*")
 
@@ -435,7 +385,7 @@ public extension ArxivSubjects.Economy {
     static let theoreticalEconomics = ArxivSubject("econ.TH")
 }
 
-public extension ArxivSubjects.Astrophysics {
+public extension Astrophysics {
 
     static let all = ArxivSubject("astro-ph.*")
 

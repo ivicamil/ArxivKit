@@ -16,3 +16,14 @@ extension String {
         replacingOccurrences(of: "\n", with: " ")
     }
 }
+
+extension String.StringInterpolation {
+    
+  mutating func appendInterpolation<T>(maybe: T?) {
+    if let value = maybe {
+      appendInterpolation(value)
+    } else {
+      appendLiteral("nil")
+    }
+  }
+}

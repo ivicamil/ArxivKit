@@ -12,7 +12,7 @@ private let childSubjectsKey = "child subjects"
  
  All available subject constants are defined under `ArxivSubjects` namespace.
  */
-public struct ArxivSubject: Hashable, Codable {
+public struct ArxivSubject: Hashable, Codable, CustomStringConvertible {
     
     /// Returns arXive category symbol of the subject.
     public let symbol: String
@@ -27,7 +27,7 @@ public struct ArxivSubject: Hashable, Codable {
      - Parameter symbol: A valid arXivCategory symbol.
      */
     public init?(symbol: String) {
-        if ArxivSubjects.dictionary[symbol] != nil && !ArxivSubjects.nonArXiveSubjects.contains(symbol) {
+        if ArxivSubject.dictionary[symbol] != nil && !ArxivSubject.nonArXiveSubjects.contains(symbol) {
             self.init(symbol)
         }
         return nil
@@ -35,13 +35,17 @@ public struct ArxivSubject: Hashable, Codable {
     
     /// Returns human-readable arXiv subject name.
     public var name: String {
-        return ArxivSubjects.dictionary[symbol]?[nameKey] as? String ?? ""
+        return ArxivSubject.dictionary[symbol]?[nameKey] as? String ?? ""
     }
     
     /// Returns an array of child subjects or empty array if the given subject does not have any chidlren.
     public var children: [ArxivSubject] {
-        let childSubjects = (ArxivSubjects.dictionary[symbol]?[childSubjectsKey] as? [String])?.compactMap { ArxivSubject($0) } ?? []
+        let childSubjects = (ArxivSubject.dictionary[symbol]?[childSubjectsKey] as? [String])?.compactMap { ArxivSubject($0) } ?? []
         return childSubjects
+    }
+    
+    public var description: String {
+        return symbol
     }
 }
 
@@ -50,7 +54,7 @@ public struct ArxivSubject: Hashable, Codable {
  
  Use for making arbitrary groups of arXiv subjects. For example, [arXiv.org](https://arxiv.org) organises
  multiple subjects under umbrella term Physics. To represent such groups together with regular subjects, this library uses `SubjectTree`.
- `ArxivSubjects.all` returns a `SubjectTree` that can be used to recursively enumerate all available subjects and their groupings as organised on [arXiv.org](https://arxiv.org).
+ `SubjectTree.allSubjects` returns a `SubjectTree` that can be used to recursively enumerate all available subjects and their groupings as organised on [arXiv.org](https://arxiv.org).
  
  Other arbitrary groupings can be constructed, depending on particular needs.
  */
@@ -93,5 +97,36 @@ public extension SubjectTree {
         case .grouping(name: _, children: _):
             return nil
         }
+    }
+}
+
+public extension SubjectTree {
+    
+    /// Returns a tree that can be used to recursively enumerate all available subjects
+    /// and their groupings as organised on [arXiv.org](https://arxiv.org).
+   static var allSubjects = SubjectTree.grouping(
+        name: "\(ArxivSubject("main").name)",
+        children: [physicsGroup] + nonPhysicsRootSubjects.map { .subject($0) }
+    )
+}
+
+extension ArxivSubject {
+    
+    static var nonArXiveSubjects = ["main", "physics-field"]
+    
+    static var main = ArxivSubject("main")
+    
+    static var allPhysics = ArxivSubject("physics-field")
+}
+
+extension SubjectTree {
+    
+    static var physicsGroup = SubjectTree.grouping(
+        name: "Physics Subjects",
+        children: ArxivSubject("physics-field").children.map { .subject($0) }
+    )
+    
+    static var nonPhysicsRootSubjects: [ArxivSubject] {
+        return ArxivSubject.main.children.filter { $0.symbol != ArxivSubject.allPhysics.symbol }
     }
 }

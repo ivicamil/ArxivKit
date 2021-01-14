@@ -14,7 +14,7 @@ This project is not affiliated with [arXiv.org](https://arxiv.org).
 
 ### Arxiv Session
 
-`ArxivSession` object enapsulates network communication and keeps track of individual fetch tasks. It is strongly recomended to reuse a single session instance for multiple related tasks or even a single instance for the entire app or command line tool. To use any of the APIs from the package, at least one session object must be created and retained:
+`ArxivSession` object enapsulates network communication and keeps track of individual fetch tasks. It is strongly recomended to reuse a single session instance for multiple related tasks or even a single instance for the entire app or command line tool. Create and retain a session object by calling its initialser:
 
 ```swift
 let session = ArxivSession()
@@ -24,64 +24,77 @@ Under the hood, `ArxivSession` uses a `URLSession` instance which can be configu
 
 ### Fetching Articles
 
-`ArxivQuery` type specifies different possible information that can be searched on [arXiv](https://arxiv.org). A query instance is used to construct `ArxivRequest`, which can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc. The request is used for constructing `ArxivFetchTask` object by calling `fethTask(with:completion:)` on a session. Finally, the actual search is performed by calling `run()` on given task.
+`ArxivQuery` type specifies different possible information that can be searched on [arXiv](https://arxiv.org). `ArxivQuery` conforms to `ArxivRequest` protocol and it can be used to create and run fetch tasks. Before fetching, an `ArxivRequest` can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc.
 
-However, a more declarative and fluent approach is to construct ArxivRequest by calling func `makeRequest(scope:)` on an `ArxivQuery` instance, configure it by chaining desired modifiers and perform the search by calling func `fetch(using:completion:)` at the end. Below are examples of some of the possible queries and requests.
+`ArxivKit` enables construction of all the search queries available in Arxiv API. Articles can be searched for a term in any of the available fields, by arXiv subject or by publication and update dates. All the subjects are available as constants under following namespaces:
+
+- `Physics`
+- `Astrophysics`
+- `CondensedMatter`
+- `NonlinearSciences`
+- `OtherPhysicsSubjects`
+- `Mathematics`
+- `ComputerScience`
+- `QuantitativeBiology`
+- `ElectricalEngineeringAndSystemsScience`
+- `Statistics`
+- `QuantitativeFinance`
+- `Economy`
+
+Queries are constructed by using an embeded Domain Specific Language created with Swift feature called [Result Builders](https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md), that was first used in Apple's [SwiftUI Framework](https://developer.apple.com/xcode/swiftui/). The DSL enables creating arbitrarily complex query trees by using an intuitive syntax. 
+
+Bellow are some of the common use scenarios.
 
 ### Performing Search
 
 ```swift
-ArxivQuery
-    .term("electron")
-    .makeRequest()
-    .fetch(using: session) { result in
-        switch result {
-        case let .success(response):
-            let articles = response.entries
-            print("Found \(response.totalResults) articles")
-            print()
-            print(articles.map { $0.title }.joined(separator: "\n\n"))
-        case let .failure(error):
-            print("Could not fetch articles: \(error.localizedDescription)")
-        }
+term("electron").fetch(using: session) { result in
+    switch result {
+    case let .success(response):
+        let articles = response.entries
+        print("Found \(response.totalResults) articles")
+        print()
+        print(articles.map { $0.title }.joined(separator: "\n\n"))
+    case let .failure(error):
+        print("Could not fetch articles: \(error.localizedDescription)")
     }
+}
 ```
 ### Simple Queries
 
 ```swift
-ArxivQuery.term("dft")
-ArxivQuery.term("dft", in: .title)
-ArxivQuery.term("dft", in: .abstract)
-ArxivQuery.term("Feynman", in: .author)
-ArxivQuery.term("20 pages", in: .comment)
-ArxivQuery.term("AMS", in: .journalReference)
+term("dft")
+term("dft", in: .title)
+term("dft", in: .abstract)
+term("Feynman", in: .authors)
+term("20 pages", in: .comment)
+term("AMS", in: .journalReference)
 
-ArxivQuery.subject(ArxivSubjects.Physics.computationalPhysics)
+subject(Physics.computationalPhysics)
 
-rxivQuery.submitted(in: .past(.month))
-ArxivQuery.lastUpdated(in: .past(5, unit: .day))
+submitted(in: .past(.month))
+lastUpdated(in: .past(5, unit: .day))
 ```
 
 ### Complex Queries
 
 ``` swift
-ArxivQuery
-    .allOf(
-        .anyOf(
-            .term("dft", in: .title),
-            .term("ab initio", in: .title)
-        ),
-        .subject(ArxivSubjects.Physics.computationalPhysics)
-    )
-    .excluding(
-        .term("Cu", in: .title)
-    )
+allOf {
+    anyOf {
+        term("dft", in: .title)
+        term(#""ab initio""#, in: .title)
+    }
+    subject(Physics.computationalPhysics)
+}
+.excluding {
+    term("conductivity", in: .title)
+}
 ```
 
 ### Fetching Specific Articles
 
 ```swift
-ArxivRequest(idList: ["2101.02212", "2101.02215"])
+ArxivIdList("2101.02212", "2101.02215")
     .fetch(using: session) { result in
         // Do something with the result
     }
@@ -92,7 +105,7 @@ ArxivRequest(idList: ["2101.02212", "2101.02215"])
 ```swift
 let entry: ArxivEntry = ...
 
-ArxivRequest(idList: entry.allVersionsIDs)
+ArxivIdList(ids: entry.allVersionsIDs)
     .fetch(using: session) { result in
         // Do something with the result
     }
@@ -104,9 +117,7 @@ ArxivRequest(idList: entry.allVersionsIDs)
 var currentReposnse: ArxivResponse?
 
 func fetchElectronArticles(startIndex i: Int) {
-    ArxivQuery
-        .term("electron")
-        .makeRequest()
+    term("electron")
         .itemsPerPage(20)
         .startIndex(i)
         .fetch(using: session) { result in
@@ -134,9 +145,7 @@ if let reponse = currentReposnse, let secondPageIndex = reponse.nextPageStartInd
 
 ```swift
 
-ArxivQuery
-    .term("electron")
-    .makeRequest()
+term("electron")
     .sorted(by: .relevance)
     .sortingOrder(.descending)
     .itemsPerPage(20)

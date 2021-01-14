@@ -60,4 +60,12 @@ public extension ArxivSession {
         tasks[taskKey] = newTask
         return newTask
     }
+    
+    func publisher(with request: ArxivRequest) {
+        
+        if let url = request.requestSpecification.url {
+            let publisher =
+                urlSession.dataTaskPublisher(for: url)
+        }
+    }
 }

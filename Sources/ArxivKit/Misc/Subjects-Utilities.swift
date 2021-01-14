@@ -1,7 +1,7 @@
 
 import Foundation
 
-extension ArxivSubjects {
+extension ArxivSubject {
     
     static var dictionary: [String: [String: Any]] {
         let dictURL = Bundle.module.url(forResource: "ArxivSubjectsDictionary", withExtension: "plist")!

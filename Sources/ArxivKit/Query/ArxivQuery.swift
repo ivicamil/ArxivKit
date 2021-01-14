@@ -37,7 +37,7 @@ public struct ArxivQuery: Codable {
         public static var abstract = Field(.abstract)
         
         /// Search sor a term inside the authors' names.
-        public static var author = Field(.authors)
+        public static var authors = Field(.authors)
         
         /// Search sor a term inside in the comment.
         public static var comment = Field(.comment)
@@ -54,6 +54,14 @@ public struct ArxivQuery: Codable {
 }
 
 public extension ArxivQuery {
+    
+    /// Returns a string representation of the query.
+    var string: String {
+        return tree.string
+    }
+}
+
+extension ArxivQuery {
     
     /**
      Returns a query for retrieving the articles containing provided term in the specified field.
@@ -159,13 +167,13 @@ public extension ArxivQuery {
         }
         return ArxivQuery(.lastUpdated(in: interval))
     }
-}
-
-public extension ArxivQuery {
     
-    /// Returns a string representation of the query.
-    var string: String {
-        return tree.string
+    static var invalid: ArxivQuery {
+        return ArxivQuery(.invalid)
+    }
+    
+    static var empty: ArxivQuery {
+        return ArxivQuery(.empty)
     }
 }
 
@@ -178,19 +186,11 @@ extension ArxivQuery {
    func or(_ anotherQuery: ArxivQuery) -> ArxivQuery {
         return ArxivQuery(.either(tree, anotherQuery.tree))
     }
-}
-
-extension ArxivQuery {
     
-    static var invalid: ArxivQuery {
-        return ArxivQuery(.invalid)
-    }
-    
-    static var empty: ArxivQuery {
-        return ArxivQuery(.empty)
-    }
+    func andNot(_ anotherQuery: ArxivQuery) -> ArxivQuery {
+         return ArxivQuery(.firstAndNotSecond(tree, anotherQuery.tree))
+     }
 }
-
 
 extension ArxivQuery {
     
@@ -330,7 +330,7 @@ public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
       
  - Parameter otherQueries: Additional optional subqueries.
  */
-public func allOf(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
+public func allOf(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
     
     let queryList = content()
     let firstQuery = queryList.first
@@ -350,7 +350,7 @@ public func allOf(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
       
  - Parameter otherQueries: Additional optional subqueries.
  */
-public func anyOf(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
+public func anyOf(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
     
     let queryList = content()
     let firstQuery = queryList.first
@@ -377,7 +377,7 @@ public extension ArxivQuery {
      Providing `.allOf` as the only subquery has no effect and doesn't filter out any result.
      `.excluding { allOf { q1; q2; q; } }` gives the same results as a query without calling `excluding`.
      */
-    func excluding(@QueryBuilder _ content: () -> QueryList) -> ArxivQuery {
+    func excluding(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
         
         let queryList = content()
         let firstQuery = queryList.first
@@ -389,5 +389,53 @@ public extension ArxivQuery {
         
         let excludedQuery = otherQueries.dropFirst().reduce(firstQuery.or(secondQuery)) { $0.or($1) }
         return ArxivQuery(.firstAndNotSecond(tree, excludedQuery.tree))
+    }
+}
+
+extension ArxivQuery: CustomStringConvertible {
+    
+    public var description: String {
+        switch tree {
+        case .invalid:
+            return "invalid"
+        case .empty:
+            return "empty"
+        case let .title(string):
+            return "term(\(string), in: .title)"
+        case let .authors(string):
+            return "term(\(string), in: .author)"
+        case let .abstract(string):
+            return "term(\(string), in: .abstract)"
+        case let .comment(string):
+            return "term(\(string), in: .comment)"
+        case let .journalReference(string):
+            return "term(\(string), in: .journalReference)"
+        case let .subject(subject):
+            return ".subject(\(subject))"
+        case let .reportNumber(string):
+            return "term(\(string), in: .reportNumber)"
+        case let .anyField(string):
+            return "term(\(string), in: .any)"
+        case let .submitted(interval):
+            let dateFormater = DateFormatter()
+            dateFormater.locale = .current
+            dateFormater.dateStyle = .short
+            let start = dateFormater.string(from: interval.start)
+            let end = dateFormater.string(from: interval.end)
+            return "submissionDate(in: \(start) - \(end)"
+        case let .lastUpdated(interval):
+            let dateFormater = DateFormatter()
+            dateFormater.locale = .current
+            dateFormater.dateStyle = .short
+            let start = dateFormater.string(from: interval.start)
+            let end = dateFormater.string(from: interval.end)
+            return "lastUpdateDate(in: \(start) - \(end)"
+        case let .both(q1, q2):
+            return "(\(ArxivQuery(q1)) AND \(ArxivQuery(q2)))"
+        case let .either(q1, q2):
+            return "(\(ArxivQuery(q1)) OR \(ArxivQuery(q2)))"
+        case let .firstAndNotSecond(q1, q2):
+            return "(\(ArxivQuery(q1)) ANDNOT \(ArxivQuery(q2)))"
+        }
     }
 }

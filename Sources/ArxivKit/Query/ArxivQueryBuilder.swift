@@ -4,7 +4,7 @@ import Foundation
 /**
  Non-empty list of queries.
  */
-public struct QueryList {
+public struct ArxivQueryList {
     
     /// Returns the first element of the list.
     public let first: ArxivQuery
@@ -30,12 +30,12 @@ public struct QueryList {
 
 /// A custom parameter attribute that constructs query list from closures.
 @_functionBuilder
-public struct QueryBuilder {
+public struct ArxivQueryBuilder {
     
     public static func buildBlock(
         _ first: ArxivQuery,
         _ tail: ArxivQuery...
-    ) -> QueryList {
-        return QueryList(first, tail)
+    ) -> ArxivQueryList {
+        return ArxivQueryList(first, tail)
     }
 }
