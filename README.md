@@ -12,7 +12,7 @@ Minimal version of Swift required for building the package is 5.3. Following pla
 - iOS, iPadOS, Mac Catalyst (from v14.0)
 - Linux (tested on Ubuntu 20.04)
 
-## Instalation
+## Installation
 
 To use in an Xcode project, add `https://github.com/ivicamil/ArxivKit.git` as package dependency as explained in [Apple developer documentation](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app).
 
@@ -42,13 +42,18 @@ let package = Package(
 
 ### Networking
 
-`ArxivKit` uses `URLSession` for sending API requests. It is strongly recomended to reuse a single session instance for multiple related tasks. For detailed information about creating, configuring and using `URLSession` and related APIs see [Apple Developer documentation for the class](https://developer.apple.com/documentation/foundation/urlsession). In many cases, including all the examples from this document, a session with default configuration will enough:
+`ArxivKit` uses `URLSession` for sending API requests. It is strongly recommended to reuse a single session instance for multiple related tasks. For detailed information about creating, configuring and using `URLSession` and related APIs see [Apple Developer documentation for the class](https://developer.apple.com/documentation/foundation/urlsession). In many cases, including all the examples from this document, a session with default configuration is enough:
 
 ```swift
 let session = URLSession(configuration: .default)
 ```
+or
 
-`ArxivKit` defines convenience extenion methods on `URLSession` and `ArxivRequest` that create `URLSessionDataTask` for sending arXiv API requests and parsing recieved response. In more advanced cases, clients can implement their own custom networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
+```swift
+let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+```
+
+`ArxivKit` defines convenience extension methods on `URLSession` and `ArxivRequest` that create `URLSessionDataTask` for sending arXiv API requests and parsing received response. In more advanced cases, clients can implement their own custom networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API responses to `ArxivReponse` values.
 
 ### Arxiv Query
 
@@ -69,9 +74,9 @@ let session = URLSession(configuration: .default)
 - `QuantitativeFinance`
 - `Economy`
 
-Queries are constructed by using an embeded Domain Specific Language created with Swift feature called [Result Builders](https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md), that was first used in Apple's [SwiftUI Framework](https://developer.apple.com/xcode/swiftui/). The DSL enables creating arbitrarily complex query trees by using an intuitive syntax. 
+Queries are constructed by using an embedded Domain Specific Language created with Swift feature called [Result Builders](https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md), that was first used in Apple's [SwiftUI Framework](https://developer.apple.com/xcode/swiftui/). The DSL enables creating arbitrarily complex query trees by using an intuitive syntax. 
 
-After a query is constructed and configured, `fetch(using:completion:)` or other related methods can be used to construct and run a fetch task. If no error occurs, fetch task returns an `ArxivResponse`, a parsed arXiv API atom feed. The reponse stores various metadata and a list of `ArxivEntry` values. Each entry stores information about a single arXiv article, such as its title, abstract, authors, PDF link etc.
+After a query is constructed and configured, `fetch(using:completion:)` or other related methods can be used to construct and run a fetch task. If no error occurs, fetch task returns an `ArxivResponse`, a parsed arXiv API atom feed. The response stores various metadata and a list of `ArxivEntry` values. Each entry stores information about a single arXiv article, such as its title, abstract, authors, PDF link etc.
 
 Bellow are some of the common use scenarios. For detailed explanation of all available APIs, see [ArxivKit Wiki](https://github.com/ivicamil/ArxivKit/wiki).
 
@@ -144,7 +149,7 @@ ArxivIdList(ids: entry.allVersionsIDs)
 ### Paging Example
 
 ```swift
-var currentReposnse: ArxivResponse?
+var currentResponse: ArxivResponse?
 
 func fetchElectronArticles(startIndex i: Int) {
     term("electron")
@@ -153,7 +158,7 @@ func fetchElectronArticles(startIndex i: Int) {
         .fetch(using: session) { result in
             switch result {
             case let .success(response):
-                currentReposnse = response
+                currentResponse = response
                 print("Page \(response.currentPage) fetched.")
             case let .failure(error):
                 // Deal with error
@@ -165,7 +170,7 @@ func fetchElectronArticles(startIndex i: Int) {
 fetchElectronArticles(startIndex: 0)
 
 // When we are sure that the first page is fetched, we can fetch the second page
-if let reponse = currentReposnse, let secondPageIndex = reponse.nextPageStartIndex {
+if let response = currentResponse, let secondPageIndex = response.nextPageStartIndex {
     fetchElectronArticles(startIndex: secondPageIndex)
 }
 ```
