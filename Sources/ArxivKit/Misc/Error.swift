@@ -4,17 +4,6 @@
  */
 public enum ArxivKitError: Error {
     
-    /// Returned if `ArxivReqeust` URL cannot be constructed.
-    ///
-    /// - Note: This error should never occur, but it is included as `Error` rather than precondition for future comptaibility.
-    case invalidRequest
-    
-    /// Returned when`ArxivFetchTask` is explicitly canceled.
-    case taskCanceled
-    
-    /// Returned when`ArxivParser` is explicitly aborted.
-    case parsingCanceled
-    
     /// Any neworking-related error that caused failure of a fetch task.
     /// Provided argument is from [NSURLErrorDomain](https://developer.apple.com/documentation/foundation/nsurlerrordomain).
     case urlDomainError(Error)
@@ -29,4 +18,7 @@ public enum ArxivKitError: Error {
     /// Returned when XML parser reports a validation error.
     /// Provided argument has a codes  from [XMLParser.ErrorCode](https://developer.apple.com/documentation/foundation/xmlparser/errorcode)
     case validationError(Error)
+    
+    /// Returned when XML parser finishes without error, but returns `nil` `ArxivResponse`.
+    case unexpectedParseError
 }

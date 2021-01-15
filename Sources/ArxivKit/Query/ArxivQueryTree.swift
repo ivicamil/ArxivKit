@@ -24,7 +24,6 @@ private let orKey = "OR"
 
 
 indirect enum ArxivQueryTree  {
-    case invalid
     case empty
     case title(contains: String)
     case authors(contains: String)
@@ -45,8 +44,6 @@ extension ArxivQueryTree {
     
     var string: String {
         switch self {
-        case .invalid:
-            return "invalid query"
         case .empty:
             return ""
         case let .title(string):
@@ -86,8 +83,6 @@ extension ArxivQueryTree {
     
     var isEmpty: Bool {
         switch self {
-        case .invalid:
-            return true
         case .empty:
             return true
         case let .title(string):
@@ -118,21 +113,11 @@ extension ArxivQueryTree {
             return q1.isEmpty && q2.isEmpty
         }
     }
-    
-    var isInvalid: Bool {
-        switch self {
-        case .invalid:
-            return true
-        default:
-            return false
-        }
-    }
 }
 
 extension ArxivQueryTree: Codable {
     
     enum CodingKeys: CodingKey {
-        case invalid
         case empty
         case title
         case authors
@@ -153,8 +138,6 @@ extension ArxivQueryTree: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         switch self {
-        case .invalid:
-            try container.encode(true, forKey: .invalid)
         case .empty:
             try container.encode(true, forKey: .empty)
         case let .title(string):
@@ -197,8 +180,6 @@ extension ArxivQueryTree: Codable {
         let key = container.allKeys.first
         
         switch key {
-        case .invalid:
-            self = .invalid
         case .empty:
             self = .empty
         case .title:

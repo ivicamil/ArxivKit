@@ -39,15 +39,15 @@ let package = Package(
 
 ## Usage
 
-### Arxiv Session
+### Networking
 
-`ArxivSession` object enapsulates network communication and keeps track of individual fetch tasks. It is strongly recomended to reuse a single session instance for multiple related tasks or even a single instance for the entire app or command line tool. Create and retain a session object by calling its initialser:
+`ArxivKit` uses `URLSession` for sending API requests. It is strongly recomended to reuse a single session instance for multiple related tasks. For detailed information about creating, configuring and using `URLSession` and related APIs see [Apple Developer documentation for the class](https://developer.apple.com/documentation/foundation/urlsession). In many cases, including all the examples from this document, a session with default configuration will enough:
 
 ```swift
-let session = ArxivSession()
+let session = URLSession(configuration: .default)
 ```
 
-Under the hood, `ArxivSession` uses a `URLSession` instance which can be configured by providing a custom `URLSessionConfiguration` object to `ArxivSession` initialiser.  `ArxivSession` should be sufficient for many applications. If that's not the case, clients can implement their own networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
+`ArxivKit` defines convenience extenion methods on `URLSession` and `ArxivRequest` that create `URLSessionDataTask` for sending arXiv API requests and parsing recieved response. In more advanced cases, clients can implement their own custom networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
 
 ### Fetching Articles
 
@@ -108,8 +108,8 @@ lastUpdated(in: .past(5, unit: .day))
 ### Complex Queries
 
 ``` swift
-allOf {
-    anyOf {
+all {
+    any {
         term("dft", in: .title)
         term(#""ab initio""#, in: .title)
     }

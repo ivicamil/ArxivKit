@@ -170,12 +170,8 @@ public extension ArxivQuery {
 
 public extension ArxivRequestSpecification {
     
-    /// A URL for making arXiv API calls specified by the request or `nil` if the request is not valid.
-    var url: URL? {
-        
-        if let query = query, query.isInvalid {
-            return nil
-        }
+    /// A URL for making arXiv API calls specified by the request.
+    var url: URL {
         
         var components = URLComponents()
         
@@ -200,7 +196,22 @@ public extension ArxivRequestSpecification {
             URLQueryItem(name: itemsPerPageKey, value: "\(itemsPerPage)")
         ])
         
-        return components.url
+        guard let requestURL = components.url else {
+            /*
+             URLComponents documentation states the following:
+             
+             If the NSURLComponents has an authority component (user, password, host or port)
+             and a path component, then the path must either begin with “/” or be an empty string.
+             If the NSURLComponents does not have an authority component (user, password, host or port)
+             and has a path component, the path component must not start with “//”.
+             If those requirements are not met, nil is returned.
+             
+             As the path here is manualy set to "/api/query", url should never be nil.
+             */
+            fatalError("Unable to construct URL from ArxivRequest:\n\(self)")
+        }
+        
+        return requestURL
     }
 }
 

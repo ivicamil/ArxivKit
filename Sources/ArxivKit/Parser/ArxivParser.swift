@@ -10,16 +10,8 @@ import FoundationXML
  */
 public final class ArxivParser {
     
-    public typealias CompetionHandler = (Result<ArxivResponse, ArxivKitError>) -> ()
-    
-    private var xmlParser: XMLParser?
-    
-    private var xmlParserDelegate: ParserDelegate?
-    
-    private let parserQueue = DispatchQueue(label: "io.polifonia.ArxivKit.parserQueue")
+    fileprivate var result: Result<ArxivResponse, ArxivKitError>?
 
-    fileprivate var finishedParsing: ((Result<ArxivResponse, ArxivKitError>) -> ())?
-    
     /// Creates a parser.
     public init() {
         
@@ -29,55 +21,29 @@ public final class ArxivParser {
 // MARK: - Public `Parser` Methods
 
 public extension ArxivParser {
-    
-    
-    
+        
     /**
      Parses provided response data into `ArxivResponse`.
      
      - Parameter responseData: Raw data of arXiv API response.
-     - Parameter completion: A function to be called after the parsing finishes.
      
-     The completion handler takes a single `Result` argument, which is either a succesfuly
-     parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
+     - Throws: Throws  `ArxivKitError.parseError(_)`, `ArxivKitError.validationError(_)` or `ArxivKitError.unexpectedParseError`.
      */
-    func parse(responseData: Data, completion: @escaping CompetionHandler) {
-        parserQueue.async { [weak self] in
-            guard let self = self else { return }
-            self.finishedParsing = completion
-            self.xmlParser = XMLParser(data: responseData)
-            let xmlParserDelegate = ParserDelegate(parent: self)
-            self.xmlParser?.delegate = xmlParserDelegate
-            let success = self.xmlParser?.parse()
-            if let success = success, !success, let error = self.xmlParser?.parserError {
-                self.finishedParsing?(.failure(.parseError(error)))
-                self.cleanupXMLParser()
-            }
+    func parse(responseData: Data) throws -> ArxivResponse {
+        let xmlParser = XMLParser(data: responseData)
+        let xmlParserDelegate = ParserDelegate(parent: self)
+        xmlParser.delegate = xmlParserDelegate
+        xmlParser.parse()
+        
+        if let error = xmlParser.parserError {
+            throw ArxivKitError.parseError(error)
         }
-    }
-    
-    /**
-     Aborts parsing.
-     
-     After parsing is aborted, completion handler provided to `parse(responseData:completion:)`
-     is called with `.failure(ArxivKitError.parsingCanceled)`.
-     */
-    func abort() {
-        parserQueue.async { [weak self] in
-            self?.xmlParser?.abortParsing()
-            self?.finishedParsing?(.failure(.parsingCanceled))
-            self?.cleanupXMLParser()
+        
+        guard let result = result else {
+            throw ArxivKitError.unexpectedParseError
         }
-    }
-}
-
-// MARK: - Private `Parser` Methods
-
-private extension ArxivParser {
-    
-    func cleanupXMLParser() {
-        self.xmlParser = nil
-        self.xmlParserDelegate = nil
+        
+        return try result.get()
     }
 }
 
@@ -85,7 +51,7 @@ private extension ArxivParser {
 
 private final class ParserDelegate: NSObject {
     
-    weak var parent: ArxivParser?
+    let parent: ArxivParser
     
     private var dateFormater: DateFormatter
     
@@ -146,11 +112,10 @@ extension ParserDelegate: XMLParserDelegate {
        
         if elementName == FeedConstant.feed.value {
             if response.entries.count == 1 && response.entries[0].title == FeedConstant.Entry.errorTitle.value {
-                parent?.finishedParsing?(.failure(.apiError(response.entries[0].summary)))
+                parent.result = .failure(.apiError(response.entries[0].summary))
             } else {
-                parent?.finishedParsing?(.success(response))
+                parent.result = .success(response)
             }
-            parent?.cleanupXMLParser()
             return
         }
         
@@ -173,15 +138,11 @@ extension ParserDelegate: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        if !((parseError as NSError).code == XMLParser.ErrorCode.delegateAbortedParseError.rawValue) {
-            parent?.finishedParsing?(.failure(.parseError(parseError)))
-        }
-        parent?.cleanupXMLParser()
+        parent.result = .failure(.parseError(parseError))
     }
     
     func parser(_ parser: XMLParser, validationErrorOccurred validationError:Error) {
-        parent?.finishedParsing?(.failure(.validationError(validationError)))
-        parent?.cleanupXMLParser()
+        parent.result = .failure(.validationError(validationError))
     }
 }
 

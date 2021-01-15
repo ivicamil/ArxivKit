@@ -6,7 +6,7 @@ import Foundation
  `ArxivQuery` represents either a search term in specified article field,
  a date intervarl in which desired articles were published or updated or an arXive subject.
  
- Queries can be combined to construct arbitrarily complex queries by using `allOf` and `anyOf` combinators.
+ Queries can be combined to construct arbitrarily complex queries by using `all` and `any` combinators.
  It is also possible to exclude articles matching a query by using `excluding` combinator.
  */
 public struct ArxivQuery: Codable {
@@ -150,10 +150,7 @@ extension ArxivQuery {
      - Parameter interval: Desired date interval.
     */
     static func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
-        guard let interval = period.dateInterval else {
-            return .invalid
-        }
-        return ArxivQuery(.submitted(in: interval))
+        return ArxivQuery(.submitted(in: period.dateInterval))
     }
     
     /**
@@ -162,14 +159,7 @@ extension ArxivQuery {
      - Parameter period: Desired time period.
     */
     static func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
-        guard let interval = period.dateInterval else {
-            return .invalid
-        }
-        return ArxivQuery(.lastUpdated(in: interval))
-    }
-    
-    static var invalid: ArxivQuery {
-        return ArxivQuery(.invalid)
+        return ArxivQuery(.lastUpdated(in: period.dateInterval))
     }
     
     static var empty: ArxivQuery {
@@ -193,10 +183,6 @@ extension ArxivQuery {
 }
 
 extension ArxivQuery {
-    
-    var isInvalid: Bool {
-        return tree.isInvalid
-    }
     
     var isEmpty: Bool {
         return tree.isEmpty
@@ -305,10 +291,7 @@ public func lastUpdated(in interval: DateInterval) -> ArxivQuery {
  - Parameter interval: Desired date interval.
 */
 public func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
-    guard let interval = period.dateInterval else {
-        return .invalid
-    }
-    return ArxivQuery(.submitted(in: interval))
+    return ArxivQuery(.submitted(in: period.dateInterval))
 }
 
 /**
@@ -317,10 +300,7 @@ public func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
  - Parameter period: Desired time period.
 */
 public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
-    guard let interval = period.dateInterval else {
-        return .invalid
-    }
-    return ArxivQuery(.lastUpdated(in: interval))
+    return ArxivQuery(.lastUpdated(in: period.dateInterval))
 }
 
 /**
@@ -330,7 +310,7 @@ public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
       
  - Parameter otherQueries: Additional optional subqueries.
  */
-public func allOf(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
+public func all(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
     
     let queryList = content()
     let firstQuery = queryList.first
@@ -350,7 +330,7 @@ public func allOf(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQu
       
  - Parameter otherQueries: Additional optional subqueries.
  */
-public func anyOf(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
+public func any(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
     
     let queryList = content()
     let firstQuery = queryList.first
@@ -373,9 +353,9 @@ public extension ArxivQuery {
      - Parameter otherExcluded: Other optional subqueries to exclude.
      
      Semantics of the returned query is to exclude all the articles that match any of the provided subqueries.
-     In other words, `.excluding { q1; q2; q3 }` is equivalent to `.excluding { anyOf { q1; q2; q3 } }`.
-     Providing `.allOf` as the only subquery has no effect and doesn't filter out any result.
-     `.excluding { allOf { q1; q2; q; } }` gives the same results as a query without calling `excluding`.
+     In other words, `.excluding { q1; q2; q3 }` is equivalent to `.excluding { any { q1; q2; q3 } }`.
+     Providing `.all` as the only subquery has no effect and doesn't filter out any result.
+     `.excluding { all { q1; q2; q; } }` gives the same results as a query without calling `excluding`.
      */
     func excluding(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
         
@@ -396,8 +376,6 @@ extension ArxivQuery: CustomStringConvertible {
     
     public var description: String {
         switch tree {
-        case .invalid:
-            return "invalid"
         case .empty:
             return "empty"
         case let .title(string):

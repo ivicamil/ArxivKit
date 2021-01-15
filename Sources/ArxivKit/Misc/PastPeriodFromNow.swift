@@ -35,19 +35,24 @@ public struct PastPeriodFromNow: Hashable, Codable {
      
      - Parameter value: Number calendar units in desired period.
      - Parameter unit: Calendar unit of desired period.
+     
+     Providing an extremely large number as `value` may result in a crash. That can, however, only happen
+     by a programming mistake, as the only meaningful values are those that result in periods start date not lower than
+     14 August 1991, the date when [arXiv.org](https://arXiv.org) was launched.
     */
     public static func past(_ value: Int, unit: CalendarUnit) -> PastPeriodFromNow {
         return PastPeriodFromNow(unit: unit, value: value)
     }
     
-    var dateInterval: DateInterval? {
+    /// Returns a date interval representation of the period.
+    public var dateInterval: DateInterval {
         return .past(value, unit: unit)
     }
 }
 
 private extension DateInterval {
     
-    static func past(_ value: Int, unit: PastPeriodFromNow.CalendarUnit) -> DateInterval? {
+    static func past(_ value: Int, unit: PastPeriodFromNow.CalendarUnit) -> DateInterval {
         let calendar = Calendar(identifier: .gregorian)
         
         let n: Int
@@ -70,8 +75,9 @@ private extension DateInterval {
         let now = Date()
         
         guard let pastDate = calendar.date(byAdding: component, value: -n, to: now) else {
-            return nil
+            fatalError("An extreme value was provided to PastPeriodFromNow.past(unit:).")
         }
+        
         return DateInterval(start: pastDate, end: now)
     }
 }

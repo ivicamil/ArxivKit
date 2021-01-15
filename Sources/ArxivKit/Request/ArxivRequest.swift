@@ -1,4 +1,6 @@
 
+import Foundation
+
 /**
  A type providing specification of aXiv API request.
  */
@@ -13,6 +15,10 @@ public protocol ArxivRequest {
 }
 
 public extension ArxivRequest {
+    
+    var url: URL {
+        return requestSpecification.url
+    }
     
     /**
      Returns a new request changing the sorting criterion in `requestSpecification`.
