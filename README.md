@@ -1,6 +1,6 @@
 # ArxivKit
 
-Swift DSL wrapper for arXiv API.
+Swift DSL wrapper for [arXiv API](https://arxiv.org/help/api/).
 
 This project is not affiliated with [arXiv.org](https://arxiv.org). 
 
@@ -50,7 +50,7 @@ let session = URLSession(configuration: .default)
 
 `ArxivKit` defines convenience extenion methods on `URLSession` and `ArxivRequest` that create `URLSessionDataTask` for sending arXiv API requests and parsing recieved response. In more advanced cases, clients can implement their own custom networking layer and still use this library as a Domain Specific Language for constructing `ArxivRequest` values. In that case, `ArxivParser` can be used for parsing raw API reponses to `ArxivReponse` values.
 
-### Fetching Articles
+### Arxiv Query
 
 `ArxivQuery` type specifies different possible information that can be searched on [arXiv](https://arxiv.org). `ArxivQuery` conforms to `ArxivRequest` protocol and it can be used to create and run fetch tasks. Before fetching, an `ArxivRequest` can be configured with various modifier methods to define desired number of articles per page, sorting order and criterion etc.
 
@@ -71,9 +71,9 @@ let session = URLSession(configuration: .default)
 
 Queries are constructed by using an embeded Domain Specific Language created with Swift feature called [Result Builders](https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md), that was first used in Apple's [SwiftUI Framework](https://developer.apple.com/xcode/swiftui/). The DSL enables creating arbitrarily complex query trees by using an intuitive syntax. 
 
-If no error occurs, fetch task returns an `ArxivResponse`, a parsed arXiv API atom feed. The reponse stores various metadata and a list of `ArxivEntry` values. Each entry stores information about a single arXiv article, such as its title, abstract, authors, PDF link etc.
+After a query is constructed and configured, `fetch(using:completion:)` or other related methods can be used to construct and run a fetch task. If no error occurs, fetch task returns an `ArxivResponse`, a parsed arXiv API atom feed. The reponse stores various metadata and a list of `ArxivEntry` values. Each entry stores information about a single arXiv article, such as its title, abstract, authors, PDF link etc.
 
-Bellow are some of the common use scenarios.
+Bellow are some of the common use scenarios. For detailed explanation of all available APIs, see [ArxivKit Wiki](https://github.com/ivicamil/ArxivKit/wiki).
 
 ### Performing Search
 
