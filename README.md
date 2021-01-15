@@ -191,4 +191,4 @@ term("electron")
 
 ## License
 
-`ArxivKit` is released under [MIT license](LICENSE)). For terms and conditions of using the arXiv API itself see [arXiv API Help](https://arxiv.org/help/api).
+`ArxivKit` is released under [MIT license](LICENSE). For terms and conditions of using the arXiv API itself see [arXiv API Help](https://arxiv.org/help/api).
