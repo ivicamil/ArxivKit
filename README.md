@@ -19,12 +19,13 @@ To use in an Xcode project, add `https://github.com/ivicamil/ArxivKit.git` as pa
 In [package-based](https://swift.org/package-manager/) projects, add `ArxivKit` dependency to `Package.swift` as explained bellow: 
 
 ```swift
+// swift-tools-version:5.3
+
 import PackageDescription
 
 let package = Package(
     name: "ProjectName",
-    platforms: [
-        ],
+    platforms: [],
     dependencies: [
         // Replace the version string with your own desired minimal version.
         .package(url: "https://github.com/ivicamil/ArxivKit.git", from: "2.0.0")
@@ -153,10 +154,9 @@ func fetchElectronArticles(startIndex i: Int) {
             switch result {
             case let .success(response):
                 currentReposnse = response
-                let articles = response.entries
                 print("Page \(response.currentPage) fetched.")
             case let .failure(error):
-                print("Could not fetch articles: \(error.localizedDescription)")
+                // Deal with error
             }
         }
 }
