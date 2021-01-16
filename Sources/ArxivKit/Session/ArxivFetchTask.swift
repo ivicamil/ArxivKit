@@ -14,7 +14,8 @@ public extension ArxivRequest {
      - Parameter completion: A function to be called after the task finishes.
      
      The completion handler takes a single `Result` argument, which is either a succesfuly
-     parsed `ArxivResponse`, or an `ArxivKitError`, if one occurs.
+     parsed `ArxivResponse` or an error,  if one occurs.
+     The error is either `ArxivURLError`, `ArxivServerError`, `ArxivParserError` or `ArxivAPIError`.
                
      If multiple tasks are programatically run in a raw,
      a 3 seconds delay between the tasks is recomended by [arxiv API manual](https://arxiv.org/help/api/user-manual).
@@ -54,9 +55,13 @@ public extension ArxivRequest {
      
      - Parameter session: An `URLSession` object used for creating and running the task.
      - Parameter keyPath: A key path that indicates the property to assign.
-     - Parameter completion: The object that contains the property.
+     - Parameter object: The object that contains the property.
      
      When the task completes, a result is assigned to property indicated by`keyPath` on the provided object.
+     
+     The  result is either a succesfuly
+     parsed `ArxivResponse` or an error,  if one occurs.
+     The error is either `ArxivURLError`, `ArxivServerError`, `ArxivParserError` or `ArxivAPIError`.
      
      - Note: The assignment happens on session's `delegateQueue`.
      */
@@ -74,9 +79,11 @@ public extension ArxivRequest {
      
      - Parameter session: An `URLSession` object used for creating and running the task.
      - Parameter keyPath: A key path that indicates the property to assign.
-     - Parameter completion: The object that contains the property.
+     - Parameter object: The object that contains the property.
      
-     When the task completes, a result is assigned to property indicated by`keyPath` on the provided object.
+     The  result is either a succesfuly
+     parsed `ArxivResponse` or an error,  if one occurs.
+     The error is either `ArxivURLError`, `ArxivServerError`, `ArxivParserError` or `ArxivAPIError`.
      
      - Note: The assignment happens on session's `delegateQueue`.
      */

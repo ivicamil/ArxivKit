@@ -36,11 +36,15 @@ public struct PastPeriodFromNow: Hashable, Codable {
      - Parameter value: Number calendar units in desired period.
      - Parameter unit: Calendar unit of desired period.
      
-     Providing an extremely large number as `value` may result in a crash. That can, however, only happen
-     by a programming mistake, as the only meaningful values are those that result in periods start date not lower than
+     Even though there is no formal precondition for the upper limmit of `value`,
+     providing an extremely large number  may result in a crash. That can, however, only happen
+     by a programming mistake, as the only meaningful values are those that result in period's start date not lower than
      14 August 1991, the date when [arXiv.org](https://arXiv.org) was launched.
+     
+     - Precondition: `value > 0`
     */
     public static func past(_ value: Int, unit: CalendarUnit) -> PastPeriodFromNow {
+        precondition(value > 0, "Number of calendar units in the period must be greater than 0.")
         return PastPeriodFromNow(unit: unit, value: value)
     }
     

@@ -23,17 +23,13 @@ public struct ArxivQueryBuilder {
         return Array(queries.joined())
     }
     
-    public static func buildDo(_ queries: [ArxivQuery]) -> [ArxivQuery] {
+    public static func buildLimitedAvailability(_ queries: [ArxivQuery]) -> [ArxivQuery] {
         return queries
     }
     
-    public static func buildLimitedAvailability(_ queries: [ArxivQuery]) -> [ArxivQuery] {
-        return queries
-      }
-    
-   public static func buildArray(_ queries: [[ArxivQuery]]) -> [ArxivQuery] {
+    public static func buildArray(_ queries: [[ArxivQuery]]) -> [ArxivQuery] {
         return Array(queries.joined())
-   }
+    }
     
     public static func buildOptional(_ maybeQuery: [ArxivQuery]?) -> [ArxivQuery] {
         return maybeQuery ?? []

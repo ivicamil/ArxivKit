@@ -189,6 +189,36 @@ term("electron")
     }
 ```
 
+### Advanced Processing of `ArxivKit` Results wtih Combine (Apple Platforms Only)
+
+On Apple platforms, Combine framework can be used for advanced processing of URL Session data task results, as explained in [this Apple Developer Doc§umentation article](https://developer.apple.com/documentation/foundation/urlsession/processing_url_session_data_task_results_with_combine). `ArxivKit` works naturally with `Combine`. Bellow is a simple example of creating a publisher for receiving arXiv API results and subsribing to it:
+
+```swift
+import Combine
+
+var cancelable: AnyCancellable?
+
+cancelable = session
+    .dataTaskPublisher(for: term("electronic configuration").url)
+    .tryMap(ArxivParser().parse)
+    .receive(on: DispatchQueue.main)
+    .sink(
+        receiveCompletion: { completion in
+            let outcome: String
+            switch completion {
+            case .finished:
+                outcome = "successfully"
+            case let .failure(error):
+                outcome = "with error: \(error)"
+            }
+            print("Publisher completed \(outcome).")
+        },
+        receiveValue: { response in
+            print ("Received arXiv feed:\n\n \(response)\n")
+        }
+    )
+```
+
 ## License
 
 `ArxivKit` is released under [MIT license](LICENSE). For terms and conditions of using the arXiv API itself see [arXiv API Help](https://arxiv.org/help/api).

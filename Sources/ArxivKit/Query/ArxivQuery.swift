@@ -94,6 +94,11 @@ extension ArxivQuery {
      
      */
     static func term(_ term: String, in field: Field = .any) -> ArxivQuery {
+        
+        guard !term.trimmingWhiteSpaces.isEmpty else {
+            return .empty
+        }
+        
         let tree: ArxivQueryTree
         
         switch field.rawValue  {
@@ -366,10 +371,9 @@ public extension ArxivQuery {
      
      - Parameter otherExcluded: Other optional subqueries to exclude.
      
-     Semantics of the returned query is to exclude all the articles that match any of the provided subqueries.
-     In other words, `.excluding { q1; q2; q3 }` is equivalent to `.excluding { any { q1; q2; q3 } }`.
-     Providing `.all` as the only subquery has no effect and doesn't filter out any result.
-     `.excluding { all { q1; q2; q; } }` gives the same results as a query without calling `excluding`.
+     Semantics of the returned query is to exclude the articles matching all of the provided subqueries.
+     In other words, `.excluding { q1; q2; q3 }` is equivalent to `.excluding { all { q1; q2; q3 } }`.
+     Use `.excluding { any { q1; q2; q3; } }` to exclude the articles mathing any of the subqueries.
      */
     func excluding(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
         
@@ -385,7 +389,7 @@ public extension ArxivQuery {
             return ArxivQuery(.firstAndNotSecond(tree, firstQuery.tree))
         }
         
-        let excludedQuery = otherQueries.dropFirst().reduce(firstQuery.or(secondQuery)) { $0.or($1) }
+        let excludedQuery = otherQueries.dropFirst().reduce(firstQuery.and(secondQuery)) { $0.and($1) }
         return ArxivQuery(.firstAndNotSecond(tree, excludedQuery.tree))
     }
 }

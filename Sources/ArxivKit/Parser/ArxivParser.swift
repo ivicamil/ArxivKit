@@ -10,7 +10,7 @@ import FoundationXML
  */
 public final class ArxivParser {
     
-    fileprivate var result: Result<ArxivResponse, ArxivKitError>?
+    fileprivate var result: Result<ArxivResponse, Error>?
 
     /// Creates a parser.
     public init() {
@@ -27,20 +27,16 @@ public extension ArxivParser {
      
      - Parameter responseData: Raw data of arXiv API response.
      
-     - Throws: Throws  `ArxivKitError.parseError(_)`, `ArxivKitError.validationError(_)` or `ArxivKitError.unexpectedParseError`.
+     - Throws: `ArxivParserError` or `ArxivAPIError`.
      */
     func parse(responseData: Data) throws -> ArxivResponse {
         let xmlParser = XMLParser(data: responseData)
         let xmlParserDelegate = ParserDelegate(parent: self)
         xmlParser.delegate = xmlParserDelegate
-        xmlParser.parse()
-        
-        if let error = xmlParser.parserError {
-            throw ArxivKitError.parseError(error)
-        }
+        let _ = xmlParser.parse()
         
         guard let result = result else {
-            throw ArxivKitError.unexpectedParseError
+            throw ArxivParserError.unexpectedParseError
         }
         
         return try result.get()
@@ -112,8 +108,12 @@ extension ParserDelegate: XMLParserDelegate {
        
         if elementName == FeedConstant.feed.value {
             if response.entries.count == 1 && response.entries[0].title == FeedConstant.Entry.errorTitle.value {
-                parent.result = .failure(.apiError(response.entries[0].summary))
-            } else {
+                parent.result = .failure(ArxivAPIError(description: response.entries[0].summary))
+            } else if response.totalResults > 0 && response.entries.count == 0 {
+                let unknownAPIError = "Unknwon API error. Server reporeted \(response.totalResults) total results, but returned no entries."
+                parent.result = .failure(ArxivAPIError(description: unknownAPIError))
+            }
+            else {
                 parent.result = .success(response)
             }
             return
@@ -138,11 +138,11 @@ extension ParserDelegate: XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        parent.result = .failure(.parseError(parseError))
+        parent.result = .failure(ArxivParserError.parseError(parseError))
     }
     
     func parser(_ parser: XMLParser, validationErrorOccurred validationError:Error) {
-        parent.result = .failure(.validationError(validationError))
+        parent.result = .failure(ArxivParserError.validationError(validationError))
     }
 }
 
@@ -153,14 +153,14 @@ private extension ParserDelegate {
     func parseLink(_ elementName: String, _ attributeDict: [String : String]) -> Bool {
         
         if currentEntry == nil && elementName == FeedConstant.link.value,
-           let feedPath = attributeDict[FeedConstant.href.value]?.removingPercentEncoding,
+           let feedPath = attributeDict[FeedConstant.href.value],
            let feedURL = URL(string: feedPath) {
                 response.link = feedURL
             return true
         }
         
         if currentEntry != nil, elementName == FeedConstant.Entry.link.value,
-            let path = attributeDict[FeedConstant.href.value]?.removingPercentEncoding,
+            let path = attributeDict[FeedConstant.href.value],
             let url = URL(string: path){
             
             switch (attributeDict[FeedConstant.Entry.Link.rel.value], attributeDict[FeedConstant.Entry.Link.title.value]) {
@@ -214,7 +214,7 @@ private extension ParserDelegate {
         case FeedConstant.updated.value:
             dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss-hh:mm"
             if let updatedDate = dateFormater.date(from: currentString) {
-                response.lastUpdateDate = updatedDate
+                response.updatedDate = updatedDate
             }
         case FeedConstant.totalResults.value:
             if let totalResultsInt = Int(currentString.trimmingWhiteSpaces) {

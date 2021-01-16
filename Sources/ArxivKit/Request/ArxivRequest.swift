@@ -73,8 +73,11 @@ public extension ArxivRequest {
      A request with `itemsPerPage` > 30,000 will result in an HTTP 400 error code with appropriate explanation.
      A request for 30000 results will typically take a little over 2 minutes to return a response of over 15MB.
      Requests for fewer results are much faster and correspondingly smaller.
+     
+     - Precondition: `i >= 0`
      */
     func startIndex(_ i: Int) -> ArxivRequest {
+        precondition(i >= 0, "Start index must be greater than or equal to zero.")
         var request = requestSpecification
         request.startIndex = i
         return request
@@ -106,8 +109,11 @@ public extension ArxivRequest {
      A request with `itemsPerPage > 30000` will result in an `HTTP 400` error code with appropriate explanation.
      A request for `30000` results will typically take a little over 2 minutes to return a response of over 15MB.
      Requests for fewer results are much faster and correspondingly smaller.
+     
+     - Precondition: `n > 0`
      */
     func itemsPerPage(_ n: Int) -> ArxivRequest {
+        precondition(n > 0, "itemsPerPage value must be greater than zero.")
         var request = requestSpecification
         request.itemsPerPage = n
         return request
