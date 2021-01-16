@@ -317,13 +317,11 @@ public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
 /**
  Returns a new query for retrieving the articles matching **ALL** of the provided subqueries.
 
- - Parameter firstQuery: The first subquery.
-      
- - Parameter otherQueries: Additional optional subqueries.
+ - Parameter queries: A query builder that creates list of subqueries of `all`.
  */
-public func all(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
+public func all(@ArxivQueryBuilder _ queries: () -> [ArxivQuery]) -> ArxivQuery {
     
-    let queryList = content().filter { !$0.isEmpty }
+    let queryList = queries().filter { !$0.isEmpty }
     
     guard let firstQuery = queryList.first else {
         return .empty
@@ -341,13 +339,11 @@ public func all(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery 
 /**
  Returns a query for retrieving the articles matching **ANY** of the provided subqueries.
 
- - Parameter firstQuery: The first subquery.
-      
- - Parameter otherQueries: Additional optional subqueries.
+ - Parameter queries: A query builder that creates list of subqueries oaf `any`.
  */
-public func any(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
+public func any(@ArxivQueryBuilder _ queries: () -> [ArxivQuery]) -> ArxivQuery {
     
-    let queryList = content().filter { !$0.isEmpty }
+    let queryList = queries().filter { !$0.isEmpty }
     
     guard let firstQuery = queryList.first else {
         return .empty
@@ -367,17 +363,15 @@ public extension ArxivQuery {
     /**
      Returns a new query for retrieving the articles matching the query **AND NOT** the provided subqueries.
     
-     - Parameter firstExcluded: A subqeuery to exclude.
-     
-     - Parameter otherExcluded: Other optional subqueries to exclude.
-     
+     - Parameter queries: A query builder that creates list of subqueries to exclude.
+          
      Semantics of the returned query is to exclude the articles matching all of the provided subqueries.
      In other words, `.excluding { q1; q2; q3 }` is equivalent to `.excluding { all { q1; q2; q3 } }`.
      Use `.excluding { any { q1; q2; q3; } }` to exclude the articles mathing any of the subqueries.
      */
-    func excluding(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
+    func excluding(@ArxivQueryBuilder _ queries: () -> [ArxivQuery]) -> ArxivQuery {
         
-        let queryList = content().filter { !$0.isEmpty }
+        let queryList = queries().filter { !$0.isEmpty }
         
         guard let firstQuery = queryList.first else {
             return self
