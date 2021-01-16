@@ -35,7 +35,7 @@ public enum ArxivServerError: Error {
 public struct ArxivAPIError: Error {
     
     /// A human-readable description of the error.
-    let description: String
+    public let description: String
 }
 
 /**
