@@ -163,7 +163,7 @@ public extension ArxivQuery {
      
      For detailed explanation of arXiv identifiers see [arXiv help](https://arxiv.org/help/arxiv_identifier).
      */
-    func scopedTo(_ firstID: String, otherIDs: String...) -> ArxivRequestSpecification {
+    func scopedTo(_ firstID: String, _ otherIDs: String...) -> ArxivRequestSpecification {
         return ArxivRequestSpecification(query: self, idList: [firstID] + otherIDs)
     }
 }
