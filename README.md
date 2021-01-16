@@ -191,7 +191,7 @@ term("electron")
 
 ### Advanced Processing of `ArxivKit` Results wtih Combine (Apple Platforms Only)
 
-On Apple platforms, Combine framework can be used for advanced processing of URL Session data task results, as explained in [this Apple Developer Doc§umentation article](https://developer.apple.com/documentation/foundation/urlsession/processing_url_session_data_task_results_with_combine). `ArxivKit` works naturally with `Combine`. Bellow is a simple example of creating a publisher for receiving arXiv API results and subsribing to it:
+On Apple platforms, Combine framework can be used for advanced processing of URL Session data task results, as explained in [this Apple Developer Documentation article](https://developer.apple.com/documentation/foundation/urlsession/processing_url_session_data_task_results_with_combine). `ArxivKit` works naturally with `Combine`. Bellow is a simple example of creating a publisher for receiving arXiv API results and subsribing to it:
 
 ```swift
 import Combine
