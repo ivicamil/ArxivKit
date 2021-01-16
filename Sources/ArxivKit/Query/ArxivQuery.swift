@@ -162,6 +162,7 @@ extension ArxivQuery {
         return ArxivQuery(.lastUpdated(in: period.dateInterval))
     }
     
+    /// Returns an empty query.
     static var empty: ArxivQuery {
         return ArxivQuery(.empty)
     }
@@ -203,6 +204,11 @@ extension ArxivQuery.Field {
 }
 
 // MARK: - Global Functions Used For Query Expressions
+
+/// Returns an empty query.
+public var empty: ArxivQuery {
+    return .empty
+}
 
 /**
  Returns a query for retrieving the articles containing provided term in the specified field.
@@ -310,11 +316,15 @@ public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
       
  - Parameter otherQueries: Additional optional subqueries.
  */
-public func all(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
+public func all(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
     
-    let queryList = content()
-    let firstQuery = queryList.first
-    let otherQueries = queryList.tail
+    let queryList = content().filter { !$0.isEmpty }
+    
+    guard let firstQuery = queryList.first else {
+        return .empty
+    }
+    
+    let otherQueries = queryList.dropFirst()
     
     guard let secondQuery = otherQueries.first else {
         return firstQuery
@@ -330,11 +340,15 @@ public func all(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuer
       
  - Parameter otherQueries: Additional optional subqueries.
  */
-public func any(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
+public func any(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
     
-    let queryList = content()
-    let firstQuery = queryList.first
-    let otherQueries = queryList.tail
+    let queryList = content().filter { !$0.isEmpty }
+    
+    guard let firstQuery = queryList.first else {
+        return .empty
+    }
+    
+    let otherQueries = queryList.dropFirst()
     
     guard let secondQuery = otherQueries.first else {
         return firstQuery
@@ -357,11 +371,15 @@ public extension ArxivQuery {
      Providing `.all` as the only subquery has no effect and doesn't filter out any result.
      `.excluding { all { q1; q2; q; } }` gives the same results as a query without calling `excluding`.
      */
-    func excluding(@ArxivQueryBuilder _ content: () -> ArxivQueryList) -> ArxivQuery {
+    func excluding(@ArxivQueryBuilder _ content: () -> [ArxivQuery]) -> ArxivQuery {
         
-        let queryList = content()
-        let firstQuery = queryList.first
-        let otherQueries = queryList.tail
+        let queryList = content().filter { !$0.isEmpty }
+        
+        guard let firstQuery = queryList.first else {
+            return self
+        }
+        
+        let otherQueries = queryList.dropFirst()
         
         guard let secondQuery = otherQueries.first else {
             return ArxivQuery(.firstAndNotSecond(tree, firstQuery.tree))
