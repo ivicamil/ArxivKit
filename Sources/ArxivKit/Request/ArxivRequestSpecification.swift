@@ -170,11 +170,11 @@ public extension ArxivQuery {
 
 public extension ArxivRequestSpecification {
     
-    /// A URL for making arXiv API calls specified by the request.
+    /// The arXiv API URL of the request.
     var url: URL {
         
         var components = URLComponents()
-        
+                
         components.scheme = scheme
         components.host = host
         components.path = path

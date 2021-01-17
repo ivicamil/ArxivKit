@@ -16,6 +16,7 @@ public protocol ArxivRequest {
 
 public extension ArxivRequest {
     
+    /// Returns URL for making arXiv API calls specified by the request.
     var url: URL {
         return requestSpecification.url
     }

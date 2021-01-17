@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ArxivRequestSpecification Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/ArxivRequestSpecification" class="dashAnchor"></a>
+    <a title="ArxivRequestSpecification Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ArxivRequestSpecification Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ArxivParser.html">ArxivParser</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global%20Variables.html#/s:8ArxivKit5emptyAA0A5QueryVvp">empty</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/ArxivParserError.html">ArxivParserError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ArxivServerError.html">ArxivServerError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ArxivURLError.html">ArxivURLError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Astrophysics.html">Astrophysics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ComputerScience.html">ComputerScience</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CondensedMatter.html">CondensedMatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Economy.html">Economy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ElectricalEngineeringAndSystemsScience.html">ElectricalEngineeringAndSystemsScience</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Mathematics.html">Mathematics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NonlinearSciences.html">NonlinearSciences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/OtherPhysicsSubjects.html">OtherPhysicsSubjects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Physics.html">Physics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/QuantitativeBiology.html">QuantitativeBiology</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/QuantitativeFinance.html">QuantitativeFinance</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Statistics.html">Statistics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SubjectTree.html">SubjectTree</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Utilities.html">Utilities</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/URLSession.html">URLSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit3allyAA0A5QueryVSayADGyXEF">all(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit3anyyAA0A5QueryVSayADGyXEF">any(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit11lastUpdated2inAA0A5QueryV10Foundation12DateIntervalV_tF">lastUpdated(in:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit11lastUpdated2inAA0A5QueryVAA17PastPeriodFromNowV_tF">lastUpdated(in:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit7subjectyAA0A5QueryVAA0A7SubjectVF">subject(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit9submitted2inAA0A5QueryV10Foundation12DateIntervalV_tF">submitted(in:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit9submitted2inAA0A5QueryVAA17PastPeriodFromNowV_tF">submitted(in:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:8ArxivKit4term_2inAA0A5QueryVSS_AE5FieldVtF">term(_:in:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ArxivRequest.html">ArxivRequest</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivAPIError.html">ArxivAPIError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivEntry.html">ArxivEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivEntry/Author.html">– Author</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivIdList.html">ArxivIdList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivQuery.html">ArxivQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivQuery/Field.html">– Field</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivQueryBuilder.html">ArxivQueryBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivRequestSpecification.html">ArxivRequestSpecification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivRequestSpecification/SortingCriterion.html">– SortingCriterion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivRequestSpecification/SortingOrder.html">– SortingOrder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivResponse.html">ArxivResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ArxivSubject.html">ArxivSubject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PastPeriodFromNow.html">PastPeriodFromNow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PastPeriodFromNow/CalendarUnit.html">– CalendarUnit</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8ArxivKit0A18FetchResultKeypatha">ArxivFetchResultKeypath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:8ArxivKit0A25FetchTaskCompetionHandlera">ArxivFetchTaskCompetionHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ArxivRequestSpecification</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ArxivRequestSpecification</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ArxivRequestSpecification</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ArxivRequest.html">ArxivRequest</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ArxivRequestSpecification</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                </div>
+              </div>
+            <p>A full sppecification of an arXiv API request.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV5queryAA0A5QueryVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/query" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV5queryAA0A5QueryVSgvp">query</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a query used for  the request or <code>nil</code> if the request consists of <code><a href="../Structs/ArxivRequestSpecification.html#/s:8ArxivKit0A20RequestSpecificationV6idListSaySSGvp">idList</a></code> only.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">query</span><span class="p">:</span> <span class="kt"><a href="../Structs/ArxivQuery.html">ArxivQuery</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV6idListSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/idList" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV6idListSaySSGvp">idList</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array od article ids. If the array is non-empty, qyery matching is limmited to specified articles.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">idList</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV10startIndexSivp"></a>
+                    <a name="//apple_ref/swift/Property/startIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV10startIndexSivp">startIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns zero-based index of the first article in the response. Set using <code>startIndex(_)</code> method.
+Default value is <code>0</code>.</p>
+
+<p>The index can be used to implement paging. For example, if <code><a href="../Structs/ArxivRequestSpecification.html#/s:8ArxivKit0A20RequestSpecificationV12itemsPerPageSivp">itemsPerPage</a></code> is 20, the first page is with <code>startIndex == 0</code> ,
+the second with <code>startIndex == 20</code>, the third with <code>startIndex == 60</code> etc.</p>
+
+<p><code>ArxivReponse</code> values can be used for getting various page indicies for given response.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">startIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV12itemsPerPageSivp"></a>
+                    <a name="//apple_ref/swift/Property/itemsPerPage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV12itemsPerPageSivp">itemsPerPage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns maximum number of articles to be returned from a single API call. Set using <code>itemsPerPage(_)</code> method. Default value is 50.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">itemsPerPage</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV16sortingCriterionAC07SortingF0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/sortingCriterion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV16sortingCriterionAC07SortingF0Vvp">sortingCriterion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns sorting criterion for returned articles. Set using <code>sorted(by:)</code> method. Default value is <code>.lastUpdateDate</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">sortingCriterion</span><span class="p">:</span> <span class="kt"><a href="../Structs/ArxivRequestSpecification/SortingCriterion.html">SortingCriterion</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV12sortingOrderAC07SortingF0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/sortingOrder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV12sortingOrderAC07SortingF0Vvp">sortingOrder</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns sorting order for returned articles. Set using <code>sortingOrder(_)</code> method. Default value is <code>.descending</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">sortingOrder</span><span class="p">:</span> <span class="kt"><a href="../Structs/ArxivRequestSpecification/SortingOrder.html">SortingOrder</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV5query6idListAcA0A5QueryV_SaySSGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(query:idList:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV5query6idListAcA0A5QueryV_SaySSGtcfc">init(query:<wbr>idList:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a request for retrieving the articles matching provided query and belonging to optionally provided ID list.</p>
+
+<p>If a non-empty <code><a href="../Structs/ArxivRequestSpecification.html#/s:8ArxivKit0A20RequestSpecificationV6idListSaySSGvp">idList</a></code> is provided, only the articles with specified IDs will be matched againt the <code><a href="../Structs/ArxivRequestSpecification.html#/s:8ArxivKit0A20RequestSpecificationV5queryAA0A5QueryVSgvp">query</a></code>.</p>
+
+<p>To retrieve a specific version of an article, end the corresponding ID with <code>vN</code> suffix where <code>N</code> is the desired version number. If an identifier without the suffix is provided,
+the most recent version will be retrieved. <code><a href="../Structs/ArxivEntry.html">ArxivEntry</a></code> type has properties for getting the version versioned IDs of the corresponing article.</p>
+
+<p>For detailed explanation of arXiv identifiers see <a href="https://arxiv.org/help/arxiv_identifier">arXiv help</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">query</span><span class="p">:</span> <span class="kt"><a href="../Structs/ArxivQuery.html">ArxivQuery</a></span><span class="p">,</span> <span class="nv">idList</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>query</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A specification of search criteria for the request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>iDlist</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Search scope for matching the query. Default value is empty list.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV6idListACSaySSG_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(idList:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV6idListACSaySSG_tcfc">init(idList:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a request for retrieving the articles specified by provided IDs.</p>
+
+<p>To retrieve a specific version of an article, end the corresponding ID with <code>vN</code> suffix where <code>N</code> is the desired version number. If an identifier without the suffix is provided,
+the most recent version will be retrieved. <code><a href="../Structs/ArxivEntry.html">ArxivEntry</a></code> type has properties for getting the version and versioned IDs of the corresponing article.</p>
+
+<p>For detailed explanation of arXiv identifiers see <a href="https://arxiv.org/help/arxiv_identifier">arXiv help</a>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">idList</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>idList</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A list of arXiv article IDs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV16SortingCriterionV"></a>
+                    <a name="//apple_ref/swift/Struct/SortingCriterion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV16SortingCriterionV">SortingCriterion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifies sorting criteria for  articles returned by API calls.</p>
+
+                        <a href="../Structs/ArxivRequestSpecification/SortingCriterion.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SortingCriterion</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV12SortingOrderV"></a>
+                    <a name="//apple_ref/swift/Struct/SortingOrder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV12SortingOrderV">SortingOrder</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specifies sorting order for articles returned by API calls.</p>
+
+                        <a href="../Structs/ArxivRequestSpecification/SortingOrder.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SortingOrder</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV07requestD0ACvp"></a>
+                    <a name="//apple_ref/swift/Property/requestSpecification" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV07requestD0ACvp">requestSpecification</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>self</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">requestSpecification</span><span class="p">:</span> <span class="kt">ArxivRequestSpecification</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8ArxivKit0A20RequestSpecificationV3url10Foundation3URLVvp"></a>
+                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8ArxivKit0A20RequestSpecificationV3url10Foundation3URLVvp">url</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The arXiv API URL of the request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-01-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

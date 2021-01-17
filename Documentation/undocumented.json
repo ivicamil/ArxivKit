@@ -1,0 +1,1244 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Misc/PastPeriodFromNow.swift",
+      "line": 12,
+      "symbol": "PastPeriodFromNow.CalendarUnit.day",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Misc/PastPeriodFromNow.swift",
+      "line": 13,
+      "symbol": "PastPeriodFromNow.CalendarUnit.week",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Misc/PastPeriodFromNow.swift",
+      "line": 14,
+      "symbol": "PastPeriodFromNow.CalendarUnit.month",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Misc/PastPeriodFromNow.swift",
+      "line": 15,
+      "symbol": "PastPeriodFromNow.CalendarUnit.year",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 8,
+      "symbol": "ArxivQueryBuilder.buildExpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 14,
+      "symbol": "ArxivQueryBuilder.buildExpression(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 20,
+      "symbol": "ArxivQueryBuilder.buildBlock(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 26,
+      "symbol": "ArxivQueryBuilder.buildLimitedAvailability(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 30,
+      "symbol": "ArxivQueryBuilder.buildArray(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 34,
+      "symbol": "ArxivQueryBuilder.buildOptional(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 38,
+      "symbol": "ArxivQueryBuilder.buildEither(first:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Query/ArxivQueryBuilder.swift",
+      "line": 42,
+      "symbol": "ArxivQueryBuilder.buildEither(second:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 41,
+      "symbol": "OtherPhysicsSubjects.generalRelativityAndQuantumCosmology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 43,
+      "symbol": "OtherPhysicsSubjects.highEnergyPhysicsExperiment",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 45,
+      "symbol": "OtherPhysicsSubjects.highEnergyPhysicsLattice",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 47,
+      "symbol": "OtherPhysicsSubjects.highEnergyPhysicsPhenomenology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 49,
+      "symbol": "OtherPhysicsSubjects.highEnergyPhysicsTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 51,
+      "symbol": "OtherPhysicsSubjects.mathematicalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 53,
+      "symbol": "OtherPhysicsSubjects.nuclearExperiment",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 55,
+      "symbol": "OtherPhysicsSubjects.nuclearTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 57,
+      "symbol": "OtherPhysicsSubjects.quantumPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 62,
+      "symbol": "Mathematics.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 64,
+      "symbol": "Mathematics.algebraicGeometry",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 66,
+      "symbol": "Mathematics.algebraicTopology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 68,
+      "symbol": "Mathematics.analysisOfPdes",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 70,
+      "symbol": "Mathematics.categoryTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 72,
+      "symbol": "Mathematics.classicalAnalysisAndOdes",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 74,
+      "symbol": "Mathematics.combinatorics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 76,
+      "symbol": "Mathematics.comutativeAlgebra",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 78,
+      "symbol": "Mathematics.complexVariables",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 80,
+      "symbol": "Mathematics.differentialGeometry",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 82,
+      "symbol": "Mathematics.dynamicalSystems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 84,
+      "symbol": "Mathematics.functionalAnalysis",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 86,
+      "symbol": "Mathematics.generalMathematics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 88,
+      "symbol": "Mathematics.generalTopology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 90,
+      "symbol": "Mathematics.geometricTopology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 92,
+      "symbol": "Mathematics.groupTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 94,
+      "symbol": "Mathematics.historyAndOverview",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 96,
+      "symbol": "Mathematics.informationTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 98,
+      "symbol": "Mathematics.kTheoryAndHomology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 100,
+      "symbol": "Mathematics.logic",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 102,
+      "symbol": "Mathematics.mathematicalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 104,
+      "symbol": "Mathematics.metricGeometry",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 106,
+      "symbol": "Mathematics.numberTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 108,
+      "symbol": "Mathematics.numericalAnalysis",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 110,
+      "symbol": "Mathematics.operatorAlgebras",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 112,
+      "symbol": "Mathematics.optimizationAndControl",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 114,
+      "symbol": "Mathematics.probability",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 116,
+      "symbol": "Mathematics.quantumAlgebra",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 118,
+      "symbol": "Mathematics.representationTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 120,
+      "symbol": "Mathematics.ringsAndAlgebras",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 122,
+      "symbol": "Mathematics.spectralTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 124,
+      "symbol": "Mathematics.statisticsTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 126,
+      "symbol": "Mathematics.symplecticGeometry",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 131,
+      "symbol": "QuantitativeBiology.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 133,
+      "symbol": "QuantitativeBiology.biomolecules",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 135,
+      "symbol": "QuantitativeBiology.cellBehavior",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 137,
+      "symbol": "QuantitativeBiology.genomics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 139,
+      "symbol": "QuantitativeBiology.molecularNetworks",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 141,
+      "symbol": "QuantitativeBiology.neuronsAndCognition",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 143,
+      "symbol": "QuantitativeBiology.otherQuantitativeBiology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 145,
+      "symbol": "QuantitativeBiology.populationsAndEvolution",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 147,
+      "symbol": "QuantitativeBiology.quantitativeMethods",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 149,
+      "symbol": "QuantitativeBiology.subcellularProcesses",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 151,
+      "symbol": "QuantitativeBiology.tissuesAndOrgans",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 156,
+      "symbol": "ComputerScience.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 158,
+      "symbol": "ComputerScience.artificialIntelligence",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 160,
+      "symbol": "ComputerScience.computationAndLanguage",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 162,
+      "symbol": "ComputerScience.computationalComplexity",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 164,
+      "symbol": "ComputerScience.computationalEngineeringFinanceAndScience",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 166,
+      "symbol": "ComputerScience.computationalGeometry",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 168,
+      "symbol": "ComputerScience.computerScienceAndGameTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 170,
+      "symbol": "ComputerScience.computerVisionAndPatternRecognition",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 172,
+      "symbol": "ComputerScience.computersAndSociety",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 174,
+      "symbol": "ComputerScience.cryptographyAndSecurity",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 176,
+      "symbol": "ComputerScience.dataStructuresAndAlgorithms",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 178,
+      "symbol": "ComputerScience.databases",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 180,
+      "symbol": "ComputerScience.digitalLibraries",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 182,
+      "symbol": "ComputerScience.discreteMathematics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 184,
+      "symbol": "ComputerScience.distributedParallelAndClusterComputing",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 186,
+      "symbol": "ComputerScience.emergingTechnologies",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 188,
+      "symbol": "ComputerScience.formalLanguagesAndAutomataTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 190,
+      "symbol": "ComputerScience.generalLiterature",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 192,
+      "symbol": "ComputerScience.graphics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 194,
+      "symbol": "ComputerScience.hardwareArchitecture",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 196,
+      "symbol": "ComputerScience.humanComputerInteraction",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 198,
+      "symbol": "ComputerScience.informationRetrieval",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 200,
+      "symbol": "ComputerScience.informationTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 202,
+      "symbol": "ComputerScience.learning",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 204,
+      "symbol": "ComputerScience.logicInComputerScience",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 206,
+      "symbol": "ComputerScience.mathematicalSoftware",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 208,
+      "symbol": "ComputerScience.multiagentSystems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 210,
+      "symbol": "ComputerScience.multimedia",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 212,
+      "symbol": "ComputerScience.networkingAndInternetArchitecture",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 214,
+      "symbol": "ComputerScience.neuralAndEvolutionaryComputing",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 216,
+      "symbol": "ComputerScience.numericalAnalysis",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 218,
+      "symbol": "ComputerScience.operatingSystems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 220,
+      "symbol": "ComputerScience.otherComputerScience",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 222,
+      "symbol": "ComputerScience.performance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 224,
+      "symbol": "ComputerScience.programmingLanguages",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 226,
+      "symbol": "ComputerScience.robotics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 228,
+      "symbol": "ComputerScience.socialAndInformationNetworks",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 230,
+      "symbol": "ComputerScience.softwareEngineering",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 232,
+      "symbol": "ComputerScience.sound",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 234,
+      "symbol": "ComputerScience.symbolicComputation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 236,
+      "symbol": "ComputerScience.systemsAndControl",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 241,
+      "symbol": "QuantitativeFinance.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 243,
+      "symbol": "QuantitativeFinance.computationalFinance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 245,
+      "symbol": "QuantitativeFinance.economics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 247,
+      "symbol": "QuantitativeFinance.generalFinance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 249,
+      "symbol": "QuantitativeFinance.mathematicalFinance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 251,
+      "symbol": "QuantitativeFinance.portfolioManagement",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 253,
+      "symbol": "QuantitativeFinance.pricingOfSecurities",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 255,
+      "symbol": "QuantitativeFinance.riskManagement",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 257,
+      "symbol": "QuantitativeFinance.statisticalFinance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 259,
+      "symbol": "QuantitativeFinance.tradingAndMarketMicrostructure",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 264,
+      "symbol": "ElectricalEngineeringAndSystemsScience.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 266,
+      "symbol": "ElectricalEngineeringAndSystemsScience.audioAndSpeechProcessing",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 268,
+      "symbol": "ElectricalEngineeringAndSystemsScience.imageAndVideoProcessing",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 270,
+      "symbol": "ElectricalEngineeringAndSystemsScience.signalProcessing",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 272,
+      "symbol": "ElectricalEngineeringAndSystemsScience.systemsAndControl",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 277,
+      "symbol": "Statistics.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 279,
+      "symbol": "Statistics.applications",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 281,
+      "symbol": "Statistics.computation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 283,
+      "symbol": "Statistics.machineLearning",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 285,
+      "symbol": "Statistics.methodology",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 287,
+      "symbol": "Statistics.otherStatistics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 289,
+      "symbol": "Statistics.statisticsTheory",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 294,
+      "symbol": "Physics.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 296,
+      "symbol": "Physics.acceleratorPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 298,
+      "symbol": "Physics.atmosphericAndOceanicPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 300,
+      "symbol": "Physics.atomicPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 302,
+      "symbol": "Physics.atomicAndMolecularClusters",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 304,
+      "symbol": "Physics.biologicalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 306,
+      "symbol": "Physics.chemicalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 308,
+      "symbol": "Physics.classicalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 310,
+      "symbol": "Physics.computationalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 312,
+      "symbol": "Physics.dataAnalysisStatisticsAndProbability",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 314,
+      "symbol": "Physics.fluidDynamics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 316,
+      "symbol": "Physics.generalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 318,
+      "symbol": "Physics.geophysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 320,
+      "symbol": "Physics.historyAndPhilosophyOfPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 322,
+      "symbol": "Physics.instrumentationAndDetectors",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 324,
+      "symbol": "Physics.medicalPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 326,
+      "symbol": "Physics.optics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 328,
+      "symbol": "Physics.physicsEducation",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 330,
+      "symbol": "Physics.physicsAndSociety",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 332,
+      "symbol": "Physics.plasmaPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 334,
+      "symbol": "Physics.popularPhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 336,
+      "symbol": "Physics.spacePhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 341,
+      "symbol": "CondensedMatter.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 343,
+      "symbol": "CondensedMatter.disorderedSystemsAndNeuralNetworks",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 345,
+      "symbol": "CondensedMatter.materialsScience",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 347,
+      "symbol": "CondensedMatter.mesoscaleAndNanoscalePhysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 349,
+      "symbol": "CondensedMatter.otherCondensedMatter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 351,
+      "symbol": "CondensedMatter.quantumGases",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 353,
+      "symbol": "CondensedMatter.softCondensedMatter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 355,
+      "symbol": "CondensedMatter.statisticalMechanics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 357,
+      "symbol": "CondensedMatter.stronglyCorrelatedElectrons",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 359,
+      "symbol": "CondensedMatter.superconductivity",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 364,
+      "symbol": "NonlinearSciences.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 366,
+      "symbol": "NonlinearSciences.adaptationAndSelfOrganizingSystems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 368,
+      "symbol": "NonlinearSciences.cellularAutomataAndLatticeGases",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 370,
+      "symbol": "NonlinearSciences.chaoticDynamics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 372,
+      "symbol": "NonlinearSciences.exactlySolvableAndIntegrableSystems",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 374,
+      "symbol": "NonlinearSciences.patternFormationAndSolitons",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 379,
+      "symbol": "Economy.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 381,
+      "symbol": "Economy.econometrics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 383,
+      "symbol": "Economy.generalEconomics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 385,
+      "symbol": "Economy.theoreticalEconomics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 390,
+      "symbol": "Astrophysics.all",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 392,
+      "symbol": "Astrophysics.cosmologyAndNongalacticAstrophysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 394,
+      "symbol": "Astrophysics.earthAndPlanetaryAstrophysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 396,
+      "symbol": "Astrophysics.astrophysicsOfGalaxies",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 398,
+      "symbol": "Astrophysics.highEnergyAstrophysicalPhenomena",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 400,
+      "symbol": "Astrophysics.instrumentationAndMethodsForAstrophysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit/Sources/ArxivKit/Subject/ArxivSubject-Constants.swift",
+      "line": 402,
+      "symbol": "Astrophysics.solarAndStellarAstrophysics",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/ivicamilovanovic/Developer/Projects/ArxivKit"
+}

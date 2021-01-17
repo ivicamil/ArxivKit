@@ -30,25 +30,25 @@ public struct ArxivQuery: Codable {
             self.rawValue = field
         }
         
-        /// Search sor a term inside the title.
+        /// Restricts search to title.
         public static var title = Field(.title)
         
-        /// Search sor a term inside the abstract (summary).
+        /// Restricts search to  abstract (summary).
         public static var abstract = Field(.abstract)
         
-        /// Search sor a term inside the authors' names.
+        /// Restricts search to  authors' names.
         public static var authors = Field(.authors)
         
-        /// Search sor a term inside in the comment.
+        /// Restricts search to  comment.
         public static var comment = Field(.comment)
         
-        /// Search sor a term inside the journal reference.
+        /// Restricts search to  journal reference.
         public static var journalReference = Field(.journalReference)
         
-        /// Search sor a term inside the report number.
+        /// Restricts search to  report number.
         public static var reportNumber = Field(.reportNumber)
         
-        /// Search sor a term inside any field.
+        /// Used for searching inside any of the above fields.
         public static var any = Field(.any)
     }
 }
@@ -71,7 +71,7 @@ extension ArxivQuery {
      
      Default value of `field` parameter isis `.any`.
      
-     From [arxiv API manual](https://arxiv.org/help/api/user-manual):
+     From [arXiv.org](https://arxiv.org/search/):
      
     **Wildcards:**
 
