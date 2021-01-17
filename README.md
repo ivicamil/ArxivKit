@@ -1,6 +1,6 @@
 # ArxivKit
 
-ArxivKit is a Swift DSL wrapper for [arXiv API](https://arxiv.org/help/api/). It includes an embeded Domain-specific language for constructing arXiv queries in a type-safe way. For detailed explanation of all the available APIs see [project documentation page](https://ivicamil.github.io/ArxivKit/).
+ArxivKit is a Swift DSL wrapper for [arXiv API](https://arxiv.org/help/api/). It includes an embedded Domain-specific language for constructing arXiv queries in a type-safe way. For detailed explanation of all the available APIs see [project documentation page](https://ivicamil.github.io/ArxivKit/).
 
 This project is not affiliated with [arXiv.org](https://arxiv.org). 
 
