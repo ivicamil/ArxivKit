@@ -1,6 +1,6 @@
 # ArxivKit
 
-Swift DSL wrapper for [arXiv API](https://arxiv.org/help/api/).
+Swift DSL wrapper for [arXiv API](https://arxiv.org/help/api/). For detailed explanation of all the available APIs see [project documentation page](https://ivicamil.github.io/ArxivKit/).
 
 This project is not affiliated with [arXiv.org](https://arxiv.org). 
 
@@ -78,7 +78,7 @@ Queries are constructed by using an embedded Domain Specific Language created wi
 
 After a query is constructed and configured, `fetch(using:completion:)` or other related methods can be used to construct and run a fetch task. If no error occurs, fetch task returns an `ArxivResponse`, a parsed arXiv API atom feed. The response stores various metadata and a list of `ArxivEntry` values. Each entry stores information about a single arXiv article, such as its title, abstract, authors, PDF link etc.
 
-Bellow are some of the common use scenarios. For detailed explanation of all available APIs, see [ArxivKit Wiki](https://github.com/ivicamil/ArxivKit/wiki).
+Bellow are the examples of few common use scenarios.
 
 ### Performing Search
 
