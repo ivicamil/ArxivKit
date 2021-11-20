@@ -17,17 +17,17 @@
     <header>
       <div class="content-wrapper">
         <p><a href="index.html"> Docs</a></p>
-        <p class="header-right">
+        <div class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
           </form>
-        </p>
+        </div>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="index.html"> Reference</a>
-        <img id="carat" src="img/carat.png" />
+        <img id="carat" src="img/carat.png" alt=""/>
           Reference
       </p>
     </div>
@@ -217,7 +217,7 @@
             
             <h1 id='arxivkit' class='heading'>ArxivKit</h1>
 
-<p>Swift DSL wrapper for <a href="https://arxiv.org/help/api/">arXiv API</a>.</p>
+<p>ArxivKit is a Swift DSL wrapper for <a href="https://arxiv.org/help/api/">arXiv API</a>. It includes an embedded Domain-specific language for constructing arXiv queries in a type-safe way. For detailed explanation of all the available APIs see <a href="https://ivicamil.github.io/ArxivKit/">project documentation page</a>.</p>
 
 <p>This project is not affiliated with <a href="https://arxiv.org">arXiv.org</a>. </p>
 <h2 id='supported-platforms' class='heading'>Supported Platforms</h2>
@@ -289,8 +289,20 @@
 
 <p>After a query is constructed and configured, <code>fetch(using:completion:)</code> or other related methods can be used to construct and run a fetch task. If no error occurs, fetch task returns an <code><a href="Structs/ArxivResponse.html">ArxivResponse</a></code>, a parsed arXiv API atom feed. The response stores various metadata and a list of <code><a href="Structs/ArxivEntry.html">ArxivEntry</a></code> values. Each entry stores information about a single arXiv article, such as its title, abstract, authors, PDF link etc.</p>
 
-<p>Bellow are some of the common use scenarios. For detailed explanation of all available APIs, see <a href="https://github.com/ivicamil/ArxivKit/wiki">ArxivKit Wiki</a>.</p>
-<h3 id='performing-search' class='heading'>Performing Search</h3>
+<p>Bellow are the examples of few common use scenarios.</p>
+<h3 id='performing-search-using-async-await-ios-15-macos-12-or-greater' class='heading'>Performing Search Using async/await (iOS 15, macOS 12 or greater)</h3>
+<pre class="highlight swift"><code><span class="k">do</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">response</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="nf">term</span><span class="p">(</span><span class="s">"electron"</span><span class="p">)</span><span class="o">.</span><span class="nf">fetch</span><span class="p">(</span><span class="nv">using</span><span class="p">:</span> <span class="n">session</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">articles</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">entries</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Found </span><span class="se">\(</span><span class="n">response</span><span class="o">.</span><span class="n">totalResults</span><span class="se">)</span><span class="s"> articles"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">articles</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">title</span> <span class="p">}</span><span class="o">.</span><span class="nf">joined</span><span class="p">(</span><span class="nv">separator</span><span class="p">:</span> <span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">))</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Could not fetch articles: </span><span class="se">\(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='performing-search-using-completion-handler' class='heading'>Performing Search Using Completion Handler</h3>
 <pre class="highlight swift"><code><span class="nf">term</span><span class="p">(</span><span class="s">"electron"</span><span class="p">)</span><span class="o">.</span><span class="nf">fetch</span><span class="p">(</span><span class="nv">using</span><span class="p">:</span> <span class="n">session</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
     <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
@@ -379,7 +391,7 @@
         <span class="c1">// Do something with the result</span>
     <span class="p">}</span>
 </code></pre>
-<h3 id='advanced-processing-of-code-arxivkit-code-results-wtih-combine-apple-platforms-only' class='heading'>Advanced Processing of <code>ArxivKit</code> Results wtih Combine (Apple Platforms Only)</h3>
+<h3 id='advanced-processing-of-code-arxivkit-code-results-with-combine-apple-platforms-only' class='heading'>Advanced Processing of <code>ArxivKit</code> Results with Combine (Apple Platforms Only)</h3>
 
 <p>On Apple platforms, Combine framework can be used for advanced processing of URL Session data task results, as explained in <a href="https://developer.apple.com/documentation/foundation/urlsession/processing_url_session_data_task_results_with_combine">this Apple Developer Documentation article</a>. <code>ArxivKit</code> works naturally with <code>Combine</code>. Bellow is a simple example of creating a publisher for receiving arXiv API results and subscribing to it:</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
@@ -413,11 +425,10 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-01-17)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2021-11-21)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
     </div>
   </body>
-</div>
 </html>
