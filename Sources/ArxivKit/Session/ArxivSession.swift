@@ -39,20 +39,15 @@ public extension URLSession {
      */
     func fetchTask(with request: ArxivRequest, completion: @escaping ArxivFetchTaskCompetionHandler) -> URLSessionDataTask {
         
-        return dataTask(with: URLRequest(url: request.url)) { data, response, error in
+        return dataTask(with: URLRequest(url: request.url)) { [weak self] data, response, error in
                       
             if let error = error as NSError? {
                 completion(.failure(ArxivURLError.urlError(error)))
                 return
             }
             
-            guard let response = response as? HTTPURLResponse else {
-                completion(.failure(ArxivServerError.unexpectedHTTPError))
-                return
-            }
-            
-            guard (200...299).contains(response.statusCode) else {
-                completion(.failure(ArxivServerError.httpResponseError(statusCode: response.statusCode)))
+            if let responseError = self?.validateResponse(response) {
+                completion(.failure(responseError))
                 return
             }
             
@@ -65,6 +60,44 @@ public extension URLSession {
             let result = Result { try parser.parse(responseData: data) }
             completion(result)
         }
+    }
+    
+    /**
+     Downloads and parses articles specified by provided request and delivers the result asynchronously.
+     
+     - Parameter request: An `ArxivRequest` value that specifies the articles to be fetched asynchronously.
+     - Parameter delegate: A delegate that receives life cycle and authentication challenge callbacks as the transfer progresses.
+     
+     - Throws: An error which is either `ArxivURLError`, `ArxivServerError`, `ArxivParserError` or `ArxivAPIError`.
+     */
+    @available(macOS 12.0.0, iOS 15.0.0, macCatalyst 15.0.0, *)
+    func arxivResponse(for request: ArxivRequest, delegate: URLSessionTaskDelegate? = nil) async throws -> ArxivResponse {
+        
+        do {
+            let (data, response) = try await data(from: request.url, delegate: delegate)
+            
+            if let responseError = validateResponse(response) {
+                 throw responseError
+            }
+            
+            let parser = ArxivParser()
+            return try parser.parse(responseData: data)
+        } catch {
+            throw ArxivURLError.urlError(error)
+        }
+    }
+    
+    private func validateResponse(_ response: URLResponse?) -> Error? {
+        
+        guard let response = response as? HTTPURLResponse else {
+            return ArxivServerError.unexpectedHTTPError
+        }
+        
+        guard (200...299).contains(response.statusCode) else {
+            return ArxivServerError.httpResponseError(statusCode: response.statusCode)
+        }
+        
+        return nil
     }
     
     /**
@@ -99,15 +132,15 @@ public extension ArxivParser {
     /**
      Parses provided `URLSessionDataTask` result into `ArxivResponse`.
      
-     - Parameter result: A tuple containing `URLSessionDataTask` data and URL response.
+     - Parameter urlDataTaskResult: A tuple containing raw data and URL response returned by a task.
      
      This is a convenience method that can be used to process `URLSession.DataTaskPublisher` result.
      
      - Throws: `ArxivServerError`, `ArxivParserError` or `ArxivAPIError`.
      */
-    func parse(_ result: (data: Data, response: URLResponse)) throws -> ArxivResponse {
+    func parse(urlDataTaskResult: (data: Data, response: URLResponse)) throws -> ArxivResponse {
         
-        let (data, response) = result
+        let (data, response) = urlDataTaskResult
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw ArxivServerError.unexpectedHTTPError
@@ -120,3 +153,4 @@ public extension ArxivParser {
         return try parse(responseData: data)
     }
 }
+

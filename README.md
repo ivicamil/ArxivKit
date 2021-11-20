@@ -80,7 +80,22 @@ After a query is constructed and configured, `fetch(using:completion:)` or other
 
 Bellow are the examples of few common use scenarios.
 
-### Performing Search
+### Performing Search Using async/await (iOS 15, macOS 12 or greater)
+
+```swift
+do {
+    let response = try await term("electron").fetch(using: session)
+    let articles = response.entries
+    print("Found \(response.totalResults) articles")
+    print()
+    print(articles.map { $0.title }.joined(separator: "\n\n"))
+    
+} catch {
+    print("Could not fetch articles: \(error.localizedDescription)")
+}
+```
+
+### Performing Search Using Completion Handler
 
 ```swift
 term("electron").fetch(using: session) { result in
@@ -189,7 +204,7 @@ term("electron")
     }
 ```
 
-### Advanced Processing of `ArxivKit` Results wtih Combine (Apple Platforms Only)
+### Advanced Processing of `ArxivKit` Results with Combine (Apple Platforms Only)
 
 On Apple platforms, Combine framework can be used for advanced processing of URL Session data task results, as explained in [this Apple Developer Documentation article](https://developer.apple.com/documentation/foundation/urlsession/processing_url_session_data_task_results_with_combine). `ArxivKit` works naturally with `Combine`. Bellow is a simple example of creating a publisher for receiving arXiv API results and subscribing to it:
 

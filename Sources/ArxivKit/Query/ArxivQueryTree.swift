@@ -85,32 +85,8 @@ extension ArxivQueryTree {
         switch self {
         case .empty:
             return true
-        case let .title(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .authors(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .abstract(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .comment(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .journalReference(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case .subject(_):
-             return false
-        case let .reportNumber(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case let .anyField(string):
-            return string.trimmingWhiteSpaces.isEmpty
-        case .submitted(_):
+        default:
             return false
-        case .lastUpdated(_):
-            return false
-        case let .both(q1, q2):
-            return q1.isEmpty && q2.isEmpty
-        case let .either(q1, q2):
-            return q1.isEmpty && q2.isEmpty
-        case let .firstAndNotSecond(q1, q2):
-            return q1.isEmpty && q2.isEmpty
         }
     }
 }

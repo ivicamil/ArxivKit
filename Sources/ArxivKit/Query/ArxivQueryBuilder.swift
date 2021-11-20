@@ -2,7 +2,7 @@
 import Foundation
 
 /// A custom parameter attribute that constructs query list from closures.
-@_functionBuilder
+@resultBuilder
 public struct ArxivQueryBuilder {
     
     public static func buildExpression(

@@ -63,39 +63,11 @@ public extension ArxivQuery {
 
 extension ArxivQuery {
     
-    /**
-     Returns a query for retrieving the articles containing provided term in the specified field.
-     
-        - Parameter term: A string to search for.
-        - Parameter field: An article field to be searched for provided term.
-     
-     Default value of `field` parameter isis `.any`.
-     
-     From [arXiv.org](https://arxiv.org/search/):
-     
-    **Wildcards:**
-
-    - Use ? to replace a single character or * to replace any number of characters.
-     Can be used in any field, but not in the first character position. See Journal References tips for exceptions.
-     
-     **Expressions:**
-     
-     - TeX expressions can be searched, enclosed in single $ characters.
-
-     **Phrases:**
-
-     - Enclose phrases in double quotes for exact matches in title, abstract, and comments.
-     
-     **Journal References:**
-
-     - If a journal reference search contains a wildcard, matches will be made using wildcard matching as expected. For example, math* will match math, maths, mathematics.
-     - If a journal reference search does not contain a wildcard, only exact phrases entered will be matched. For example, math would match math or math and science but not maths or mathematics.
-     - All journal reference searches that do not contain a wildcard are literal searches: a search for Physica A will match all papers with journal references containing Physica A, but a search for Physica A, 245 (1997) 181 will only return the paper with journal reference Physica A, 245 (1997) 181.
-     
-     */
     static func term(_ term: String, in field: Field = .any) -> ArxivQuery {
         
-        guard !term.trimmingWhiteSpaces.isEmpty else {
+        let termString = term.trimmingWhiteSpaces
+        
+        guard !termString.isEmpty else {
             return .empty
         }
         
@@ -103,71 +75,44 @@ extension ArxivQuery {
         
         switch field.rawValue  {
         case .title:
-            tree = .title(contains: term)
+            tree = .title(contains: termString)
         case .abstract:
-            tree = .abstract(contains: term)
+            tree = .abstract(contains: termString)
         case .authors:
-            tree = .authors(contains: term)
+            tree = .authors(contains: termString)
         case .comment:
-            tree = .comment(contains: term)
+            tree = .comment(contains: termString)
         case .journalReference:
-            tree = .journalReference(contains: term)
+            tree = .journalReference(contains: termString)
         case .reportNumber:
-            tree = .reportNumber(contains: term)
+            tree = .reportNumber(contains: termString)
         case .any:
-            tree = .anyField(contains: term)
+            tree = .anyField(contains: "electron")
         }
         
         return ArxivQuery(tree)
     }
     
-    /**
-     Returns a query for retrieving  the articles categorised under provided arXiv subject.
-     
-     - Parameter subject: An arXive subject. Possible values are defined under `ArxivSubjects` namespace.
-    */
     static func subject(_ subject: ArxivSubject) -> ArxivQuery {
         return ArxivQuery(.subject(subject))
     }
     
-    
-    /**
-     Returns a query for retrieving the articles whose first version was published in provided interval.
-     
-     - Parameter interval: Desired date interval.
-    */
     static func submitted(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.submitted(in: interval))
     }
     
-    /**
-     Returns a query for retrieving the articles whose most recent version was published in provided interval.
-     
-     - Parameter interval: Desired date interval.
-    */
     static func lastUpdated(in interval: DateInterval) -> ArxivQuery {
         return ArxivQuery(.lastUpdated(in: interval))
     }
     
-    /**
-     Returns a query for retrieving the articles whose most recent version was published in provided interval.
-     
-     - Parameter interval: Desired date interval.
-    */
     static func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
         return ArxivQuery(.submitted(in: period.dateInterval))
     }
     
-    /**
-     Returns a query for retrieving the articles whose most recent version was published in provided time period.
-     
-     - Parameter period: Desired time period.
-    */
     static func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
         return ArxivQuery(.lastUpdated(in: period.dateInterval))
     }
     
-    /// Returns an empty query.
     static var empty: ArxivQuery {
         return ArxivQuery(.empty)
     }
@@ -246,26 +191,7 @@ public var empty: ArxivQuery {
  
  */
 public func term(_ term: String, in field: ArxivQuery.Field = .any) -> ArxivQuery {
-    let tree: ArxivQueryTree
-    
-    switch field.rawValue  {
-    case .title:
-        tree = .title(contains: term)
-    case .abstract:
-        tree = .abstract(contains: term)
-    case .authors:
-        tree = .authors(contains: term)
-    case .comment:
-        tree = .comment(contains: term)
-    case .journalReference:
-        tree = .journalReference(contains: term)
-    case .reportNumber:
-        tree = .reportNumber(contains: term)
-    case .any:
-        tree = .anyField(contains: term)
-    }
-    
-    return ArxivQuery(tree)
+    return .term(term, in: field)
 }
 
 /**
@@ -274,7 +200,7 @@ public func term(_ term: String, in field: ArxivQuery.Field = .any) -> ArxivQuer
  - Parameter subject: An arXive subject. Possible values are defined under `ArxivSubjects` namespace.
 */
 public func subject(_ subject: ArxivSubject) -> ArxivQuery {
-    return ArxivQuery(.subject(subject))
+    return .subject(subject)
 }
 
 
@@ -284,7 +210,7 @@ public func subject(_ subject: ArxivSubject) -> ArxivQuery {
  - Parameter interval: Desired date interval.
 */
 public func submitted(in interval: DateInterval) -> ArxivQuery {
-    return ArxivQuery(.submitted(in: interval))
+    return .submitted(in: interval)
 }
 
 /**
@@ -293,7 +219,7 @@ public func submitted(in interval: DateInterval) -> ArxivQuery {
  - Parameter interval: Desired date interval.
 */
 public func lastUpdated(in interval: DateInterval) -> ArxivQuery {
-    return ArxivQuery(.lastUpdated(in: interval))
+    return .lastUpdated(in: interval)
 }
 
 /**
@@ -302,7 +228,7 @@ public func lastUpdated(in interval: DateInterval) -> ArxivQuery {
  - Parameter interval: Desired date interval.
 */
 public func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
-    return ArxivQuery(.submitted(in: period.dateInterval))
+    return .submitted(in: period)
 }
 
 /**
@@ -311,7 +237,7 @@ public func submitted(in period: PastPeriodFromNow) -> ArxivQuery {
  - Parameter period: Desired time period.
 */
 public func lastUpdated(in period: PastPeriodFromNow) -> ArxivQuery {
-    return ArxivQuery(.lastUpdated(in: period.dateInterval))
+    return .lastUpdated(in: period)
 }
 
 /**
