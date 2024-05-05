@@ -87,7 +87,7 @@ extension ArxivQuery {
         case .reportNumber:
             tree = .reportNumber(contains: termString)
         case .any:
-            tree = .anyField(contains: "electron")
+            tree = .anyField(contains: termString)
         }
         
         return ArxivQuery(tree)
