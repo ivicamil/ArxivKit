@@ -13,7 +13,6 @@ private let childSubjectsKey = "child subjects"
  All available subject constants are defined under `ArxivSubjects` namespace.
  */
 public struct ArxivSubject: Hashable, Codable, CustomStringConvertible {
-    
     /// Returns arXive category symbol of the subject.
     public let symbol: String
     
@@ -29,8 +28,9 @@ public struct ArxivSubject: Hashable, Codable, CustomStringConvertible {
     public init?(symbol: String) {
         if ArxivSubject.dictionary[symbol] != nil && !ArxivSubject.nonArXiveSubjects.contains(symbol) {
             self.init(symbol)
+        } else {
+            return nil
         }
-        return nil
     }
     
     /// Returns human-readable arXiv subject name.
